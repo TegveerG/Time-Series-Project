@@ -1,0 +1,38 @@
+{
+  "index.qmd": {
+    "index.html": "c2192f2b"
+  },
+  "ARM-ARIMA-SARIMA.qmd": {
+    "ARM-ARIMA-SARIMA.html": "320476a3"
+  },
+  "Data-Sources.qmd": {
+    "Data-Sources.html": "747e3378"
+  },
+  "Deep-Learning.qmd": {
+    "Deep-Learning.html": "1f0c1b08"
+  },
+  "Exploratory-Data-Analysis.qmd": {
+    "Exploratory-Data-Analysis.html": "37fa316f"
+  },
+  "Spectral-Analysis.qmd": {
+    "Spectral-Analysis.html": "05205028"
+  },
+  "Conclusion.qmd": {
+    "Conclusion.html": "781c152f"
+  },
+  "Financial-Models.qmd": {
+    "Financial-Models.html": "e94cc41e"
+  },
+  "Introduction.qmd": {
+    "Introduction.html": "92281bff"
+  },
+  "Data-Visualization.qmd": {
+    "Data-Visualization.html": "3a2ff800"
+  },
+  "ARMA-ARIMA-SARIMA.qmd": {
+    "ARMA-ARIMA-SARIMA.html": "5903406a"
+  },
+  "ARIMAX-SARIMAX-VAR.qmd": {
+    "ARIMAX-SARIMAX-VAR.html": "4a29174e"
+  }
+}

@@ -1,0 +1,7 @@
+---
+title: "Deep Learning for Time Series"
+format:
+  html:
+    page-layout: full
+    fontsize: 14px
+---

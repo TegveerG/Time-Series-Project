@@ -1,0 +1,2 @@
+"0","stl(monthly_attacks_ts, t.window=NULL, s.window=""periodic"", robust=TRUE) %>%"
+"0","    autoplot()+ggtitle(""Additive Decomposition of Number of Terrorist Attacks"")"

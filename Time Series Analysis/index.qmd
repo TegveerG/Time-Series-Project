@@ -1,0 +1,42 @@
+---
+title: "Tegveer Ghura"
+image: profile1.jpg
+about:
+  template: trestles
+  image-width: 20em
+  image-shape: round
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/tegveerg/
+    - icon: github
+      text: Github
+      href: https://github.com/TegveerG
+    - icon: file-person-fill
+      text: Resume
+      href: "./Resume_Spring_2023.pdf"
+format: 
+    html: 
+      page-layout: full
+      fontsize: 14px # will only affect navbar
+---
+
+Tegveer is a first-year graduate student pursuing an MS in Data Science & Analytics at Georgetown University. When not producing insights from data, Tegveer enjoys spending time playing cricket and exploring the DMV.
+
+## Education
+
+Boston University \| Boston, MA
+
+B.A (Cum Laude) Economics \| Sept 2017 - May 2021
+
+Georgetown University \| Washington, DC
+
+M.S Data Science & Analytics \| Aug 2022 - May 2024 (anticipated)
+
+## Experience
+
+MetricStream, Inc. \| Finance Associate \| Sept 2021 - Apr 2022
+
+MetricStream, Inc. \| Finance Intern \| June 2021 - Aug 2022
+
+Unimoni Financial Services Ltd. \| Project Intern \| Jul 2019 - Aug 2019

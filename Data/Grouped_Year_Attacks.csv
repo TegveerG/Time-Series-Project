@@ -1,0 +1,255 @@
+"","Year","Attack_Type","attacks"
+"1",1970,"Armed Assault",28
+"2",1970,"Assassination",8
+"3",1970,"Bombing/Explosion",276
+"4",1970,"Facility/Infrastructure Attack",147
+"5",1970,"Hijacking",2
+"6",1970,"Hostage Taking (Kidnapping)",1
+"7",1970,"Unarmed Assault",2
+"8",1971,"Armed Assault",21
+"9",1971,"Assassination",4
+"10",1971,"Bombing/Explosion",142
+"11",1971,"Facility/Infrastructure Attack",75
+"12",1971,"Hijacking",1
+"13",1971,"Hostage Taking (Barricade Incident)",1
+"14",1971,"Hostage Taking (Kidnapping)",1
+"15",1971,"Unknown",1
+"16",1972,"Armed Assault",3
+"17",1972,"Assassination",9
+"18",1972,"Bombing/Explosion",33
+"19",1972,"Facility/Infrastructure Attack",15
+"20",1972,"Hijacking",2
+"21",1972,"Hostage Taking (Barricade Incident)",2
+"22",1972,"Hostage Taking (Kidnapping)",1
+"23",1973,"Armed Assault",22
+"24",1973,"Assassination",8
+"25",1973,"Bombing/Explosion",19
+"26",1973,"Facility/Infrastructure Attack",4
+"27",1973,"Hostage Taking (Barricade Incident)",2
+"28",1973,"Hostage Taking (Kidnapping)",3
+"29",1974,"Armed Assault",14
+"30",1974,"Assassination",3
+"31",1974,"Bombing/Explosion",61
+"32",1974,"Facility/Infrastructure Attack",11
+"33",1974,"Hostage Taking (Kidnapping)",1
+"34",1974,"Unarmed Assault",2
+"35",1975,"Armed Assault",3
+"36",1975,"Assassination",8
+"37",1975,"Bombing/Explosion",131
+"38",1975,"Facility/Infrastructure Attack",4
+"39",1975,"Hostage Taking (Barricade Incident)",2
+"40",1975,"Unknown",1
+"41",1976,"Armed Assault",8
+"42",1976,"Assassination",7
+"43",1976,"Bombing/Explosion",75
+"44",1976,"Facility/Infrastructure Attack",12
+"45",1976,"Hijacking",1
+"46",1976,"Unarmed Assault",2
+"47",1977,"Armed Assault",7
+"48",1977,"Assassination",8
+"49",1977,"Bombing/Explosion",80
+"50",1977,"Facility/Infrastructure Attack",27
+"51",1977,"Hostage Taking (Barricade Incident)",6
+"52",1977,"Hostage Taking (Kidnapping)",1
+"53",1978,"Armed Assault",8
+"54",1978,"Assassination",4
+"55",1978,"Bombing/Explosion",57
+"56",1978,"Facility/Infrastructure Attack",12
+"57",1978,"Hostage Taking (Barricade Incident)",4
+"58",1978,"Hostage Taking (Kidnapping)",1
+"59",1979,"Armed Assault",10
+"60",1979,"Assassination",8
+"61",1979,"Bombing/Explosion",42
+"62",1979,"Facility/Infrastructure Attack",5
+"63",1979,"Hijacking",1
+"64",1979,"Hostage Taking (Barricade Incident)",1
+"65",1979,"Hostage Taking (Kidnapping)",1
+"66",1979,"Unknown",1
+"67",1980,"Armed Assault",14
+"68",1980,"Assassination",8
+"69",1980,"Bombing/Explosion",30
+"70",1980,"Facility/Infrastructure Attack",7
+"71",1980,"Hijacking",1
+"72",1980,"Hostage Taking (Barricade Incident)",2
+"73",1980,"Hostage Taking (Kidnapping)",3
+"74",1980,"Unknown",1
+"75",1981,"Armed Assault",9
+"76",1981,"Assassination",5
+"77",1981,"Bombing/Explosion",38
+"78",1981,"Facility/Infrastructure Attack",10
+"79",1981,"Hostage Taking (Barricade Incident)",6
+"80",1981,"Hostage Taking (Kidnapping)",2
+"81",1982,"Armed Assault",2
+"82",1982,"Assassination",7
+"83",1982,"Bombing/Explosion",43
+"84",1982,"Facility/Infrastructure Attack",13
+"85",1982,"Hostage Taking (Barricade Incident)",4
+"86",1982,"Hostage Taking (Kidnapping)",2
+"87",1982,"Unarmed Assault",1
+"88",1982,"Unknown",5
+"89",1983,"Armed Assault",2
+"90",1983,"Assassination",3
+"91",1983,"Bombing/Explosion",22
+"92",1983,"Facility/Infrastructure Attack",10
+"93",1983,"Hijacking",1
+"94",1983,"Hostage Taking (Barricade Incident)",5
+"95",1983,"Unknown",1
+"96",1984,"Assassination",3
+"97",1984,"Bombing/Explosion",30
+"98",1984,"Facility/Infrastructure Attack",21
+"99",1984,"Hijacking",2
+"100",1984,"Hostage Taking (Barricade Incident)",3
+"101",1984,"Unarmed Assault",4
+"102",1985,"Assassination",3
+"103",1985,"Bombing/Explosion",25
+"104",1985,"Facility/Infrastructure Attack",11
+"105",1985,"Unarmed Assault",1
+"106",1986,"Armed Assault",1
+"107",1986,"Assassination",2
+"108",1986,"Bombing/Explosion",32
+"109",1986,"Facility/Infrastructure Attack",13
+"110",1986,"Unarmed Assault",1
+"111",1987,"Bombing/Explosion",18
+"112",1987,"Facility/Infrastructure Attack",15
+"113",1988,"Bombing/Explosion",15
+"114",1988,"Facility/Infrastructure Attack",10
+"115",1988,"Hostage Taking (Barricade Incident)",1
+"116",1989,"Assassination",6
+"117",1989,"Bombing/Explosion",16
+"118",1989,"Facility/Infrastructure Attack",19
+"119",1990,"Assassination",4
+"120",1990,"Bombing/Explosion",15
+"121",1990,"Facility/Infrastructure Attack",12
+"122",1991,"Armed Assault",2
+"123",1991,"Assassination",2
+"124",1991,"Bombing/Explosion",7
+"125",1991,"Facility/Infrastructure Attack",20
+"126",1992,"Armed Assault",1
+"127",1992,"Assassination",5
+"128",1992,"Bombing/Explosion",3
+"129",1992,"Facility/Infrastructure Attack",21
+"130",1992,"Hostage Taking (Barricade Incident)",1
+"131",1994,"Armed Assault",7
+"132",1994,"Assassination",8
+"133",1994,"Bombing/Explosion",8
+"134",1994,"Facility/Infrastructure Attack",20
+"135",1994,"Hostage Taking (Barricade Incident)",10
+"136",1994,"Unknown",1
+"137",1995,"Armed Assault",6
+"138",1995,"Assassination",2
+"139",1995,"Bombing/Explosion",15
+"140",1995,"Facility/Infrastructure Attack",25
+"141",1995,"Hostage Taking (Barricade Incident)",8
+"142",1995,"Unarmed Assault",1
+"143",1996,"Armed Assault",3
+"144",1996,"Assassination",2
+"145",1996,"Bombing/Explosion",14
+"146",1996,"Facility/Infrastructure Attack",15
+"147",1996,"Unarmed Assault",1
+"148",1997,"Armed Assault",1
+"149",1997,"Assassination",2
+"150",1997,"Bombing/Explosion",19
+"151",1997,"Facility/Infrastructure Attack",19
+"152",1997,"Hostage Taking (Kidnapping)",1
+"153",1998,"Armed Assault",2
+"154",1998,"Bombing/Explosion",9
+"155",1998,"Facility/Infrastructure Attack",19
+"156",1998,"Unarmed Assault",1
+"157",1999,"Armed Assault",9
+"158",1999,"Bombing/Explosion",7
+"159",1999,"Facility/Infrastructure Attack",22
+"160",1999,"Hostage Taking (Kidnapping)",1
+"161",1999,"Unarmed Assault",12
+"162",2000,"Armed Assault",9
+"163",2000,"Bombing/Explosion",5
+"164",2000,"Facility/Infrastructure Attack",25
+"165",2000,"Hostage Taking (Barricade Incident)",1
+"166",2000,"Unarmed Assault",2
+"167",2001,"Armed Assault",6
+"168",2001,"Bombing/Explosion",4
+"169",2001,"Facility/Infrastructure Attack",21
+"170",2001,"Hijacking",4
+"171",2001,"Unarmed Assault",12
+"172",2002,"Armed Assault",2
+"173",2002,"Bombing/Explosion",20
+"174",2002,"Facility/Infrastructure Attack",10
+"175",2002,"Hijacking",1
+"176",2003,"Armed Assault",1
+"177",2003,"Bombing/Explosion",7
+"178",2003,"Facility/Infrastructure Attack",25
+"179",2003,"Unarmed Assault",2
+"180",2004,"Facility/Infrastructure Attack",9
+"181",2005,"Bombing/Explosion",9
+"182",2005,"Facility/Infrastructure Attack",11
+"183",2006,"Armed Assault",1
+"184",2006,"Bombing/Explosion",2
+"185",2006,"Facility/Infrastructure Attack",2
+"186",2006,"Unarmed Assault",1
+"187",2007,"Armed Assault",1
+"188",2007,"Bombing/Explosion",2
+"189",2007,"Facility/Infrastructure Attack",8
+"190",2008,"Armed Assault",2
+"191",2008,"Bombing/Explosion",2
+"192",2008,"Facility/Infrastructure Attack",12
+"193",2008,"Unarmed Assault",2
+"194",2009,"Armed Assault",8
+"195",2009,"Bombing/Explosion",2
+"196",2009,"Facility/Infrastructure Attack",2
+"197",2010,"Armed Assault",1
+"198",2010,"Bombing/Explosion",3
+"199",2010,"Facility/Infrastructure Attack",10
+"200",2010,"Hostage Taking (Barricade Incident)",1
+"201",2010,"Unarmed Assault",1
+"202",2011,"Armed Assault",3
+"203",2011,"Bombing/Explosion",3
+"204",2011,"Facility/Infrastructure Attack",3
+"205",2012,"Armed Assault",3
+"206",2012,"Bombing/Explosion",2
+"207",2012,"Facility/Infrastructure Attack",15
+"208",2013,"Armed Assault",3
+"209",2013,"Bombing/Explosion",6
+"210",2013,"Facility/Infrastructure Attack",7
+"211",2013,"Hijacking",1
+"212",2013,"Unarmed Assault",3
+"213",2014,"Armed Assault",18
+"214",2014,"Bombing/Explosion",5
+"215",2014,"Facility/Infrastructure Attack",5
+"216",2014,"Unarmed Assault",1
+"217",2015,"Armed Assault",13
+"218",2015,"Bombing/Explosion",6
+"219",2015,"Facility/Infrastructure Attack",17
+"220",2015,"Hostage Taking (Barricade Incident)",2
+"221",2015,"Unarmed Assault",3
+"222",2016,"Armed Assault",18
+"223",2016,"Assassination",2
+"224",2016,"Bombing/Explosion",8
+"225",2016,"Facility/Infrastructure Attack",35
+"226",2016,"Hostage Taking (Barricade Incident)",1
+"227",2016,"Unarmed Assault",4
+"228",2017,"Armed Assault",32
+"229",2017,"Assassination",2
+"230",2017,"Bombing/Explosion",6
+"231",2017,"Facility/Infrastructure Attack",21
+"232",2017,"Hostage Taking (Barricade Incident)",1
+"233",2017,"Hostage Taking (Kidnapping)",1
+"234",2017,"Unarmed Assault",3
+"235",2018,"Armed Assault",16
+"236",2018,"Bombing/Explosion",25
+"237",2018,"Facility/Infrastructure Attack",28
+"238",2018,"Unarmed Assault",7
+"239",2019,"Armed Assault",21
+"240",2019,"Assassination",1
+"241",2019,"Bombing/Explosion",1
+"242",2019,"Facility/Infrastructure Attack",32
+"243",2019,"Hijacking",1
+"244",2019,"Hostage Taking (Barricade Incident)",2
+"245",2019,"Hostage Taking (Kidnapping)",1
+"246",2019,"Unarmed Assault",13
+"247",2020,"Armed Assault",29
+"248",2020,"Assassination",1
+"249",2020,"Bombing/Explosion",7
+"250",2020,"Facility/Infrastructure Attack",54
+"251",2020,"Hijacking",1
+"252",2020,"Hostage Taking (Barricade Incident)",1
+"253",2020,"Hostage Taking (Kidnapping)",2
+"254",2020,"Unarmed Assault",8

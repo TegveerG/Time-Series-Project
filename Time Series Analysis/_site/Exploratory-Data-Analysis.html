@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Exploratory Data Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">About Tegveer</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Introduction.html">Introduction</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Data-Sources.html">Data Sources</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Data-Visualization.html">Data Visualization</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./Exploratory-Data-Analysis.html" aria-current="page">Exploratory Data Analysis</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./ARMA-ARIMA-SARIMA.html">ARMA/ARIMA/SARIMA Models</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./ARIMAX-SARIMAX-VAR.html">ARIMAX/SARIMAX/VAR Models</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Financial-Models.html">Financial Time Series Models</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Deep-Learning.html">Deep Learning for TS</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Conclusion.html">Conclusion</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#global-terrorism-database-exploratory-data-analysis" id="toc-global-terrorism-database-exploratory-data-analysis" class="nav-link" data-scroll-target="#global-terrorism-database-exploratory-data-analysis">Global Terrorism Database Exploratory Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#identifying-time-series-components-of-monthly-attacks" id="toc-identifying-time-series-components-of-monthly-attacks" class="nav-link" data-scroll-target="#identifying-time-series-components-of-monthly-attacks">Identifying Time Series Components of Monthly Attacks</a></li>
+  <li><a href="#lag-plots-of-monthly-attacks" id="toc-lag-plots-of-monthly-attacks" class="nav-link" data-scroll-target="#lag-plots-of-monthly-attacks">Lag Plots of Monthly Attacks</a></li>
+  <li><a href="#decomposing-monthly-attacks" id="toc-decomposing-monthly-attacks" class="nav-link" data-scroll-target="#decomposing-monthly-attacks">Decomposing Monthly Attacks</a></li>
+  <li><a href="#acf-and-pacf-plots-of-monthly-attacks" id="toc-acf-and-pacf-plots-of-monthly-attacks" class="nav-link" data-scroll-target="#acf-and-pacf-plots-of-monthly-attacks">ACF and PACF Plots of Monthly Attacks</a></li>
+  <li><a href="#adf-test-of-monthly-attacks" id="toc-adf-test-of-monthly-attacks" class="nav-link" data-scroll-target="#adf-test-of-monthly-attacks">ADF Test of Monthly Attacks</a></li>
+  <li><a href="#detrending-monthly-attacks" id="toc-detrending-monthly-attacks" class="nav-link" data-scroll-target="#detrending-monthly-attacks">Detrending Monthly Attacks</a></li>
+  <li><a href="#acf-and-pacf-plots-after-differencing-monthly-attacks" id="toc-acf-and-pacf-plots-after-differencing-monthly-attacks" class="nav-link" data-scroll-target="#acf-and-pacf-plots-after-differencing-monthly-attacks">ACF and PACF Plots After Differencing Monthly Attacks</a></li>
+  <li><a href="#simple-moving-average-smoothing" id="toc-simple-moving-average-smoothing" class="nav-link" data-scroll-target="#simple-moving-average-smoothing">Simple Moving Average Smoothing</a></li>
+  <li><a href="#moving-average-smoothing-with-windowing-2x4" id="toc-moving-average-smoothing-with-windowing-2x4" class="nav-link" data-scroll-target="#moving-average-smoothing-with-windowing-2x4">Moving Average Smoothing with Windowing (2x4)</a></li>
+  <li><a href="#moving-average-smoothing-with-windowing-2x6" id="toc-moving-average-smoothing-with-windowing-2x6" class="nav-link" data-scroll-target="#moving-average-smoothing-with-windowing-2x6">Moving Average Smoothing with Windowing (2x6)</a></li>
+  <li><a href="#moving-average-smoothing-with-windowing-2x8" id="toc-moving-average-smoothing-with-windowing-2x8" class="nav-link" data-scroll-target="#moving-average-smoothing-with-windowing-2x8">Moving Average Smoothing with Windowing (2x8)</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Exploratory Data Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>After producing the data visualizations to gain rudimentary insights about the various datasets collected, the next step of the process is to complete an exploratory data analysis (EDA). Several time series packages exist in the <strong>R software</strong> that have been utilized to unravel deeper details about the data sets. Some of the famous time series analysis methods used in this section include decomposing and identifying time series components, producing auto-correlation function (ACF) and partial auto-correlation function (PACF) plots, and differencing, and checking for stationarity by the use of the Augmented Dickey-Fuller Test.</p>
+<p>Code for this section can be found <a href="https://tegveerg.georgetown.domains/Time-Series-Project/Exploratory-Data-Analysis.qmd">here</a></p>
+</section>
+<section id="global-terrorism-database-exploratory-data-analysis" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="global-terrorism-database-exploratory-data-analysis">Global Terrorism Database Exploratory Data Analysis</h2>
+<section id="identifying-time-series-components-of-monthly-attacks" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="identifying-time-series-components-of-monthly-attacks">Identifying Time Series Components of Monthly Attacks</h3>
+<p>Please note that as per the GTD Codebook <span class="citation" data-cites="GTD">(<a href="#ref-GTD" role="doc-biblioref"><span>“Codebook Methodology Inclusion Criteria and Variables - UMD,”</span> n.d.</a>)</span>, incidents of terrorism from 1993 are not present because they were lost prior to START’s compilation of the database from multiple data collection efforts. Therefore, monthly attack counts for the year 1993 have been interpolated using the <code>na.approx()</code> function from the <code>zoo</code> library in R. Appendix II of the GTD Codebook provides Country-level statistics for 1993 and for the US, the attack count was 28. However, our interpolated estimates, which took into calculation 1992 and 1994 attack counts, sum up to 54 attacks, which shall be used for EDA.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-GTD" class="csl-entry" role="doc-biblioentry">
+<span>“Codebook Methodology Inclusion Criteria and Variables - UMD.”</span> n.d. <em>Global Terrorism Database</em>. University of Maryland. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
+</div></div><p>Also, the data analyzed is count data rather than the measure of a metric. Hence, the results from the time series functions used on this data might not seem like “traditional” outputs seen from data used in class.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7d3d58163bdd3abad1ac" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-7d3d58163bdd3abad1ac">{"x":{"visdat":{"107c04da9fcfa":["function () ","plotlyVisDat"]},"cur_data":"107c04da9fcfa","attrs":{"107c04da9fcfa":{"x":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"lines","y":{},"name":"Attacks","line":{"color":"red"},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Monthly Count of Terrorist Attacks in the US","yaxis":{"domain":[0,1],"automargin":true,"title":"Count"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Date"},"hovermode":"x","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["1970-01-01","1970-02-01","1970-03-01","1970-04-01","1970-05-01","1970-06-01","1970-07-01","1970-08-01","1970-09-01","1970-10-01","1970-11-01","1970-12-01","1971-01-01","1971-02-01","1971-03-01","1971-04-01","1971-05-01","1971-06-01","1971-07-01","1971-08-01","1971-09-01","1971-10-01","1971-11-01","1971-12-01","1972-01-01","1972-02-01","1972-03-01","1972-04-01","1972-05-01","1972-06-01","1972-07-01","1972-08-01","1972-09-01","1972-10-01","1972-11-01","1972-12-01","1973-01-01","1973-02-01","1973-03-01","1973-04-01","1973-05-01","1973-06-01","1973-07-01","1973-08-01","1973-09-01","1973-10-01","1973-11-01","1973-12-01","1974-01-01","1974-02-01","1974-03-01","1974-04-01","1974-05-01","1974-06-01","1974-07-01","1974-08-01","1974-09-01","1974-10-01","1974-11-01","1974-12-01","1975-01-01","1975-02-01","1975-03-01","1975-04-01","1975-05-01","1975-06-01","1975-07-01","1975-08-01","1975-09-01","1975-10-01","1975-11-01","1975-12-01","1976-01-01","1976-02-01","1976-03-01","1976-04-01","1976-05-01","1976-06-01","1976-07-01","1976-08-01","1976-09-01","1976-10-01","1976-11-01","1976-12-01","1977-01-01","1977-02-01","1977-03-01","1977-04-01","1977-05-01","1977-06-01","1977-07-01","1977-08-01","1977-09-01","1977-10-01","1977-11-01","1977-12-01","1978-01-01","1978-02-01","1978-03-01","1978-04-01","1978-05-01","1978-06-01","1978-07-01","1978-08-01","1978-09-01","1978-10-01","1978-11-01","1978-12-01","1979-01-01","1979-02-01","1979-03-01","1979-04-01","1979-05-01","1979-06-01","1979-07-01","1979-08-01","1979-09-01","1979-10-01","1979-11-01","1979-12-01","1980-01-01","1980-02-01","1980-03-01","1980-04-01","1980-05-01","1980-06-01","1980-07-01","1980-08-01","1980-09-01","1980-10-01","1980-11-01","1980-12-01","1981-01-01","1981-02-01","1981-03-01","1981-04-01","1981-05-01","1981-06-01","1981-07-01","1981-08-01","1981-09-01","1981-10-01","1981-11-01","1981-12-01","1982-01-01","1982-02-01","1982-03-01","1982-04-01","1982-05-01","1982-06-01","1982-07-01","1982-08-01","1982-09-01","1982-10-01","1982-11-01","1982-12-01","1983-01-01","1983-02-01","1983-03-01","1983-04-01","1983-05-01","1983-06-01","1983-07-01","1983-08-01","1983-09-01","1983-10-01","1983-11-01","1983-12-01","1984-01-01","1984-02-01","1984-03-01","1984-04-01","1984-05-01","1984-06-01","1984-07-01","1984-08-01","1984-09-01","1984-10-01","1984-11-01","1984-12-01","1985-01-01","1985-02-01","1985-03-01","1985-04-01","1985-05-01","1985-06-01","1985-07-01","1985-08-01","1985-09-01","1985-10-01","1985-11-01","1985-12-01","1986-01-01","1986-02-01","1986-03-01","1986-04-01","1986-05-01","1986-06-01","1986-07-01","1986-08-01","1986-09-01","1986-10-01","1986-11-01","1986-12-01","1987-01-01","1987-02-01","1987-03-01","1987-04-01","1987-05-01","1987-06-01","1987-07-01","1987-08-01","1987-09-01","1987-10-01","1987-11-01","1987-12-01","1988-01-01","1988-02-01","1988-03-01","1988-04-01","1988-05-01","1988-06-01","1988-07-01","1988-08-01","1988-09-01","1988-10-01","1988-11-01","1988-12-01","1989-01-01","1989-02-01","1989-03-01","1989-04-01","1989-05-01","1989-06-01","1989-07-01","1989-08-01","1989-09-01","1989-10-01","1989-11-01","1989-12-01","1990-01-01","1990-02-01","1990-03-01","1990-04-01","1990-05-01","1990-06-01","1990-07-01","1990-08-01","1990-09-01","1990-10-01","1990-11-01","1990-12-01","1991-01-01","1991-02-01","1991-03-01","1991-04-01","1991-05-01","1991-06-01","1991-07-01","1991-08-01","1991-09-01","1991-10-01","1991-11-01","1991-12-01","1992-01-01","1992-02-01","1992-03-01","1992-04-01","1992-05-01","1992-06-01","1992-07-01","1992-08-01","1992-09-01","1992-10-01","1992-11-01","1992-12-01","1993-01-01","1993-02-01","1993-03-01","1993-04-01","1993-05-01","1993-06-01","1993-07-01","1993-08-01","1993-09-01","1993-10-01","1993-11-01","1993-12-01","1994-01-01","1994-02-01","1994-03-01","1994-04-01","1994-05-01","1994-06-01","1994-07-01","1994-08-01","1994-09-01","1994-10-01","1994-11-01","1994-12-01","1995-01-01","1995-02-01","1995-03-01","1995-04-01","1995-05-01","1995-06-01","1995-07-01","1995-08-01","1995-09-01","1995-10-01","1995-11-01","1995-12-01","1996-01-01","1996-02-01","1996-03-01","1996-04-01","1996-05-01","1996-06-01","1996-07-01","1996-08-01","1996-09-01","1996-10-01","1996-11-01","1996-12-01","1997-01-01","1997-02-01","1997-03-01","1997-04-01","1997-05-01","1997-06-01","1997-07-01","1997-08-01","1997-09-01","1997-10-01","1997-11-01","1997-12-01","1998-01-01","1998-02-01","1998-03-01","1998-04-01","1998-05-01","1998-06-01","1998-07-01","1998-08-01","1998-09-01","1998-10-01","1998-11-01","1998-12-01","1999-01-01","1999-02-01","1999-03-01","1999-04-01","1999-05-01","1999-06-01","1999-07-01","1999-08-01","1999-09-01","1999-10-01","1999-11-01","1999-12-01","2000-01-01","2000-02-01","2000-03-01","2000-04-01","2000-05-01","2000-06-01","2000-07-01","2000-08-01","2000-09-01","2000-10-01","2000-11-01","2000-12-01","2001-01-01","2001-02-01","2001-03-01","2001-04-01","2001-05-01","2001-06-01","2001-07-01","2001-08-01","2001-09-01","2001-10-01","2001-11-01","2001-12-01","2002-01-01","2002-02-01","2002-03-01","2002-04-01","2002-05-01","2002-06-01","2002-07-01","2002-08-01","2002-09-01","2002-10-01","2002-11-01","2002-12-01","2003-01-01","2003-02-01","2003-03-01","2003-04-01","2003-05-01","2003-06-01","2003-07-01","2003-08-01","2003-09-01","2003-10-01","2003-11-01","2003-12-01","2004-01-01","2004-02-01","2004-03-01","2004-04-01","2004-05-01","2004-06-01","2004-07-01","2004-08-01","2004-09-01","2004-10-01","2004-11-01","2004-12-01","2005-01-01","2005-02-01","2005-03-01","2005-04-01","2005-05-01","2005-06-01","2005-07-01","2005-08-01","2005-09-01","2005-10-01","2005-11-01","2005-12-01","2006-01-01","2006-02-01","2006-03-01","2006-04-01","2006-05-01","2006-06-01","2006-07-01","2006-08-01","2006-09-01","2006-10-01","2006-11-01","2006-12-01","2007-01-01","2007-02-01","2007-03-01","2007-04-01","2007-05-01","2007-06-01","2007-07-01","2007-08-01","2007-09-01","2007-10-01","2007-11-01","2007-12-01","2008-01-01","2008-02-01","2008-03-01","2008-04-01","2008-05-01","2008-06-01","2008-07-01","2008-08-01","2008-09-01","2008-10-01","2008-11-01","2008-12-01","2009-01-01","2009-02-01","2009-03-01","2009-04-01","2009-05-01","2009-06-01","2009-07-01","2009-08-01","2009-09-01","2009-10-01","2009-11-01","2009-12-01","2010-01-01","2010-02-01","2010-03-01","2010-04-01","2010-05-01","2010-06-01","2010-07-01","2010-08-01","2010-09-01","2010-10-01","2010-11-01","2010-12-01","2011-01-01","2011-02-01","2011-03-01","2011-04-01","2011-05-01","2011-06-01","2011-07-01","2011-08-01","2011-09-01","2011-10-01","2011-11-01","2011-12-01","2012-01-01","2012-02-01","2012-03-01","2012-04-01","2012-05-01","2012-06-01","2012-07-01","2012-08-01","2012-09-01","2012-10-01","2012-11-01","2012-12-01","2013-01-01","2013-02-01","2013-03-01","2013-04-01","2013-05-01","2013-06-01","2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01","2014-08-01","2014-09-01","2014-10-01","2014-11-01","2014-12-01","2015-01-01","2015-02-01","2015-03-01","2015-04-01","2015-05-01","2015-06-01","2015-07-01","2015-08-01","2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01"],"type":"scatter","mode":"lines","y":[26,50,54,69,61,38,52,29,20,32,22,11,19,18,30,42,32,20,13,33,12,8,13,6,17,4,3,2,11,3,1,5,6,5,0,8,8,3,8,4,4,2,3,2,4,5,5,10,5,4,5,9,8,14,3,7,3,11,3,20,6,15,18,16,14,9,6,7,9,24,5,20,13,8,9,9,12,16,15,2,9,3,0,9,10,11,20,8,9,7,5,16,10,19,7,7,7,9,6,4,12,6,8,6,2,15,3,8,0,6,7,5,6,9,3,1,4,11,10,7,10,3,6,5,2,7,11,5,3,7,2,5,6,4,4,4,8,9,3,6,11,4,8,3,4,10,1,8,15,4,9,4,6,3,3,10,6,4,2,3,4,1,4,8,2,4,3,3,4,3,7,7,2,5,5,4,12,1,4,9,2,3,1,2,2,3,1,5,2,6,4,9,5,0,5,3,3,2,1,1,7,11,5,6,2,2,2,2,10,1,2,2,4,2,4,0,4,1,2,0,2,2,2,0,5,2,3,3,1,4,5,5,3,3,5,4,3,1,1,6,4,2,1,5,7,2,2,1,6,0,1,0,2,7,5,3,2,3,1,1,3,1,1,2,3,4,1,4,0,2,1,5,2,2,4,3,3,3,4,4,4,4,5,5,5,5,6,6,6,1,4,1,3,1,5,2,4,11,4,12,8,6,7,7,3,5,0,8,1,3,4,5,6,0,0,4,2,0,7,3,3,3,3,4,12,7,5,4,5,0,3,0,0,1,2,3,2,1,2,3,1,5,3,2,4,7,0,1,0,0,10,2,2,3,9,6,1,13,1,4,7,1,7,9,3,1,2,0,2,1,1,8,5,1,2,3,3,3,2,1,11,13,3,0,2,0,1,0,20,2,2,2,2,1,1,0,2,0,11,1,2,3,0,6,6,2,2,0,0,2,0,2,0,1,2,0,0,0,0,2,3,4,2,3,1,0,3,0,0,0,3,1,1,0,1,0,0,1,2,0,1,0,0,0,1,0,3,2,1,1,0,1,0,2,0,0,0,4,2,4,1,1,2,2,0,0,2,0,0,0,1,0,3,2,1,2,1,0,1,1,0,3,1,1,2,1,3,1,1,2,1,0,4,1,0,1,1,0,0,0,1,0,1,0,8,0,0,1,3,1,1,4,1,0,1,0,1,2,0,7,3,0,1,2,1,2,1,0,0,0,2,4,3,5,0,1,2,3,6,3,1,5,3,0,1,5,5,5,3,1,7,5,3,3,1,2,3,5,14,10,11,8,5,3,9,7,4,8,8,4,5,4,5,6,2,4,3,3,6,4,6,1,10,5,4,23,9,2,3,1,16,12,8,6,4,7,1,2,3,9,5,8,6,5,17,14,8,10,11,7,7,5],"name":"Attacks","line":{"color":"red"},"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>From the graph, we see an initial downward trend from 1970 to 1972 and an upward trend soon after until 1975. The trend, however, then remains constant until the 2000s. Another upward trend is noticed after 2010 as more attacks were conducted in recent years. Some seasonality is noticed, with more attacks occurring towards the end of Spring (April and May) and end of Fall (August to October), across the whole timeline, but the number of attacks does vary across months, suggesting <strong>periodic fluctuations</strong>. From these insights, the series does not seem stationary. Moreover, because we cannot identify whether the average length of cycles is longer than the length of a seasonal pattern, the graph is <strong>not cyclical</strong>. A stationary time series will have no predictable patterns in the long-term, but given the count of attacks now increasing in recent years, one could deduce or forecast patterns in the number of attacks for the next few months ahead from the present (Dec 2020). Lastly, as the time of the series increases, the seasonal variation remains fairly constant, so we should use an <strong>additive</strong> decomposition. Next, we shall take a look at this series’ lag plots to check for autocorrelations, if any.</p>
+</section>
+<section id="lag-plots-of-monthly-attacks" class="level3">
+<h3 class="anchored" data-anchor-id="lag-plots-of-monthly-attacks">Lag Plots of Monthly Attacks</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exploratory-Data-Analysis_files/figure-html/lagplot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Concerning the the faceted lag plots of the monthly series, we see a relatively strong positive autocorrelation at lag 1. Thus indicates that there is a strong relationship between the values of the series in adjacent months. Specifically, it suggests that the value of the series in the current month is positively related to the value of the series in the previous month. This can indicate the presence of some underlying trend or seasonality in the data. There is no evidence of negative autocorrelation too. Therefore, this could make a case for weak autocorrelation. As the level of autocorrelation increases, the points shift away from the diagonal; however, the points move closer at lag 12, indicating that . A positive linear trend (i.e.&nbsp;going upwards from left to right) is suggestive of positive autocorrelation.</p>
+<p>When comparing the lag plots for the series with different months, there is not much difference, except for a cluster of data points in the bottom left side of the graph, reinforcing our earlier finding that more than half the attacks from 1970 to 2013 took place in 1970. The trend and seasonal components are very much similar and, hence, the plots hint to us that all the series seem to not be stationary.</p>
+</section>
+<section id="decomposing-monthly-attacks" class="level3">
+<h3 class="anchored" data-anchor-id="decomposing-monthly-attacks">Decomposing Monthly Attacks</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exploratory-Data-Analysis_files/figure-html/decomp-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="acf-and-pacf-plots-of-monthly-attacks" class="level3">
+<h3 class="anchored" data-anchor-id="acf-and-pacf-plots-of-monthly-attacks">ACF and PACF Plots of Monthly Attacks</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exploratory-Data-Analysis_files/figure-html/pacf-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The autocorrelation function (ACF) and partial autocorrelation function (PACF) plots are used to help determine the order of an ARMA model. The ACF plot shows the correlation between the time series and its lagged values, while the PACF plot shows the correlation between the time series and its lagged values after controlling for the effects of any intermediate lagged values.</p>
+<p>By looking at the ACF, it can be concluded that the series is not Stationary. The dashed blue lines indicate whether the correlations are significantly different from zero. The ACF Plot shows a downward trend in attack counts, with the initial insignificant correlations beginning from lag 24. No clear seasonality is depicted from the ACF plot. If a time series is stationary, its PACF should decline to zero relatively quickly, beyond a certain lag value. On the other hand, if a time series is not stationary, its PACF will show significant autocorrelation for many lag values. The former seems true for these PACF plots, as we see autocorrelations for only lags 1 and 2 in the PACF plot. The PACF does decrease after and stays within the confines of the Confidence Interval, which could mean that it is not significantly different from zero and therefore has no significant correlation with the time series from lag 2 onwards. Therefore, the original series might be weakly stationary!</p>
+</section>
+<section id="adf-test-of-monthly-attacks" class="level3">
+<h3 class="anchored" data-anchor-id="adf-test-of-monthly-attacks">ADF Test of Monthly Attacks</h3>
+<p><span class="math inline">\(H_0\)</span>: The time series is non-stationary. In other words, it has some time-dependent structure and does not have constant variance over time.</p>
+<p><span class="math inline">\(H_1\)</span>: The time series is stationary.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Augmented Dickey-Fuller Test
+
+data:  monthly_attacks_ts
+Dickey-Fuller = -7.3335, Lag order = 8, p-value = 0.01
+alternative hypothesis: stationary</code></pre>
+</div>
+</div>
+<p>Because the p-value from the ADF test is less than <span class="math inline">\(\alpha\)</span> = 0.05, we cannot reject the null hypothesis and conclude that the time series is non-stationary.</p>
+</section>
+<section id="detrending-monthly-attacks" class="level3">
+<h3 class="anchored" data-anchor-id="detrending-monthly-attacks">Detrending Monthly Attacks</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = monthly_attacks_ts ~ time(monthly_attacks_ts), na.action = NULL)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-9.347 -3.363 -1.524  1.317 59.172 
+
+Coefficients:
+                          Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)              376.72017   36.25612   10.39   &lt;2e-16 ***
+time(monthly_attacks_ts)  -0.18622    0.01817  -10.25   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.617 on 610 degrees of freedom
+Multiple R-squared:  0.1469,    Adjusted R-squared:  0.1455 
+F-statistic:   105 on 1 and 610 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Exploratory-Data-Analysis_files/figure-html/detrend-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Our trend using OLS was:</p>
+<p><span class="math inline">\(\hat\mu_t\)</span> = 376.72 - 0.18622t</p>
+<p>Therefore, equation of the fit of the underlying stationary process is:</p>
+<p><span class="math inline">\(\hat{y_t}\)</span> = <span class="math inline">\(x_t\)</span> + 376.72 - 0.18622t</p>
+<p>The Detrended series is very much similar to the original series, signaling that differencing could provide a more stationary transformation. The linear model’s <span class="math inline">\(R^2\)</span> value is 0.1469, suggesting that the model captures 15% of the variation in prices. Therefore, a quadratic model or first differencing would perhaps provide a better fit.</p>
+<p>We then see that, even after detrending, the series contains seasonality, which further reinforces our above point that the linear model does not do very well in capturing the initial decreasing trend and then the increasing trend for recent years. Moreover, the data is not trend stationary, which bolsters the above argument.</p>
+</section>
+<section id="acf-and-pacf-plots-after-differencing-monthly-attacks" class="level3">
+<h3 class="anchored" data-anchor-id="acf-and-pacf-plots-after-differencing-monthly-attacks">ACF and PACF Plots After Differencing Monthly Attacks</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exploratory-Data-Analysis_files/figure-html/diffpacf-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>First order differencing performs better than detrending, so we shall use this series in the next section when building our autoregressive models. However, we also saw from the original PACF plot that the PACF declineS to zero relatively quickly than that of the differenced series. Therefore, the original series could also directly be fitted to the autoregressive models.</p>
+</section>
+<section id="simple-moving-average-smoothing" class="level3">
+<h3 class="anchored" data-anchor-id="simple-moving-average-smoothing">Simple Moving Average Smoothing</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exploratory-Data-Analysis_files/figure-html/masmooth-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="moving-average-smoothing-with-windowing-2x4" class="level3">
+<h3 class="anchored" data-anchor-id="moving-average-smoothing-with-windowing-2x4">Moving Average Smoothing with Windowing (2x4)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: center;">monthly_attacks_ts_2</th>
+<th style="text-align: center;">ma4</th>
+<th style="text-align: center;">ma2x4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">49.75</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">54</td>
+<td style="text-align: center;">58.50</td>
+<td style="text-align: center;">54.125</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">55.50</td>
+<td style="text-align: center;">57.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">55.00</td>
+<td style="text-align: center;">55.250</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">38</td>
+<td style="text-align: center;">45.00</td>
+<td style="text-align: center;">50.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<p><img src="Exploratory-Data-Analysis_files/figure-html/masmoothw-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In this case, m is even, so it is no longer be symmetric. Therefore, when windowing, we are applying a moving average to a moving average. One reason for doing this is to make an even-order moving average symmetric. Here we have employed a centered 4-month moving average followed by a centered 2-month moving average. Although this helps smooth out both seasonal and longer-term trends in the data, we notice some seasonality still being present in the smoothed overlay. Let’s us try to use other moving averaging windows to obtain a more stationary overlay.</p>
+</section>
+<section id="moving-average-smoothing-with-windowing-2x6" class="level3">
+<h3 class="anchored" data-anchor-id="moving-average-smoothing-with-windowing-2x6">Moving Average Smoothing with Windowing (2x6)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: center;">monthly_attacks_ts_2</th>
+<th style="text-align: center;">ma6</th>
+<th style="text-align: center;">ma2x6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">54</td>
+<td style="text-align: center;">49.66667</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">54.00000</td>
+<td style="text-align: center;">51.83333</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">50.50000</td>
+<td style="text-align: center;">52.25000</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">38</td>
+<td style="text-align: center;">44.83333</td>
+<td style="text-align: center;">47.66667</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<p><img src="Exploratory-Data-Analysis_files/figure-html/masmoothw1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The moving average did smooth out both seasonal and longer-term trends in the monthly time series. Although, we could still do better by further smoothing out longer-term trends by using a centered 8-month moving average, showcased below.</p>
+</section>
+<section id="moving-average-smoothing-with-windowing-2x8" class="level3">
+<h3 class="anchored" data-anchor-id="moving-average-smoothing-with-windowing-2x8">Moving Average Smoothing with Windowing (2x8)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: center;">monthly_attacks_ts_2</th>
+<th style="text-align: center;">ma8</th>
+<th style="text-align: center;">ma2x8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">54</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">47.375</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">46.625</td>
+<td style="text-align: center;">47.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">38</td>
+<td style="text-align: center;">44.375</td>
+<td style="text-align: center;">45.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<p><img src="Exploratory-Data-Analysis_files/figure-html/masmoothw2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The above plot employed a centered 8-month moving average followed by a centered 2-month moving average. The output is similar to that of the 2x6-MA. Let’s make our analysis more constrained by fitting 4x3-MA: A centered 3-month moving average repeated four times. This should smooth out both seasonal and shorter-term fluctuations even further, providing the least seasonal moving average out of all the other moving averages applied yet.</p>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>“Codebook Methodology Inclusion Criteria and Ariables - UMD.” Codebook Methodology Inclusion criteria and variables - UMD. University of Maryland. Accessed February 1, 2023. https://www.start.umd.edu/gtd/downloads/Codebook.pdf.</p>
+
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

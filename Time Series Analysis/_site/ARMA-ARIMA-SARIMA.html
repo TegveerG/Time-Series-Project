@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ARMA/ARIMA/SARIMA Models</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">About Tegveer</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Introduction.html">Introduction</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Data-Sources.html">Data Sources</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Data-Visualization.html">Data Visualization</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Exploratory-Data-Analysis.html">Exploratory Data Analysis</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./ARMA-ARIMA-SARIMA.html" aria-current="page">ARMA/ARIMA/SARIMA Models</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./ARIMAX-SARIMAX-VAR.html">ARIMAX/SARIMAX/VAR Models</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Financial-Models.html">Financial Time Series Models</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Deep-Learning.html">Deep Learning for TS</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Conclusion.html">Conclusion</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#global-terrorism-database-time-series-modeling" id="toc-global-terrorism-database-time-series-modeling" class="nav-link" data-scroll-target="#global-terrorism-database-time-series-modeling">Global Terrorism Database Time Series Modeling</a>
+  <ul class="collapse">
+  <li><a href="#ACF" id="toc-ACF" class="nav-link" data-scroll-target="#ACF">ACF and PACF Plots of Monthly Attacks</a></li>
+  <li><a href="#adf-test-of-monthly-attacks" id="toc-adf-test-of-monthly-attacks" class="nav-link" data-scroll-target="#adf-test-of-monthly-attacks">ADF Test of Monthly Attacks</a></li>
+  <li><a href="#log-transformation-of-monthly-attacks" id="toc-log-transformation-of-monthly-attacks" class="nav-link" data-scroll-target="#log-transformation-of-monthly-attacks">Log-Transformation of Monthly Attacks</a></li>
+  <li><a href="#adf-test-of-log-first-differenced-monthly-attacks" id="toc-adf-test-of-log-first-differenced-monthly-attacks" class="nav-link" data-scroll-target="#adf-test-of-log-first-differenced-monthly-attacks">ADF Test of Log First-Differenced Monthly Attacks</a></li>
+  <li><a href="#lACF" id="toc-lACF" class="nav-link" data-scroll-target="#lACF">ACF and PACF Plots of Log First-Differenced Monthly Attacks</a></li>
+  <li><a href="#best-fit" id="toc-best-fit" class="nav-link" data-scroll-target="#best-fit">Fitting ARIMA(p,d,q)</a></li>
+  <li><a href="#model-diagnostics-of-arima112" id="toc-model-diagnostics-of-arima112" class="nav-link" data-scroll-target="#model-diagnostics-of-arima112">Model Diagnostics of ARIMA(1,1,2)</a></li>
+  <li><a href="#checking-model-output-of-arima112-with-auto.arima" id="toc-checking-model-output-of-arima112-with-auto.arima" class="nav-link" data-scroll-target="#checking-model-output-of-arima112-with-auto.arima">Checking Model Output of ARIMA(1,1,2) with auto.arima()</a></li>
+  <li><a href="#forecasting-arima112" id="toc-forecasting-arima112" class="nav-link" data-scroll-target="#forecasting-arima112">Forecasting ARIMA(1,1,2)</a></li>
+  <li><a href="#forecasting-arima111-outputted-by-auto.arima" id="toc-forecasting-arima111-outputted-by-auto.arima" class="nav-link" data-scroll-target="#forecasting-arima111-outputted-by-auto.arima">Forecasting ARIMA(1,1,1) Outputted by auto.arima()</a></li>
+  <li><a href="#comparing-arima112-with-benchmarks" id="toc-comparing-arima112-with-benchmarks" class="nav-link" data-scroll-target="#comparing-arima112-with-benchmarks">Comparing ARIMA(1,1,2) with Benchmarks</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">ARMA/ARIMA/SARIMA Models</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>After completing the exploratory data analysis (EDA) phase, the next step is to begin building time series models. In order to do so, one must first choose an appropriate model type, such as an ARMA (AutoRegressive Moving Average) model or one of its variations, including ARIMA (AutoRegressive Integrated Moving Average) or SARIMA (Seasonal AutoRegressive Integrated Moving Average).</p>
+<p>An ARIMA model is generally notated as ARIMA(p,d,q) where p is the order of the AR process, d is the degree of differencing and q is the order of the MA process. The general equation of the model is given as follows:</p>
+<p><span class="math inline">\(\phi(B)(1-B)^d x_t = \delta + \theta(B) w_t\)</span>, where <span class="math inline">\(B\)</span> is the backshift operator, <span class="math inline">\(w_t\)</span> is the Gaussian white noise process, <span class="math inline">\(\delta\)</span> is the drift term and <span class="math inline">\(\phi(B)\)</span> and <span class="math inline">\(\theta(B)\)</span> correspond to the AR and MA parts respectively.</p>
+<p>Lag plots, auto-correlation function (ACF) and partial auto-correlation function (PACF) plots, decomposing the time series, and differencing are all useful techniques that were employed during the EDA phase to help inform the choice of model type and parameters. With a solid understanding of the data and its characteristics, one can begin to develop and refine time series models that can be used for forecasting.</p>
+<p>Code for this section can be found <a href="https://tegveerg.georgetown.domains/Time-Series-Project/ARMA-ARIMA-SARIMA.qmd">here</a></p>
+</section>
+<section id="global-terrorism-database-time-series-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="global-terrorism-database-time-series-modeling">Global Terrorism Database Time Series Modeling</h2>
+<div class="cell">
+
+</div>
+<section id="ACF" class="level3">
+<h3 class="anchored" data-anchor-id="ACF">ACF and PACF Plots of Monthly Attacks</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ARMA-ARIMA-SARIMA_files/figure-html/pacf-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="adf-test-of-monthly-attacks" class="level3">
+<h3 class="anchored" data-anchor-id="adf-test-of-monthly-attacks">ADF Test of Monthly Attacks</h3>
+<p><span class="math inline">\(H_0\)</span>: The time series is non-stationary. In other words, it has some time-dependent structure and does not have constant variance over time.</p>
+<p><span class="math inline">\(H_1\)</span>: The time series is stationary.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Augmented Dickey-Fuller Test
+
+data:  monthly_attacks_ts
+Dickey-Fuller = -7.3335, Lag order = 8, p-value = 0.01
+alternative hypothesis: stationary</code></pre>
+</div>
+</div>
+<p>Because the p-value from the ADF test is less than <span class="math inline">\(\alpha\)</span> = 0.05, we reject the null hypothesis and conclude that the monthly attacks series is stationary. Although the ADF states that the original series is stationary, the ACF plots, which clearly indicate seasonality and trend, are more reliable than the ADF test. Therefore, it is safe to conclude that the series non-stationary as per the <span class="citation" data-cites="ACF">(<a href="#ref-ACF" role="doc-biblioref"><strong>ACF?</strong></a>)</span> section above.</p>
+</section>
+<section id="log-transformation-of-monthly-attacks" class="level3">
+<h3 class="anchored" data-anchor-id="log-transformation-of-monthly-attacks">Log-Transformation of Monthly Attacks</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ARMA-ARIMA-SARIMA_files/figure-html/logadf-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="ARMA-ARIMA-SARIMA_files/figure-html/logadf-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Simply taking log of the number of monthly attacks does not make it stationary. First-differencing the log number of monthly attacks does, however, make the series stationary and this series should be employed for building our time series model. Keep in mind that because first-differencing was enough to make the series stationary, we do not need to second-difference it, helping us avoid over differencing the number of monthly attacks.</p>
+</section>
+<section id="adf-test-of-log-first-differenced-monthly-attacks" class="level3">
+<h3 class="anchored" data-anchor-id="adf-test-of-log-first-differenced-monthly-attacks">ADF Test of Log First-Differenced Monthly Attacks</h3>
+<p><span class="math inline">\(H_0\)</span>: The time series is non-stationary. In other words, it has some time-dependent structure and does not have constant variance over time.</p>
+<p><span class="math inline">\(H_1\)</span>: The time series is stationary.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Augmented Dickey-Fuller Test
+
+data:  dlx
+Dickey-Fuller = -13.177, Lag order = 8, p-value = 0.01
+alternative hypothesis: stationary</code></pre>
+</div>
+</div>
+<p>Because the p-value from the ADF test is less than <span class="math inline">\(\alpha\)</span> = 0.05, we reject the null hypothesis and conclude that the log first-differenced monthly attacks series is stationary. Let us now check whether the ACF plots supports this hypothesis.</p>
+</section>
+<section id="lACF" class="level3">
+<h3 class="anchored" data-anchor-id="lACF">ACF and PACF Plots of Log First-Differenced Monthly Attacks</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ARMA-ARIMA-SARIMA_files/figure-html/lfdpacf-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>p</strong> values obtained from PACF are 1, 2, 3, 4 <strong>q</strong> values obtained from ACF are: 1 <strong>d</strong> (Difference): 1</p>
+</section>
+<section id="best-fit" class="level3">
+<h3 class="anchored" data-anchor-id="best-fit">Fitting ARIMA(p,d,q)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">p</th>
+<th style="text-align: right;">d</th>
+<th style="text-align: right;">q</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">BIC</th>
+<th style="text-align: right;">AICc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1184.760</td>
+<td style="text-align: right;">1206.827</td>
+<td style="text-align: right;">1184.859</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1187.562</td>
+<td style="text-align: right;">1214.043</td>
+<td style="text-align: right;">1187.702</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1188.993</td>
+<td style="text-align: right;">1215.473</td>
+<td style="text-align: right;">1189.132</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1184.796</td>
+<td style="text-align: right;">1215.690</td>
+<td style="text-align: right;">1184.982</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1184.825</td>
+<td style="text-align: right;">1215.719</td>
+<td style="text-align: right;">1185.011</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1188.316</td>
+<td style="text-align: right;">1219.210</td>
+<td style="text-align: right;">1188.502</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1186.472</td>
+<td style="text-align: right;">1221.780</td>
+<td style="text-align: right;">1186.712</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1188.815</td>
+<td style="text-align: right;">1224.122</td>
+<td style="text-align: right;">1189.054</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">12</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1187.936</td>
+<td style="text-align: right;">1227.657</td>
+<td style="text-align: right;">1188.236</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1250.578</td>
+<td style="text-align: right;">1277.059</td>
+<td style="text-align: right;">1250.718</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1265.762</td>
+<td style="text-align: right;">1287.830</td>
+<td style="text-align: right;">1265.862</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1319.040</td>
+<td style="text-align: right;">1336.694</td>
+<td style="text-align: right;">1319.106</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Best Model in terms of AIC: </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  p d q     AIC      BIC     AICc
+2 1 1 2 1184.76 1206.827 1184.859</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Best Model in terms of AICc: </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  p d q     AIC      BIC     AICc
+2 1 1 2 1184.76 1206.827 1184.859</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Best Model in terms of BIC: </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  p d q     AIC      BIC     AICc
+2 1 1 2 1184.76 1206.827 1184.859</code></pre>
+</div>
+</div>
+<p>The best model with the lowest AIC, BIC, and AICc metrics is the ARIMA(1, 1, 2) model. The equation of the model is given by:</p>
+<p><span class="math inline">\(\begin{equation}(1-B)(1-B^1)y_t = \delta + (1+\phi_1B)(1-\theta_1B-\theta_2B^2)w_t\end{equation}\)</span>, where <span class="math inline">\((1-B)\)</span> and <span class="math inline">\((1-B^1)\)</span> are the differencing operators, which represent the first-order difference of the series. <span class="math inline">\(y_t\)</span> is the time series, <span class="math inline">\(\delta\)</span> is the drift term, <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\theta_1\)</span>, <span class="math inline">\(\theta_2\)</span> are the parameters of the AR and MA parts, respectively, and <span class="math inline">\(w_t\)</span> is the Gaussian white noise process.</p>
+<p>Note that <span class="math inline">\(B\)</span> is the backshift operator, which shifts the time series back by one period.</p>
+</section>
+<section id="model-diagnostics-of-arima112" class="level3">
+<h3 class="anchored" data-anchor-id="model-diagnostics-of-arima112">Model Diagnostics of ARIMA(1,1,2)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ARMA-ARIMA-SARIMA_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Standardized Residuals: Essentially stating that if the errors are white noise. The model does look stationary as it captures all the signals and essentially captures the raw white noise.</p>
+<p>ACF Of Residuals: Auto-correlation of the residuals. The only <strong>q</strong> value to inspect is 1.</p>
+<p>Q-Q Plot: The series follows a normal distribution pretty closely as even the tails seem to be on the normal line.</p>
+<p>p values of the Ljung-Box statistic: Ideally, we would like to fail to reject the null hypothesis. That is, we would like to see the p-value of the test be greater than 0.05 because this means the residuals for our time series model are independent, which is often an assumption we make when creating a model. Since all lag values greater than 5 have a p-value greater than 0.05, our series is stationary.</p>
+</section>
+<section id="checking-model-output-of-arima112-with-auto.arima" class="level3">
+<h3 class="anchored" data-anchor-id="checking-model-output-of-arima112-with-auto.arima">Checking Model Output of ARIMA(1,1,2) with auto.arima()</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Model metrics using auto.arima(): </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: monthly_attacks_ts 
+ARIMA(1,1,1) 
+
+Coefficients:
+         ar1      ma1
+      0.1389  -0.7431
+s.e.  0.0645   0.0432
+
+sigma^2 = 18.69:  log likelihood = -1760.85
+AIC=3527.7   AICc=3527.74   BIC=3540.95
+
+Training set error measures:
+                    ME     RMSE      MAE  MPE MAPE    MASE       ACF1
+Training set -0.154373 4.313143 2.764126 -Inf  Inf 0.72581 0.01754544</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Model metrics of ARIMA(1, 1, 2) using Arima(): </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: dlx 
+ARIMA(1,1,2) 
+
+Coefficients:
+         ar1      ma1     ma2
+      0.0327  -1.8568  0.8579
+s.e.  0.0503   0.0299  0.0292
+
+sigma^2 = 0.4:  log likelihood = -589.26
+AIC=1186.51   AICc=1186.58   BIC=1204.17
+
+Training set error measures:
+                     ME      RMSE       MAE MPE MAPE      MASE         ACF1
+Training set 0.05076924 0.6304084 0.5003311 NaN  Inf 0.5417286 -0.007967481</code></pre>
+</div>
+</div>
+<p>From the above output, <code>auto.arima()</code> outputted an ARIMA(1,1,1) model, which is slightly simpler than the best model obtained with the <code>Arima()</code> function. In fact, the ARIMA(1,1,1) model was the worst model obtained using the <code>Arima()</code> function and that is noted in the table outputted in <span class="citation" data-cites="best-fit">(<a href="#ref-best-fit" role="doc-biblioref"><strong>best-fit?</strong></a>)</span>. This difference can be expected when using <code>auto.arima()</code> because it is not as reliable as the <code>Arima()</code> when building ARIMA models. The case is different when building SARIMA models, which is covered in the next section.</p>
+<p>The best model outputted by <code>Arima()</code> performs significantly better than the model outputted by <code>auto.arima()</code> in terms of model selection metrics, including AIC, BIC, and AICc. Moreover, the best model outputted by <code>Arima()</code> also outperforms the model outputted by <code>auto.arima()</code> in terms of training set metrics, including RMSE, MAE, and MAPE. Although the <code>auto.arima()</code> model does well to closely match the best <code>Arima()</code> model by including a differenced order in its model and by choosing the right <strong>p</strong> or AR order, it does not select an additional MA order that would make the model more robust, as seen by the comparison of metrics. Some points to keep in mind when using these functions is as follows.</p>
+<p>The <code>auto.arima()</code> function in R uses a stepwise algorithm to search through the space of possible ARIMA models and select the one with the lowest AIC value. While this approach can be computationally efficient and provide a good starting point for model selection, it does not necessarily find the best possible model for a given time series.</p>
+<p>On the other hand, the <code>Arima()</code> function in R allows you to specify the exact order of the ARIMA model and can be used to fit more complex models, such as those with seasonality, exogenous variables, or other constraints. By specifying the exact order of the model, you have more control over the modeling process and can potentially obtain a better fit to the data.</p>
+<p>In summary, the <code>auto.arima()</code> function can be a useful tool for quickly identifying a potentially good model, but it is not a substitute for careful model selection and customization using the Arima() function.</p>
+</section>
+<section id="forecasting-arima112" class="level3">
+<h3 class="anchored" data-anchor-id="forecasting-arima112">Forecasting ARIMA(1,1,2)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ARMA-ARIMA-SARIMA_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$pred
+            Jan        Feb        Mar        Apr        May        Jun
+2021 0.37759011 0.02555481 0.01273564 0.01231300 0.01234339 0.01239033
+2022 0.01272329 0.01277086                                            
+            Jul        Aug        Sep        Oct        Nov        Dec
+2021 0.01243788 0.01248544 0.01253301 0.01258058 0.01262815 0.01267572
+2022                                                                  
+
+$se
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2021 0.6282655 0.8166695 0.8168888 0.8168890 0.8168890 0.8168890 0.8168890
+2022 0.8168890 0.8168890                                                  
+           Aug       Sep       Oct       Nov       Dec
+2021 0.8168890 0.8168890 0.8168890 0.8168890 0.8168890
+2022                                                  </code></pre>
+</div>
+</div>
+<p>From the above graph, we can note that the number of attacks will fluctuate anywhere between 0 to 6 (converting from log data) every month from 2021 to 2022, as per the 95% confidence bound. A spike is noticed for the first observed forecast after which the model does poorly to forecast the rest of the year. Since the ARIMA(1,1,2) is relatively simple, it is not as robust and complex to forecast more than a month into the future. The straight red line forecast after the first forecasted month suggests that 1 attack per month (converting from log data) would take place, an averaged out value. This is expected.</p>
+<p>Moreover, the other suboptimal models outputted by <code>Arima()</code> also give the same forecast, so overlaying them onto the above plot would be redundant. It is, however, pragmatic to check whether the <code>auto.arima()</code> model’s forecast may forecast differently. Let us find out below.</p>
+</section>
+<section id="forecasting-arima111-outputted-by-auto.arima" class="level3">
+<h3 class="anchored" data-anchor-id="forecasting-arima111-outputted-by-auto.arima">Forecasting ARIMA(1,1,1) Outputted by auto.arima()</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ARMA-ARIMA-SARIMA_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$pred
+              Jan          Feb          Mar          Apr          May
+2021  0.160739303 -0.066511129  0.048747789 -0.009617016  0.020030951
+2022  0.010443266  0.010418886                                       
+              Jun          Jul          Aug          Sep          Oct
+2021  0.005063770  0.012712754  0.008897226  0.010893251  0.009943302
+2022                                                                 
+              Nov          Dec
+2021  0.010486717  0.010273121
+2022                          
+
+$se
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2021 0.7049204 0.7897960 0.8104291 0.8155169 0.8168849 0.8172028 0.8173013
+2022 0.8173278 0.8173277                                                  
+           Aug       Sep       Oct       Nov       Dec
+2021 0.8173181 0.8173267 0.8173267 0.8173278 0.8173276
+2022                                                  </code></pre>
+</div>
+</div>
+<p>Like the previous forecast, we can note that, for the <code>auto.arima()</code> model, the number of attacks will fluctuate anywhere between 0 to 6 every month from 2021 to 2022 (again this is logged data), as per the 95% confidence bound. However, from the above plot, it can be discerned from red line that the <code>auto.arima()</code> model’s forecasts fluctuate more for the initial months’ forecasts than that of the <code>Arima()</code> model’s forecasts, which was smoother for the initial 2 months. Like the <code>Arima()</code> model’s forecasts, the the <code>auto.arima()</code> model’s forecast then lie on a single value, 1 attack per month, as the red line flattens out. Note that the output of the <code>auto.arima()</code> model was ARIMA(1,1,1), so it was expected that the forecast would be slightly less smoother than the ARIMA(1,1,2) model outputted by <code>Arima()</code>. This is attributed to the fact that ARIMA(1,1,2) has an additional Moving-Average term, which help make its forecasts smoother.</p>
+</section>
+<section id="comparing-arima112-with-benchmarks" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-arima112-with-benchmarks">Comparing ARIMA(1,1,2) with Benchmarks</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ARMA-ARIMA-SARIMA_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best model metrics: </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series: dlx 
+ARIMA(1,1,2) 
+
+Coefficients:
+         ar1      ma1     ma2
+      0.0327  -1.8568  0.8579
+s.e.  0.0503   0.0299  0.0292
+
+sigma^2 = 0.4:  log likelihood = -589.26
+AIC=1186.51   AICc=1186.58   BIC=1204.17
+
+Training set error measures:
+                     ME      RMSE       MAE MPE MAPE      MASE         ACF1
+Training set 0.05076924 0.6304084 0.5003311 NaN  Inf 0.5417286 -0.007967481</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Snaive metrics: </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                       ME     RMSE       MAE MPE MAPE MASE       ACF1
+Training set -0.000351788 1.145667 0.9235824 NaN  Inf    1 -0.5112064</code></pre>
+</div>
+</div>
+<p>From the above plot, only the Snaive benchmark method’s forecasts seem more plausible compared to that of the ARIMA(1,1,2) model. The forecasts produced from the Snaive benchmark have the greatest amount of fluctuations or seasonality in a higher range of number of monthly attacks. However, the metrics paint a different story. The ARIMA(1,1,2) model’s training error measures are better than those of the Snaive benchmark. There are several reasons for this phenomenon:</p>
+<p>Model Assumptions: The ARIMA model assumes that the data is stationary, which means that the mean and variance of the data do not change over time. If the data violates this assumption, the ARIMA model may not perform well. In contrast, the Snaive model does not assume stationarity, which may make it more robust to non-stationary data.</p>
+<p>Parameter Estimation: The ARIMA model has three parameters (p, d, q) that need to be estimated, whereas the Snaive model has only one parameter (the seasonality). It is possible that the parameter estimation process for the ARIMA model was not optimal, leading to suboptimal forecast performance.</p>
+<p>Forecast Horizon: The Snaive model may perform better than the ARIMA model for shorter forecast horizons, while the ARIMA model may perform better for longer forecast horizons. This is because the Snaive model assumes that the future values of the time series will be the same as the past values at the same time of year, which may be a reasonable assumption for short forecast horizons, but not for longer ones.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

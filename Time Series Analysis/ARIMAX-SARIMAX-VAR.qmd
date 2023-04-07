@@ -1,0 +1,7 @@
+---
+title: "ARIMAX/SARIMAX/VAR Models"
+format:
+  html:
+    page-layout: full
+    fontsize: 14px
+---

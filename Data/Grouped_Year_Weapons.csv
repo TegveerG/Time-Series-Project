@@ -1,0 +1,242 @@
+"","Year","Weapon_Type","weapons"
+"1",1970,"Chemical",2
+"2",1970,"Explosives",278
+"3",1970,"Firearms",36
+"4",1970,"Incendiary",145
+"5",1970,"Melee",2
+"6",1970,"Sabotage Equipment",1
+"7",1971,"Chemical",1
+"8",1971,"Explosives",143
+"9",1971,"Firearms",24
+"10",1971,"Incendiary",75
+"11",1971,"Melee",2
+"12",1971,"Unknown",1
+"13",1972,"Explosives",38
+"14",1972,"Fake Weapons",1
+"15",1972,"Firearms",10
+"16",1972,"Incendiary",14
+"17",1972,"Unknown",2
+"18",1973,"Explosives",17
+"19",1973,"Firearms",33
+"20",1973,"Incendiary",7
+"21",1973,"Melee",1
+"22",1974,"Chemical",4
+"23",1974,"Explosives",61
+"24",1974,"Fake Weapons",1
+"25",1974,"Firearms",16
+"26",1974,"Incendiary",7
+"27",1974,"Melee",2
+"28",1974,"Unknown",1
+"29",1975,"Explosives",133
+"30",1975,"Firearms",7
+"31",1975,"Incendiary",4
+"32",1975,"Unknown",5
+"33",1976,"Chemical",2
+"34",1976,"Explosives",79
+"35",1976,"Firearms",8
+"36",1976,"Incendiary",12
+"37",1976,"Melee",1
+"38",1976,"Unknown",3
+"39",1977,"Chemical",1
+"40",1977,"Explosives",85
+"41",1977,"Firearms",10
+"42",1977,"Incendiary",30
+"43",1977,"Melee",1
+"44",1977,"Unknown",2
+"45",1978,"Explosives",57
+"46",1978,"Firearms",13
+"47",1978,"Incendiary",14
+"48",1978,"Melee",1
+"49",1978,"Unknown",1
+"50",1979,"Explosives",47
+"51",1979,"Firearms",14
+"52",1979,"Incendiary",4
+"53",1979,"Melee",1
+"54",1979,"Other",1
+"55",1979,"Unknown",2
+"56",1980,"Explosives",32
+"57",1980,"Firearms",23
+"58",1980,"Incendiary",8
+"59",1980,"Unknown",3
+"60",1981,"Explosives",36
+"61",1981,"Firearms",19
+"62",1981,"Incendiary",12
+"63",1981,"Melee",1
+"64",1981,"Sabotage Equipment",1
+"65",1981,"Unknown",1
+"66",1982,"Explosives",44
+"67",1982,"Firearms",11
+"68",1982,"Incendiary",11
+"69",1982,"Melee",1
+"70",1982,"Other",1
+"71",1982,"Sabotage Equipment",1
+"72",1982,"Unknown",8
+"73",1983,"Explosives",22
+"74",1983,"Firearms",7
+"75",1983,"Incendiary",10
+"76",1983,"Unknown",5
+"77",1984,"Biological",4
+"78",1984,"Explosives",32
+"79",1984,"Firearms",6
+"80",1984,"Incendiary",18
+"81",1984,"Unknown",3
+"82",1985,"Explosives",26
+"83",1985,"Firearms",1
+"84",1985,"Incendiary",12
+"85",1985,"Radiological",1
+"86",1986,"Chemical",1
+"87",1986,"Explosives",32
+"88",1986,"Firearms",2
+"89",1986,"Incendiary",13
+"90",1986,"Sabotage Equipment",1
+"91",1987,"Explosives",18
+"92",1987,"Incendiary",13
+"93",1987,"Sabotage Equipment",2
+"94",1988,"Chemical",1
+"95",1988,"Explosives",14
+"96",1988,"Firearms",2
+"97",1988,"Incendiary",7
+"98",1988,"Sabotage Equipment",2
+"99",1989,"Explosives",19
+"100",1989,"Firearms",3
+"101",1989,"Incendiary",18
+"102",1989,"Sabotage Equipment",1
+"103",1990,"Explosives",15
+"104",1990,"Firearms",4
+"105",1990,"Incendiary",8
+"106",1990,"Melee",1
+"107",1990,"Sabotage Equipment",3
+"108",1991,"Explosives",7
+"109",1991,"Firearms",4
+"110",1991,"Incendiary",19
+"111",1991,"Melee",1
+"112",1992,"Explosives",3
+"113",1992,"Firearms",5
+"114",1992,"Incendiary",21
+"115",1992,"Melee",2
+"116",1994,"Explosives",12
+"117",1994,"Firearms",21
+"118",1994,"Incendiary",19
+"119",1994,"Unknown",2
+"120",1995,"Explosives",16
+"121",1995,"Firearms",13
+"122",1995,"Incendiary",25
+"123",1995,"Melee",2
+"124",1995,"Sabotage Equipment",1
+"125",1996,"Explosives",16
+"126",1996,"Firearms",1
+"127",1996,"Incendiary",16
+"128",1996,"Melee",2
+"129",1997,"Explosives",19
+"130",1997,"Firearms",5
+"131",1997,"Incendiary",18
+"132",1998,"Chemical",2
+"133",1998,"Explosives",8
+"134",1998,"Fake Weapons",1
+"135",1998,"Firearms",2
+"136",1998,"Incendiary",18
+"137",1999,"Explosives",7
+"138",1999,"Firearms",10
+"139",1999,"Incendiary",21
+"140",1999,"Melee",1
+"141",1999,"Other",11
+"142",1999,"Sabotage Equipment",1
+"143",2000,"Chemical",2
+"144",2000,"Explosives",5
+"145",2000,"Firearms",11
+"146",2000,"Incendiary",24
+"147",2001,"Biological",12
+"148",2001,"Explosives",2
+"149",2001,"Firearms",6
+"150",2001,"Incendiary",22
+"151",2001,"Sabotage Equipment",1
+"152",2001,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",4
+"153",2002,"Explosives",20
+"154",2002,"Firearms",2
+"155",2002,"Incendiary",10
+"156",2002,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",1
+"157",2003,"Biological",2
+"158",2003,"Explosives",3
+"159",2003,"Fake Weapons",1
+"160",2003,"Firearms",1
+"161",2003,"Incendiary",27
+"162",2003,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",1
+"163",2004,"Biological",1
+"164",2004,"Incendiary",8
+"165",2005,"Explosives",5
+"166",2005,"Incendiary",15
+"167",2006,"Explosives",1
+"168",2006,"Firearms",1
+"169",2006,"Incendiary",2
+"170",2006,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",2
+"171",2007,"Explosives",2
+"172",2007,"Firearms",1
+"173",2007,"Incendiary",7
+"174",2007,"Sabotage Equipment",1
+"175",2008,"Explosives",2
+"176",2008,"Firearms",1
+"177",2008,"Incendiary",12
+"178",2008,"Melee",2
+"179",2008,"Other",1
+"180",2009,"Explosives",2
+"181",2009,"Firearms",6
+"182",2009,"Incendiary",2
+"183",2009,"Melee",1
+"184",2009,"Sabotage Equipment",1
+"185",2010,"Biological",1
+"186",2010,"Chemical",1
+"187",2010,"Explosives",4
+"188",2010,"Firearms",3
+"189",2010,"Incendiary",6
+"190",2010,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",1
+"191",2011,"Explosives",3
+"192",2011,"Firearms",1
+"193",2011,"Incendiary",5
+"194",2012,"Chemical",1
+"195",2012,"Explosives",1
+"196",2012,"Firearms",4
+"197",2012,"Incendiary",14
+"198",2013,"Biological",3
+"199",2013,"Explosives",7
+"200",2013,"Firearms",4
+"201",2013,"Incendiary",6
+"202",2014,"Chemical",2
+"203",2014,"Explosives",4
+"204",2014,"Firearms",17
+"205",2014,"Incendiary",4
+"206",2014,"Melee",2
+"207",2015,"Explosives",6
+"208",2015,"Firearms",11
+"209",2015,"Incendiary",20
+"210",2015,"Melee",4
+"211",2016,"Explosives",8
+"212",2016,"Firearms",14
+"213",2016,"Incendiary",34
+"214",2016,"Melee",10
+"215",2016,"Other",1
+"216",2016,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",1
+"217",2017,"Chemical",1
+"218",2017,"Explosives",6
+"219",2017,"Firearms",26
+"220",2017,"Incendiary",23
+"221",2017,"Melee",7
+"222",2017,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",3
+"223",2018,"Explosives",25
+"224",2018,"Firearms",15
+"225",2018,"Incendiary",25
+"226",2018,"Melee",9
+"227",2018,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",2
+"228",2019,"Chemical",5
+"229",2019,"Explosives",1
+"230",2019,"Firearms",20
+"231",2019,"Incendiary",33
+"232",2019,"Melee",8
+"233",2019,"Sabotage Equipment",1
+"234",2019,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",4
+"235",2020,"Biological",1
+"236",2020,"Chemical",1
+"237",2020,"Explosives",8
+"238",2020,"Firearms",29
+"239",2020,"Incendiary",55
+"240",2020,"Melee",3
+"241",2020,"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",6

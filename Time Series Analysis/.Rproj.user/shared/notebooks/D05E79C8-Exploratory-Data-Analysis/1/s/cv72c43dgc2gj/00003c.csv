@@ -1,0 +1,2 @@
+"0","par(mfrow = c(1, 2))"
+"0","#subplot(detrended, orig_plot, nrows = 2, heights = c(0.5, 0.5))"

@@ -1,0 +1,4 @@
+"0","gtd <- readxl::read_xlsx(""../Data/gtd.xlsx"")"
+"0","sipri_gdp <- readxl::read_xlsx(""../Data/SIPRI_GDP.xlsx"")"
+"0","sipri_region <- readxl::read_xlsx(""../Data/SIPRI_Region.xlsx"")"
+"0","dhs98 <- readxl::read_xls(""../Data/DHS_98_21.xls"")"

@@ -1,0 +1,4 @@
+"0","# if the exact day/month of the event is unknown, this is recorded as “0”"
+"0","gtd$Date <- as.Date(with(gtd,paste(iyear,imonth,iday,sep=""-"")),""%Y-%m-%d"")"
+"0","# results in 891 NAs total, 33 of which correspond to country_txt==USA"
+"0","#gtd <- pad(gtd, by=""Date"")"

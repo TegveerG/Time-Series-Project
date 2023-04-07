@@ -1,0 +1,42 @@
+project:
+  type: website
+
+website:
+  navbar:
+    foreground: light
+    left:
+      - href: index.qmd
+        text: About Tegveer  
+      - href: Introduction.qmd
+        text: Introduction
+      - href: Data-Sources.qmd
+        text: Data Sources
+      - href: Data-Visualization.qmd
+        text: Data Visualization
+      - href: Exploratory-Data-Analysis.qmd
+        text: Exploratory Data Analysis
+      - href: ARMA-ARIMA-SARIMA.qmd
+        text: ARMA/ARIMA/SARIMA Models
+      - href: Spectral-Analysis.qmd
+        text: Spectral Analysis and Filtering
+      - href: Financial-Models.qmd
+        text: Financial Time Series Models
+      - href: Deep-Learning.qmd
+        text: Deep Learning for TS
+      - href: Conclusion.qmd
+        text: Conclusion
+    pinned: true
+    collapse: true
+
+format:
+  html:
+    theme: 
+      - lux
+      - custom.scss
+    toc: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: false
+    code: true
+
+editor: visual

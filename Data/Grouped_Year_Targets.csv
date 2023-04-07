@@ -1,0 +1,498 @@
+"","Year","Target_Type","targets"
+"1",1970,"Airports & Aircraft",2
+"2",1970,"Business",99
+"3",1970,"Educational Institution",59
+"4",1970,"Food or Water Supply",2
+"5",1970,"Government (Diplomatic)",12
+"6",1970,"Government (General)",58
+"7",1970,"Journalists & Media",3
+"8",1970,"Military",67
+"9",1970,"NGO",8
+"10",1970,"Other",1
+"11",1970,"Police",69
+"12",1970,"Private Citizens & Property",44
+"13",1970,"Religious Figures/Institutions",9
+"14",1970,"Telecommunication",5
+"15",1970,"Terrorists/Non-State Militia",2
+"16",1970,"Tourists",1
+"17",1970,"Transportation",2
+"18",1970,"Unknown",4
+"19",1970,"Utilities",16
+"20",1970,"Violent Political Party",1
+"21",1971,"Airports & Aircraft",1
+"22",1971,"Business",89
+"23",1971,"Educational Institution",30
+"24",1971,"Government (Diplomatic)",11
+"25",1971,"Government (General)",31
+"26",1971,"Journalists & Media",5
+"27",1971,"Military",32
+"28",1971,"NGO",1
+"29",1971,"Police",21
+"30",1971,"Private Citizens & Property",8
+"31",1971,"Religious Figures/Institutions",4
+"32",1971,"Telecommunication",1
+"33",1971,"Tourists",2
+"34",1971,"Transportation",1
+"35",1971,"Utilities",7
+"36",1971,"Violent Political Party",2
+"37",1972,"Airports & Aircraft",2
+"38",1972,"Business",31
+"39",1972,"Educational Institution",5
+"40",1972,"Government (Diplomatic)",4
+"41",1972,"Government (General)",2
+"42",1972,"Military",3
+"43",1972,"Police",5
+"44",1972,"Private Citizens & Property",11
+"45",1972,"Tourists",1
+"46",1972,"Violent Political Party",1
+"47",1973,"Airports & Aircraft",1
+"48",1973,"Business",9
+"49",1973,"Educational Institution",2
+"50",1973,"Government (Diplomatic)",8
+"51",1973,"Government (General)",1
+"52",1973,"Maritime",1
+"53",1973,"NGO",1
+"54",1973,"Police",12
+"55",1973,"Private Citizens & Property",21
+"56",1973,"Religious Figures/Institutions",2
+"57",1974,"Airports & Aircraft",2
+"58",1974,"Business",39
+"59",1974,"Educational Institution",1
+"60",1974,"Government (Diplomatic)",8
+"61",1974,"Government (General)",6
+"62",1974,"Journalists & Media",2
+"63",1974,"Maritime",1
+"64",1974,"Military",3
+"65",1974,"NGO",3
+"66",1974,"Police",9
+"67",1974,"Private Citizens & Property",10
+"68",1974,"Religious Figures/Institutions",1
+"69",1974,"Terrorists/Non-State Militia",1
+"70",1974,"Transportation",1
+"71",1974,"Unknown",2
+"72",1974,"Utilities",3
+"73",1975,"Airports & Aircraft",3
+"74",1975,"Business",58
+"75",1975,"Government (Diplomatic)",15
+"76",1975,"Government (General)",32
+"77",1975,"Journalists & Media",4
+"78",1975,"Maritime",2
+"79",1975,"Military",1
+"80",1975,"NGO",1
+"81",1975,"Police",7
+"82",1975,"Private Citizens & Property",8
+"83",1975,"Tourists",2
+"84",1975,"Transportation",1
+"85",1975,"Utilities",14
+"86",1975,"Violent Political Party",1
+"87",1976,"Airports & Aircraft",5
+"88",1976,"Business",37
+"89",1976,"Educational Institution",3
+"90",1976,"Government (Diplomatic)",18
+"91",1976,"Government (General)",22
+"92",1976,"Journalists & Media",1
+"93",1976,"Maritime",2
+"94",1976,"Military",1
+"95",1976,"Police",2
+"96",1976,"Private Citizens & Property",8
+"97",1976,"Religious Figures/Institutions",1
+"98",1976,"Transportation",1
+"99",1976,"Utilities",4
+"100",1977,"Abortion Related",3
+"101",1977,"Airports & Aircraft",5
+"102",1977,"Business",58
+"103",1977,"Educational Institution",1
+"104",1977,"Government (Diplomatic)",6
+"105",1977,"Government (General)",18
+"106",1977,"Journalists & Media",1
+"107",1977,"Military",1
+"108",1977,"Police",3
+"109",1977,"Private Citizens & Property",15
+"110",1977,"Religious Figures/Institutions",4
+"111",1977,"Terrorists/Non-State Militia",1
+"112",1977,"Transportation",1
+"113",1977,"Unknown",1
+"114",1977,"Utilities",11
+"115",1978,"Abortion Related",5
+"116",1978,"Airports & Aircraft",3
+"117",1978,"Business",27
+"118",1978,"Educational Institution",1
+"119",1978,"Food or Water Supply",3
+"120",1978,"Government (Diplomatic)",12
+"121",1978,"Government (General)",8
+"122",1978,"Journalists & Media",3
+"123",1978,"Military",5
+"124",1978,"NGO",1
+"125",1978,"Police",4
+"126",1978,"Private Citizens & Property",7
+"127",1978,"Religious Figures/Institutions",1
+"128",1978,"Telecommunication",1
+"129",1978,"Tourists",1
+"130",1978,"Transportation",2
+"131",1978,"Utilities",2
+"132",1979,"Abortion Related",1
+"133",1979,"Airports & Aircraft",4
+"134",1979,"Business",13
+"135",1979,"Educational Institution",2
+"136",1979,"Government (Diplomatic)",4
+"137",1979,"Government (General)",11
+"138",1979,"Military",14
+"139",1979,"NGO",1
+"140",1979,"Police",1
+"141",1979,"Private Citizens & Property",13
+"142",1979,"Religious Figures/Institutions",4
+"143",1979,"Utilities",1
+"144",1980,"Airports & Aircraft",7
+"145",1980,"Business",11
+"146",1980,"Educational Institution",2
+"147",1980,"Government (Diplomatic)",9
+"148",1980,"Government (General)",8
+"149",1980,"Journalists & Media",4
+"150",1980,"Military",1
+"151",1980,"NGO",1
+"152",1980,"Private Citizens & Property",19
+"153",1980,"Religious Figures/Institutions",1
+"154",1980,"Terrorists/Non-State Militia",1
+"155",1980,"Transportation",1
+"156",1980,"Utilities",1
+"157",1981,"Airports & Aircraft",2
+"158",1981,"Business",17
+"159",1981,"Educational Institution",3
+"160",1981,"Government (Diplomatic)",14
+"161",1981,"Government (General)",9
+"162",1981,"Journalists & Media",5
+"163",1981,"Military",3
+"164",1981,"NGO",1
+"165",1981,"Private Citizens & Property",7
+"166",1981,"Religious Figures/Institutions",1
+"167",1981,"Utilities",8
+"168",1982,"Abortion Related",7
+"169",1982,"Airports & Aircraft",3
+"170",1982,"Business",24
+"171",1982,"Educational Institution",4
+"172",1982,"Government (Diplomatic)",12
+"173",1982,"Government (General)",7
+"174",1982,"Journalists & Media",3
+"175",1982,"Military",2
+"176",1982,"Police",2
+"177",1982,"Private Citizens & Property",9
+"178",1982,"Religious Figures/Institutions",1
+"179",1982,"Terrorists/Non-State Militia",1
+"180",1982,"Utilities",2
+"181",1983,"Abortion Related",2
+"182",1983,"Airports & Aircraft",2
+"183",1983,"Business",16
+"184",1983,"Government (Diplomatic)",1
+"185",1983,"Government (General)",5
+"186",1983,"Journalists & Media",2
+"187",1983,"Military",6
+"188",1983,"NGO",1
+"189",1983,"Police",1
+"190",1983,"Private Citizens & Property",2
+"191",1983,"Religious Figures/Institutions",5
+"192",1983,"Utilities",1
+"193",1984,"Abortion Related",27
+"194",1984,"Airports & Aircraft",2
+"195",1984,"Business",14
+"196",1984,"Educational Institution",1
+"197",1984,"Government (Diplomatic)",2
+"198",1984,"Government (General)",3
+"199",1984,"Journalists & Media",1
+"200",1984,"Military",5
+"201",1984,"NGO",1
+"202",1984,"Private Citizens & Property",1
+"203",1984,"Religious Figures/Institutions",5
+"204",1984,"Utilities",1
+"205",1985,"Abortion Related",14
+"206",1985,"Business",6
+"207",1985,"Educational Institution",2
+"208",1985,"Food or Water Supply",1
+"209",1985,"Government (Diplomatic)",1
+"210",1985,"Government (General)",1
+"211",1985,"Military",2
+"212",1985,"NGO",2
+"213",1985,"Police",2
+"214",1985,"Private Citizens & Property",6
+"215",1985,"Religious Figures/Institutions",1
+"216",1985,"Utilities",2
+"217",1986,"Abortion Related",13
+"218",1986,"Airports & Aircraft",1
+"219",1986,"Business",9
+"220",1986,"Educational Institution",1
+"221",1986,"Government (Diplomatic)",1
+"222",1986,"Government (General)",7
+"223",1986,"Military",12
+"224",1986,"Police",1
+"225",1986,"Private Citizens & Property",1
+"226",1986,"Religious Figures/Institutions",1
+"227",1986,"Unknown",1
+"228",1986,"Utilities",1
+"229",1987,"Abortion Related",10
+"230",1987,"Business",14
+"231",1987,"Educational Institution",1
+"232",1987,"Government (Diplomatic)",1
+"233",1987,"Government (General)",3
+"234",1987,"Journalists & Media",1
+"235",1987,"Police",2
+"236",1987,"Private Citizens & Property",1
+"237",1988,"Abortion Related",6
+"238",1988,"Business",10
+"239",1988,"Educational Institution",1
+"240",1988,"Government (General)",2
+"241",1988,"Military",4
+"242",1988,"Private Citizens & Property",1
+"243",1988,"Religious Figures/Institutions",1
+"244",1988,"Utilities",1
+"245",1989,"Abortion Related",8
+"246",1989,"Business",14
+"247",1989,"Educational Institution",1
+"248",1989,"Government (General)",7
+"249",1989,"Journalists & Media",3
+"250",1989,"Military",3
+"251",1989,"NGO",1
+"252",1989,"Private Citizens & Property",4
+"253",1990,"Abortion Related",7
+"254",1990,"Business",4
+"255",1990,"Educational Institution",1
+"256",1990,"Government (General)",2
+"257",1990,"Journalists & Media",1
+"258",1990,"Military",2
+"259",1990,"Private Citizens & Property",4
+"260",1990,"Religious Figures/Institutions",5
+"261",1990,"Terrorists/Non-State Militia",1
+"262",1990,"Utilities",4
+"263",1991,"Abortion Related",12
+"264",1991,"Business",4
+"265",1991,"Educational Institution",1
+"266",1991,"Government (Diplomatic)",1
+"267",1991,"Government (General)",5
+"268",1991,"Journalists & Media",2
+"269",1991,"Military",5
+"270",1991,"Religious Figures/Institutions",1
+"271",1992,"Abortion Related",17
+"272",1992,"Business",1
+"273",1992,"Educational Institution",4
+"274",1992,"Government (Diplomatic)",2
+"275",1992,"Government (General)",3
+"276",1992,"Journalists & Media",1
+"277",1992,"Military",1
+"278",1992,"Police",1
+"279",1992,"Telecommunication",1
+"280",1994,"Abortion Related",15
+"281",1994,"Business",19
+"282",1994,"Educational Institution",2
+"283",1994,"Government (General)",3
+"284",1994,"Journalists & Media",4
+"285",1994,"Private Citizens & Property",9
+"286",1994,"Religious Figures/Institutions",2
+"287",1995,"Abortion Related",20
+"288",1995,"Airports & Aircraft",1
+"289",1995,"Business",18
+"290",1995,"Government (General)",9
+"291",1995,"Police",1
+"292",1995,"Private Citizens & Property",1
+"293",1995,"Religious Figures/Institutions",5
+"294",1995,"Transportation",1
+"295",1995,"Unknown",1
+"296",1996,"Abortion Related",11
+"297",1996,"Business",8
+"298",1996,"Educational Institution",1
+"299",1996,"Government (General)",4
+"300",1996,"Journalists & Media",2
+"301",1996,"Police",1
+"302",1996,"Private Citizens & Property",4
+"303",1996,"Religious Figures/Institutions",3
+"304",1996,"Violent Political Party",1
+"305",1997,"Abortion Related",17
+"306",1997,"Airports & Aircraft",1
+"307",1997,"Business",8
+"308",1997,"Educational Institution",1
+"309",1997,"Government (General)",6
+"310",1997,"Journalists & Media",2
+"311",1997,"Military",1
+"312",1997,"Police",2
+"313",1997,"Religious Figures/Institutions",3
+"314",1997,"Tourists",1
+"315",1998,"Abortion Related",9
+"316",1998,"Business",7
+"317",1998,"Food or Water Supply",1
+"318",1998,"Government (General)",9
+"319",1998,"Journalists & Media",1
+"320",1998,"Private Citizens & Property",3
+"321",1998,"Telecommunication",1
+"322",1999,"Abortion Related",9
+"323",1999,"Business",7
+"324",1999,"Educational Institution",15
+"325",1999,"Government (General)",3
+"326",1999,"Maritime",1
+"327",1999,"NGO",1
+"328",1999,"Private Citizens & Property",8
+"329",1999,"Religious Figures/Institutions",6
+"330",1999,"Utilities",1
+"331",2000,"Abortion Related",5
+"332",2000,"Business",19
+"333",2000,"Government (General)",3
+"334",2000,"Military",1
+"335",2000,"Police",1
+"336",2000,"Private Citizens & Property",11
+"337",2000,"Religious Figures/Institutions",2
+"338",2001,"Abortion Related",2
+"339",2001,"Business",22
+"340",2001,"Educational Institution",3
+"341",2001,"Government (General)",7
+"342",2001,"Journalists & Media",5
+"343",2001,"Military",1
+"344",2001,"Private Citizens & Property",7
+"345",2002,"Airports & Aircraft",1
+"346",2002,"Business",4
+"347",2002,"Educational Institution",1
+"348",2002,"Government (Diplomatic)",1
+"349",2002,"Government (General)",2
+"350",2002,"NGO",1
+"351",2002,"Private Citizens & Property",22
+"352",2002,"Terrorists/Non-State Militia",1
+"353",2003,"Abortion Related",2
+"354",2003,"Business",22
+"355",2003,"Educational Institution",1
+"356",2003,"Government (General)",3
+"357",2003,"Military",2
+"358",2003,"Private Citizens & Property",3
+"359",2003,"Religious Figures/Institutions",2
+"360",2004,"Abortion Related",1
+"361",2004,"Business",3
+"362",2004,"Educational Institution",1
+"363",2004,"Government (General)",1
+"364",2004,"Private Citizens & Property",2
+"365",2004,"Religious Figures/Institutions",1
+"366",2005,"Abortion Related",4
+"367",2005,"Business",5
+"368",2005,"Educational Institution",1
+"369",2005,"Government (Diplomatic)",1
+"370",2005,"Government (General)",2
+"371",2005,"Private Citizens & Property",5
+"372",2005,"Religious Figures/Institutions",2
+"373",2006,"Business",2
+"374",2006,"Educational Institution",1
+"375",2006,"Private Citizens & Property",3
+"376",2007,"Abortion Related",2
+"377",2007,"Educational Institution",2
+"378",2007,"Government (Diplomatic)",1
+"379",2007,"Private Citizens & Property",3
+"380",2007,"Religious Figures/Institutions",3
+"381",2008,"Abortion Related",2
+"382",2008,"Business",2
+"383",2008,"Educational Institution",3
+"384",2008,"Military",1
+"385",2008,"Police",1
+"386",2008,"Private Citizens & Property",1
+"387",2008,"Religious Figures/Institutions",4
+"388",2008,"Tourists",1
+"389",2008,"Transportation",1
+"390",2008,"Unknown",1
+"391",2008,"Utilities",1
+"392",2009,"Abortion Related",1
+"393",2009,"Airports & Aircraft",1
+"394",2009,"Business",2
+"395",2009,"Educational Institution",2
+"396",2009,"Military",2
+"397",2009,"Private Citizens & Property",2
+"398",2009,"Religious Figures/Institutions",1
+"399",2009,"Telecommunication",1
+"400",2010,"Business",5
+"401",2010,"Educational Institution",1
+"402",2010,"Government (General)",3
+"403",2010,"Journalists & Media",1
+"404",2010,"Military",1
+"405",2010,"Private Citizens & Property",1
+"406",2010,"Religious Figures/Institutions",3
+"407",2010,"Transportation",1
+"408",2011,"Business",1
+"409",2011,"Government (General)",4
+"410",2011,"Private Citizens & Property",2
+"411",2011,"Religious Figures/Institutions",1
+"412",2011,"Transportation",1
+"413",2012,"Abortion Related",4
+"414",2012,"Business",2
+"415",2012,"Educational Institution",1
+"416",2012,"Government (General)",1
+"417",2012,"NGO",1
+"418",2012,"Private Citizens & Property",1
+"419",2012,"Religious Figures/Institutions",9
+"420",2012,"Utilities",1
+"421",2013,"Abortion Related",2
+"422",2013,"Airports & Aircraft",2
+"423",2013,"Business",2
+"424",2013,"Educational Institution",1
+"425",2013,"Government (General)",3
+"426",2013,"Police",1
+"427",2013,"Private Citizens & Property",5
+"428",2013,"Religious Figures/Institutions",2
+"429",2013,"Unknown",1
+"430",2013,"Utilities",1
+"431",2014,"Government (Diplomatic)",1
+"432",2014,"Government (General)",5
+"433",2014,"Police",6
+"434",2014,"Private Citizens & Property",10
+"435",2014,"Religious Figures/Institutions",6
+"436",2014,"Utilities",1
+"437",2015,"Abortion Related",5
+"438",2015,"Airports & Aircraft",1
+"439",2015,"Business",7
+"440",2015,"Educational Institution",2
+"441",2015,"Government (General)",1
+"442",2015,"Military",3
+"443",2015,"Private Citizens & Property",7
+"444",2015,"Religious Figures/Institutions",15
+"445",2016,"Abortion Related",1
+"446",2016,"Business",7
+"447",2016,"Educational Institution",2
+"448",2016,"Government (General)",1
+"449",2016,"Journalists & Media",1
+"450",2016,"Other",1
+"451",2016,"Police",11
+"452",2016,"Private Citizens & Property",14
+"453",2016,"Religious Figures/Institutions",25
+"454",2016,"Transportation",1
+"455",2016,"Utilities",4
+"456",2017,"Abortion Related",1
+"457",2017,"Airports & Aircraft",2
+"458",2017,"Business",8
+"459",2017,"Educational Institution",1
+"460",2017,"Government (General)",4
+"461",2017,"Journalists & Media",1
+"462",2017,"Military",2
+"463",2017,"Police",8
+"464",2017,"Private Citizens & Property",24
+"465",2017,"Religious Figures/Institutions",12
+"466",2017,"Tourists",1
+"467",2017,"Transportation",2
+"468",2018,"Abortion Related",1
+"469",2018,"Business",5
+"470",2018,"Educational Institution",6
+"471",2018,"Government (General)",13
+"472",2018,"Journalists & Media",1
+"473",2018,"Military",1
+"474",2018,"Police",1
+"475",2018,"Private Citizens & Property",27
+"476",2018,"Religious Figures/Institutions",19
+"477",2018,"Unknown",2
+"478",2019,"Airports & Aircraft",1
+"479",2019,"Business",10
+"480",2019,"Educational Institution",2
+"481",2019,"Government (General)",4
+"482",2019,"Military",1
+"483",2019,"Police",3
+"484",2019,"Private Citizens & Property",22
+"485",2019,"Religious Figures/Institutions",27
+"486",2019,"Telecommunication",2
+"487",2020,"Abortion Related",2
+"488",2020,"Business",6
+"489",2020,"Educational Institution",1
+"490",2020,"Government (General)",8
+"491",2020,"Military",3
+"492",2020,"Police",24
+"493",2020,"Private Citizens & Property",23
+"494",2020,"Religious Figures/Institutions",30
+"495",2020,"Telecommunication",4
+"496",2020,"Terrorists/Non-State Militia",1
+"497",2020,"Utilities",1
