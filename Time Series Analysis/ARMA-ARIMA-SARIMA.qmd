@@ -11,7 +11,7 @@ bibliography: bibliography.bib
 
 ## Summary
 
-After completing the exploratory data analysis (EDA) phase, the next step is  to begin building time series models. In order to do so, one must first choose an appropriate model type, such as an ARMA (AutoRegressive Moving Average) model or one of its variations, including ARIMA (AutoRegressive Integrated Moving Average) or SARIMA (Seasonal AutoRegressive Integrated Moving Average).
+After completing the exploratory data analysis (EDA) phase, the next step is to begin building time series models. In order to do so, one must first choose an appropriate model type, such as an ARMA (AutoRegressive Moving Average) model or one of its variations, including ARIMA (AutoRegressive Integrated Moving Average) or SARIMA (Seasonal AutoRegressive Integrated Moving Average).
 
 An ARIMA model is generally notated as ARIMA(p,d,q) where p is the order of the AR process, d is the degree of differencing and q is the order of the MA process. The general equation of the model is given as follows:
 
@@ -121,15 +121,17 @@ ts_attacks_interp <- na.approx(monthly_attacks_ts) # approximate year 1993 NAs
 # impute use these values in original dataframe
 gtd_monthly_attacks_deaths$num_attacks[277:288] <- round(ts_attacks_interp[277:288],0)
 
-# convert to time series object
-monthly_attacks_ts <- ts(gtd_monthly_attacks_deaths$num_attacks, start = c(1970, 1), frequency = 12)
+# convert to time series object with monthly frequency
+monthly_attacks_ts <- ts(gtd_monthly_attacks_deaths$num_attacks, start = c(1970, 1), frequency = 12) # 51 yrs of data
 ```
 
 ### Splitting Series into Train and Test Sets for Model Validation Process
 
-```{r pacf, message=FALSE, warning=FALSE, echo=FALSE}
-train_series=monthly_attacks_ts[1:489] # 80% of the data
-test_series=monthly_attacks_ts[490:612] # 20% of the data
+After cleaning and aggregating the Global Terrorism Database™ (GTD) [@GTD] by month, we shall be splitting the aggregated monthly data set into train and test sets for model validation. I have kept 587 observations for training and the remaining 48 observations for testing or validating. Therefore, I have kept aside 2 years (48 months or 48 observations) for forecasting purposes.
+
+```{r split, message=FALSE, warning=FALSE, echo=FALSE}
+train_series=monthly_attacks_ts[1:587] # close to 92%
+test_series=monthly_attacks_ts[588:612] # keeping 2 years (48 months or 48 observations) to predict/forecast
 ```
 
 ### ACF and PACF Plots of Monthly Attacks {#ACF}
@@ -154,7 +156,7 @@ Because the p-value from the ADF test is less than $\alpha$ = 0.05, we reject th
 ### Log-Transformation of Monthly Attacks and its First and Second Order Differencing
 
 ```{r logadf, message=FALSE, warning=FALSE, echo=FALSE}
-lx = log(train_series+1); dlx = diff(lx); ddlx = diff(dlx, 12)
+lx = log(train_series+1); dlx = diff(lx); ddlx = diff(dlx, 12) # add 1 to lx to not get NAs
 
 x = train_series
 
@@ -239,7 +241,13 @@ fit <- Arima(lx, order=c(0,1,1)) # no drift included
 summary(fit)
 ```
 
-The best model with the lowest BIC metric is the ARIMA(0,1,1). This model is a pure moving average model with first-order differencing and a single lagged moving average term. Although, according to both AIC and AICc metrics, the ARIMA(2,1,1) model is better, we shall choose our model using the BIC metric because BIC is more stringent than AIC in penalizing the number of parameters used in the model, making it more effective in helping reduce overfitting. The equation of the ARIMA(0,1,1) model is given by:
+The best model with the lowest BIC metric is the ARIMA(0,1,1). This model is a pure moving average model with first-order differencing and a single lagged moving average term. Therefore, the model has no autoregressive terms, i.e., it does not use the past values of the variable to predict its future values. It uses only the difference between the current and previous values of the variable and the error term to make the forecast. Although, according to both AIC and AICc metrics, the ARIMA(2,1,3) model is better, we shall choose our model using the BIC metric because BIC is more stringent than AIC in penalizing the number of parameters used in the model, making it more effective in helping reduce overfitting.
+
+ARIMA(2,1,3) is a time series model that involves taking the first-order difference of the series, using two Autoregressive (AR) terms and three Moving Average (MA) terms. This means that the model uses not only the past two values of the variable, but also the past three errors to make the forecast. The inclusion of the MA terms allows the model to capture the influence of random shocks or noise in the data. However, including too many autoregressive terms may lead to overfitting, which can result in poor forecast performance and we shall explore that in the next few sections
+
+The choice between ARIMA(0,1,1) and ARIMA(2,1,3) depends on the nature of the data and the performance of the models in terms of RMSE or other error metrics. If the data has a clear trend, then including Autoregressive terms may improve the forecast accuracy. On the other hand, if the data is more random, then a simpler model like ARIMA(0,1,1) may be sufficient. There is a clear decreasing trend of monthly terrorist attacks from the 1970s to 2015, with random and/or seasonal fluctuations, but the number of attacks does start increasing sharply after 2015. Therefore, no single pattern is discerned along the entire series and, moreover, we shall be abiding by the principle of parsimony if we select ARIMA(0,1,1) as the best model.
+
+The equation of the ARIMA(0,1,1) model is given by:
 
 $\begin{equation}(1-B)(1-\theta_1B)X_t = \omega_t\end{equation}$, giving us:
 
@@ -249,7 +257,7 @@ $\begin{equation}\left(1-\theta_1B\right)X_t - B\left(1-\theta_1B\right)X_t = \o
 
 $\begin{equation}X_t - \theta_1X_{t-1} - B\left(X_{t-1}-\theta_1X_{t-2}\right) = \omega_t\end{equation}$, finally substituting the MA(1) values from the model's summary:
 
-$\begin{equation}X_t = -0.8405X_{t-1} + X_{t-1} + 0.8405X_{t-2} + \omega_t\end{equation}$, where $(1-B)$ is the differencing operator, which represents the first-order difference of the series. $X_t$ is the time series, $\theta_1$ is the parameter of the MA component, and $\omega_t$ is the Gaussian white noise process. 
+$\begin{equation}X_t = -0.8436X_{t-1} + X_{t-1} + 0.8436X_{t-2} + \omega_t\end{equation}$, where $(1-B)$ is the differencing operator, which represents the first-order difference of the series. $X_t$ is the time series, $\theta_1$ is the parameter of the MA component, and $\omega_t$ is the Gaussian white noise process. 
 
 Note that $B$ is the backshift operator, which shifts the time series back by one period.
 
@@ -259,6 +267,10 @@ Note that $B$ is the backshift operator, which shifts the time series back by on
 model_output <- capture.output(sarima(lx, 0,1,1))
 ```
 
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+cat(model_output[24:55], model_output[length(model_output)], sep = "\n") 
+```
+
 Standardized Residuals: Essentially stating that if the errors are white noise. The model does look stationary as it captures all the signals and essentially captures the raw white noise.
 
 ACF Of Residuals: Auto-correlation of the residuals. The only **q** value to inspect is 1.
@@ -266,6 +278,22 @@ ACF Of Residuals: Auto-correlation of the residuals. The only **q** value to ins
 Q-Q Plot: The series follows a normal distribution pretty closely as even the tails seem to be on the normal line.
 
 p values of the Ljung-Box statistic: Ideally, we would like to fail to reject the null hypothesis. That is, we would like to see the p-value of the test be greater than 0.05 because this means the residuals for our time series model are independent, which is often an assumption we make when creating a model. Since all lag values greater than 5 have a p-value greater than 0.05, the residuals have no remaining autocorrelations.
+
+The only MA term in the ARIMA(0,1,1) model is also significant at the $\alpha$=5% level as shown by its p-value = 0. Let's check whether all terms in the ARIMA(2,1,3) model are significant or not.
+
+### Model Diagnostics of ARIMA(2,1,3) 
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+model_output2 <- capture.output(sarima(lx, 2,1,3))
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+cat(model_output2[205:239], model_output2[length(model_output2)], sep = "\n") 
+```
+
+Like the ARIMA(0,1,1) output for the summary of residuals, the ARIMA(2,1,3) does as well, if not better. The ACF of residuals for ARIMA(2,1,3), although, has spikes less significant than ARIMA(0,1,1) and the p-values for Ljung-Box test for ARIMA(2,1,3) are higher than those of ARIMA(0,1,1). However, a key difference is that only the MA(1) term in the ARIMA(2,1,3) model is significant at the $\alpha$=5% level as shown by its p-value = 0.0004 and all other terms are not significant. Therefore, a simpler model, ARIMA(0,1,1), would be a better fit to the log of monthly attacks series.
+
+Let's see what model is outputted by `auto.arima()`.
 
 ### Checking Model Output of Log Monthly Attacks with auto.arima()
 
@@ -279,88 +307,103 @@ From the above output, `auto.arima()` too outputted an ARIMA(0,1,1) model, which
 
 The `auto.arima()` function in R uses a stepwise algorithm to search through the space of possible ARIMA models and select the one with the lowest AIC value. While this approach can be computationally efficient and provide a good starting point for model selection, it does not necessarily always find the best possible model for a given time series.
 
-On the other hand, the `Arima()` function in R allows you to specify the exact order of the ARIMA model and can be used to fit more complex models, such as those with seasonality, exogenous variables, or other constraints. By specifying the exact order of the model, you have more control over the modeling process and can potentially obtain a better fit to the data.
+On the other hand, the `Arima()` function in R allows us to specify the exact order of the ARIMA model and can be used to fit more complex models, such as those with seasonality, exogenous variables, or other constraints. By specifying the exact order of the model, we have more control over the modeling process and can potentially obtain a better fit to the data.
 
 In summary, the `auto.arima()` function can be a useful tool for quickly identifying a potentially good model, but it is not a substitute for careful model selection and customization seen when using the `Arima()` function.
 
-### Forecasting ARIMA(0,1,1) and ARIMA(2,1,1)
+### Forecasting ARIMA(0,1,1) and ARIMA(2,1,3)
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 arimaModel_1 <- arima(lx, order = c(0,1,1))
-arimaModel_2 <- arima(lx, order = c(2,1,1))
+arimaModel_2 <- arima(lx, order = c(2,1,3))
 
-forecast1=predict(arimaModel_1, length(test_series))
+forecast1=predict(arimaModel_1, length(test_series)) # make forecasts for 2 years ahead as given by length of test_series
 forecast2=predict(arimaModel_2, length(test_series))
 
 # Convert the time series and forecast objects to data frames
 ts_df <- data.frame(date = time(monthly_attacks_ts), value = as.numeric(monthly_attacks_ts))
-train_df <- data.frame(date = time(monthly_attacks_ts)[1:489], value = as.numeric(train_series))
-forecast1_df <- data.frame(date = time(monthly_attacks_ts)[490:612], value = forecast1$pred)
-forecast2_df <- data.frame(date = time(monthly_attacks_ts)[490:612], value = forecast2$pred)
+train_df <- data.frame(date = time(monthly_attacks_ts)[1:587], value = as.numeric(lx))
+forecast1_df <- data.frame(date = time(monthly_attacks_ts)[588:612], value = forecast1$pred)
+forecast2_df <- data.frame(date = time(monthly_attacks_ts)[588:612], value = forecast2$pred)
 
 # Plot the time series and forecasts
 ggplotly(ggplot() +
-    geom_line(data = ts_df[400:489,], aes(x = date, y = value), 
-              color = "black", linetype = "solid", alpha=0.4, show.legend = TRUE) +
-    geom_point(data = train_df[400:489,], aes(x = date, y = value), 
+    geom_line(data = train_df[500:588,], aes(x = date, y = value, 
+              color = "Actual Train Values"), linetype = "solid", alpha=0.6, show.legend = TRUE) +
+    geom_point(data = train_df[500:588,], aes(x = date, y = value), 
                color = "red", shape = 16, alpha=0.4, show.legend = TRUE) +
     geom_line(data = forecast1_df, aes(x = date, y = value, 
                                        color = "ARIMA(0,1,1) Forecast"), linetype = "solid", show.legend = TRUE) +
     geom_line(data = forecast2_df, aes(x = date, y = value, 
-                                       color = "ARIMA(2,1,1) Forecast"), linetype = "solid", show.legend = TRUE) +
-    geom_line(data = ts_df[490:612,], aes(x = date, y = value, 
-                                       color = "Actual Values"), linetype = "solid", show.legend = TRUE) +
-    labs(x = "Date", y = "Number of Attacks", title = "Forecasting ARIMA(0,1,1) and ARIMA(2,1,1)") +
+                                       color = "ARIMA(2,1,3) Forecast"), linetype = "solid", show.legend = TRUE) +
+    geom_line(data = ts_df[588:612,], aes(x = date, y = log(value), 
+                                       color = "Actual Forecast Values"), linetype = "solid", show.legend = TRUE) +
+    labs(x = "Date", y = "Log of Number of Monthly Attacks", title = "Forecasting ARIMA(0,1,1) and ARIMA(2,1,3)") +
     theme_minimal() +
     scale_color_manual(name = "Forecast", 
-                       values = c("ARIMA(0,1,1) Forecast" = "red", 
-                                  "ARIMA(2,1,1) Forecast" = "green",
-                                   "Actual Values" = "orange"),
+                       values = c("ARIMA(0,1,1) Forecast" = "blue", 
+                                  "ARIMA(2,1,3) Forecast" = "green",
+                                   "Actual Forecast Values" = "orange"),
                        labels = c("ARIMA(0,1,1) Forecast", 
-                                  "ARIMA(2,1,1) Forecast",
-                                  "Actual Values")))
+                                  "ARIMA(2,1,3) Forecast",
+                                  "Actual Forecast Values")))
 ```
 
-From the above graph, we can note that the number of attacks will fluctuate anywhere between 0 to 6 (converting from log data) every month from 2021 to 2022, as per the 95% confidence bound. A spike is noticed for the first observed forecast after which the model does poorly to forecast the rest of the year. Since the ARIMA(1,1,2) is relatively simple, it is not as robust and complex to forecast more than a month into the future. The straight red line forecast after the first forecasted month suggests that 1 attack per month (converting from log data) would take place, an averaged out value. This is expected. 
-
-Moreover, the other suboptimal models outputted by `Arima()` also give the same forecast, so overlaying them onto the above plot would be redundant. It is, however, pragmatic to check whether the `auto.arima()` model's forecast may forecast differently. Let us find out below.
+From the above graph, we can note that the forecasted number of attacks remains constant at around 1 for both models on the test set (October 2010 to December 2020). This performance is not what was expected and, hence, it is possible that the models are not able to capture the underlying patterns in the data. This can be due to a variety of reasons, such as insufficient data and the models not being complex enough to capture the variation in the data. It is, however, pragmatic to check whether the `sarima.for()` function's predictions may forecast differently. Let us find out below.
 
 ### Forecasting ARIMA(0,1,1) using sarima.for()
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-sarima.for(lx, 14, p = 0, d = 1, q = 1)
+log_monthly_attacks <- ts(lx, start = c(1970, 1), frequency = 12) # Objects of class <numeric> are not supported by autoplot.
+sarima.for(ts(train_df$value, start = c(1970, 1), frequency = 12), 24, p = 0, d = 1, q = 1, main = "Forecasting ARIMA(0,1,1) using sarima.for()") 
 ```
 
-Like the previous forecast, we can note that, for the `auto.arima()` model, the number of attacks will fluctuate anywhere between 0 to 6 every month from 2021 to 2022 (again this is logged data), as per the 95% confidence bound. However, from the above plot, it can be discerned from red line that the `auto.arima()` model's forecasts fluctuate more for the initial months' forecasts than that of the `Arima()` model's forecasts, which was smoother for the initial 2 months. Like the `Arima()` model's forecasts, the the `auto.arima()` model's forecast then lie on a single value, 1 attack per month, as the red line flattens out. Note that the output of the `auto.arima()` model was ARIMA(1,1,1), so it was expected that the forecast would be slightly less smoother than the ARIMA(1,1,2) model outputted by `Arima()`. This is attributed to the fact that ARIMA(1,1,2) has an additional Moving-Average term, which help make its forecasts smoother.
+Like the previous forecast, we can note that `sarima.for()` too does not accurately capture the inherent randomness and/or seasonality in the series and, hence, it outputs a highly linear, downward trending forecast. As per its 95% confidence bound, the number of attacks will fluctuate anywhere between 3 to 12 attacks every month from 2019 to end of 2020  (keep in mind that the plot is log of monthly attacks). 
 
 ### Comparing ARIMA(0,1,1) with Benchmarks
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-autoplot(ts(lx, start = c(1970, 1), frequency = 12)) +
-  autolayer(meanf(ts(lx, start = c(1970, 1), frequency = 12), h=22),
+autoplot(log_monthly_attacks) +
+  autolayer(meanf(log_monthly_attacks, h=24),
             series="Mean", PI=FALSE) +
-  autolayer(naive(ts(lx, start = c(1970, 1), frequency = 12), h=22),
+  autolayer(naive(log_monthly_attacks, h=24),
             series="Naïve", PI=FALSE) +
-  autolayer(snaive(ts(lx, start = c(1970, 1), frequency = 12), h=22),
+  autolayer(snaive(log_monthly_attacks, h=24),
             series="SNaïve", PI=FALSE)+
-  autolayer(rwf(ts(lx, start = c(1970, 1), frequency = 12), h=22, drift=TRUE),
+  autolayer(rwf(log_monthly_attacks, h=24, drift=TRUE),
             series="Drift", PI=FALSE)+
-  autolayer(forecast(Arima(ts(lx, start = c(1970, 1), frequency = 12), order=c(0,1,1)),22), 
+  autolayer(forecast(Arima(log_monthly_attacks, order=c(0,1,1)), 24), 
             series="ARIMA(0,1,1)",PI=FALSE) +
   guides(colour=guide_legend(title="Forecast")) +
   ylab("Log of Monthly Attacks") + ggtitle("Forecasting ARIMA(0,1,1) and Benchmarks") + theme_minimal()
 
 cat("ARIMA(0,1,1) model metrics: \n")
-fit <- Arima(lx, order=c(1,1,2))
+fit <- Arima(log_monthly_attacks, order=c(0,1,1))
 summary(fit)
 
+cat("\nMean metrics: \n")
+f1 <- meanf(log_monthly_attacks, h=24) 
+
+checkresiduals(f1)
+
+accuracy(f1)
+
 cat("\nSnaive metrics: \n")
-f2 <- snaive(lx, h=36) 
+f2 <- snaive(log_monthly_attacks, h=24) 
+
+checkresiduals(f2)
 
 accuracy(f2)
+
+cat("\nRandom Walk metrics: \n")
+f3 <- rwf(log_monthly_attacks, h=24) 
+
+checkresiduals(f3)
+
+accuracy(f3)
 ```
 
-From the above plot, only the Snaive benchmark method's forecasts seem more plausible compared to that of the ARIMA(0,1,1) model. The forecasts produced from the Snaive benchmark have the greatest amount of fluctuations or seasonality in a higher range of number of monthly attacks. However, the metrics paint a different story. The ARIMA(0,1,1) model's training error measures are better than those of the Snaive benchmark. There are several reasons for this phenomenon:
+From the above plot, only the Snaive benchmark method's forecasts seem more plausible compared to that of the ARIMA(0,1,1) model. The forecasts produced from the Snaive benchmark have the greatest amount of fluctuations or seasonality in a higher range of number of monthly attacks. However, the metrics paint a different story. The ARIMA(0,1,1) model's training error measures are better than those of all the benchmarks. There are several reasons for this phenomenon:
 
 Model Assumptions: The ARIMA model assumes that the data is stationary, which means that the mean and variance of the data do not change over time. If the data violates this assumption, the ARIMA model may not perform well. In contrast, the Snaive model does not assume stationarity, which may make it more robust to non-stationary data.
 
@@ -370,7 +413,7 @@ Forecast Horizon: The Snaive model may perform better than the ARIMA model for s
 
 ## Global Terrorism Database SARIMA Modeling
 
-## Visualizing Seasonal Components of Monthly Attacks 
+### Visualizing Seasonal Components of Monthly Attacks 
 
 ```{r sznlcomp, message=FALSE, warning=FALSE, echo=FALSE}
 # Visualize Seasonal Component
@@ -384,7 +427,7 @@ axis(2); box()
 
 From the above seasonal component graph of the number of monthly terrorist attacks, we notice there does exist some level of seasonality in the original series. The seasonal component graph illustrates the degree of seasonal variation in the number of terrorist attacks. The magnitude of the seasonal variation is shown on the y-axis of the graph, and it indicates how much the number of terrorist attacks deviates from the average value for each season. The graph shows a repeating pattern in the number of terrorist attacks over time, with clear peaks in the first and second quarters and troughs in the third quarter. This pattern implies that the number of terrorist attacks in the US *might* be influenced by the season of the year. 
 
-## Visualizing Seasonally Differenced Monthly Attacks 
+### Visualizing Seasonally Differenced Monthly Attacks 
 
 ```{r sznldiff, message=FALSE, warning=FALSE, echo=FALSE}
 # Seasonal differenced
@@ -479,7 +522,7 @@ SARIMA.c=function(p1,p2,q1,q2,P1,P2,Q1,Q2,data){
 }
 ```
 
-```{r}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 # q=0,1,2,3,4; Q=1 and PACF plot: p=0,1,2,3,4; P=1,2; D=1 and d=1
 
 output=SARIMA.c(p1=1,p2=5,q1=1,q2=5,P1=1,P2=3,Q1=1,Q2=2,data=monthly_attacks_ts)
@@ -503,7 +546,7 @@ Note that $B$ is the backshift operator, which shifts the time series back by on
 
 ### Model Diagnostics of ARIMA(0,1,1)(0,1,1)
 
-```{r}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 model_output <- capture.output(sarima(monthly_attacks_ts, 0,1,1,0,1,1,12))
 ```
 
@@ -517,15 +560,15 @@ p values of the Ljung-Box statistic: Ideally, we would like to fail to reject th
 
 ### Forecast for the next 3 years using ARIMA(0,1,1)(0,1,1)
 
-```{r}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 fit <- Arima(monthly_attacks_ts, order=c(0,1,1), seasonal=c(0,1,1))
 summary(fit)
 fit %>% forecast(h=36) %>% autoplot() #next 3 years
 ```
 
-### Comparing ARIMA(0,1,1)(0,1,1)  with benchmarks
+### Comparing ARIMA(0,1,1)(0,1,1) with benchmarks
 
-```{r}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 cat("Best model metrics: \n")
 fit <- Arima(monthly_attacks_ts, order=c(0,1,1), seasonal=c(0,1,1))
 
@@ -553,7 +596,7 @@ accuracy(f2)
 
 ### Seasonal Cross Validation of ARIMA(0,1,1)(0,1,1) and ARIMA(1,1,1)(0,1,1) using 1 step ahead forecasts 
 
-```{r}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 k <- 75 # minimum data length for fitting a model 
 n <- length(monthly_attacks_ts)
 #n-k # rest of the observations
@@ -583,7 +626,7 @@ Both MAE and RMSE metrics agree that ARIMA(1,1,1)(0,1,1) is the best model by a 
 
 ### Seasonal Cross Validation of ARIMA(0,1,1)(0,1,1) and ARIMA(1,1,1)(0,1,1) using 12 steps (seasonal period) ahead forecasts
 
-```{r}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 k <- 75 # minimum data length for fitting a model 
 n <- length(monthly_attacks_ts)
 n-k # rest of the observations

@@ -58,6 +58,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -113,10 +114,17 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#global-terrorism-database-arima-modeling" id="toc-global-terrorism-database-arima-modeling" class="nav-link" data-scroll-target="#global-terrorism-database-arima-modeling">Global Terrorism Database ARIMA Modeling</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -134,8 +142,19 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>After completing the exploratory data analysis (EDA) phase, the next step is to begin building time series models. In order to do so, one must first choose an appropriate model type, such as an ARMA (AutoRegressive Moving Average) model or one of its variations, including ARIMA (AutoRegressive Integrated Moving Average) or SARIMA (Seasonal AutoRegressive Integrated Moving Average).</p>
+<p>An ARIMA model is generally notated as ARIMA(p,d,q) where p is the order of the AR process, d is the degree of differencing and q is the order of the MA process. The general equation of the model is given as follows:</p>
+<p><span class="math inline">\(\phi(B)(1-B)^d x_t = \delta + \theta(B) w_t\)</span>, where <span class="math inline">\(B\)</span> is the backshift operator, <span class="math inline">\(w_t\)</span> is the Gaussian white noise process, <span class="math inline">\(\delta\)</span> is the drift term and <span class="math inline">\(\phi(B)\)</span> and <span class="math inline">\(\theta(B)\)</span> correspond to the AR and MA parts respectively.</p>
+<p>Lag plots, auto-correlation function (ACF) and partial auto-correlation function (PACF) plots, decomposing the time series, and differencing are all useful techniques that were employed during the EDA phase to help inform the choice of model type and parameters. With a solid understanding of the data and its characteristics, one can begin to develop and refine time series models that can be used for forecasting.</p>
+<p>Code for this section can be found <a href="https://tegveerg.georgetown.domains/Time-Series-Project/ARMAX-SARIMAX-VAR.qmd">here</a></p>
+</section>
+<section id="global-terrorism-database-arima-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="global-terrorism-database-arima-modeling">Global Terrorism Database ARIMA Modeling</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -4,4 +4,22 @@ format:
   html:
     page-layout: full
     fontsize: 14px
+reference-location: margin
+citation-location: margin
+bibliography: bibliography.bib
 ---
+
+## Summary
+
+After completing the exploratory data analysis (EDA) phase, the next step is  to begin building time series models. In order to do so, one must first choose an appropriate model type, such as an ARMA (AutoRegressive Moving Average) model or one of its variations, including ARIMA (AutoRegressive Integrated Moving Average) or SARIMA (Seasonal AutoRegressive Integrated Moving Average).
+
+An ARIMA model is generally notated as ARIMA(p,d,q) where p is the order of the AR process, d is the degree of differencing and q is the order of the MA process. The general equation of the model is given as follows:
+
+$\phi(B)(1-B)^d x_t = \delta + \theta(B) w_t$, 
+where $B$ is the backshift operator, $w_t$ is the Gaussian white noise process, $\delta$ is the drift term and $\phi(B)$ and $\theta(B)$ correspond to the AR and MA parts respectively.
+
+Lag plots, auto-correlation function (ACF) and partial auto-correlation function (PACF) plots, decomposing the time series, and differencing are all useful techniques that were employed during the EDA phase to help inform the choice of model type and parameters. With a solid understanding of the data and its characteristics, one can begin to develop and refine time series models that can be used for forecasting. 
+
+Code for this section can be found [here](https://tegveerg.georgetown.domains/Time-Series-Project/ARMAX-SARIMAX-VAR.qmd)
+
+## Global Terrorism Database ARIMA Modeling
