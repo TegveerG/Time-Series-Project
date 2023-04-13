@@ -20,6 +20,25 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -57,8 +76,15 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -119,12 +145,22 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#global-terrorism-database-arima-modeling" id="toc-global-terrorism-database-arima-modeling" class="nav-link" data-scroll-target="#global-terrorism-database-arima-modeling">Global Terrorism Database ARIMA Modeling</a></li>
+  <li><a href="#Lit" id="toc-Lit" class="nav-link" data-scroll-target="#Lit">Literature Review</a></li>
+  <li><a href="#var-model-justification" id="toc-var-model-justification" class="nav-link" data-scroll-target="#var-model-justification">VAR Model Justification</a></li>
+  <li><a href="#building-the-var-model" id="toc-building-the-var-model" class="nav-link" data-scroll-target="#building-the-var-model">Building the VAR Model</a>
+  <ul class="collapse">
+  <li><a href="#time-series-plots" id="toc-time-series-plots" class="nav-link" data-scroll-target="#time-series-plots">Time Series Plots</a></li>
+  <li><a href="#pairs-plot" id="toc-pairs-plot" class="nav-link" data-scroll-target="#pairs-plot">Pairs Plot</a></li>
+  <li><a href="#multicollinearity-removing-correlated-variables" id="toc-multicollinearity-removing-correlated-variables" class="nav-link" data-scroll-target="#multicollinearity-removing-correlated-variables">Multicollinearity! Removing Correlated Variables</a></li>
+  <li><a href="#fitting-var-model" id="toc-fitting-var-model" class="nav-link" data-scroll-target="#fitting-var-model">Fitting VAR Model</a></li>
+  <li><a href="#k-fold-cross-validation-and-model-diagnostics" id="toc-k-fold-cross-validation-and-model-diagnostics" class="nav-link" data-scroll-target="#k-fold-cross-validation-and-model-diagnostics">K-Fold Cross Validation and Model Diagnostics</a></li>
+  <li><a href="#forecasting-chosen-model-p1" id="toc-forecasting-chosen-model-p1" class="nav-link" data-scroll-target="#forecasting-chosen-model-p1">Forecasting Chosen Model (p=1)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content page-columns page-full column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -144,16 +180,356 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>After completing the exploratory data analysis (EDA) phase, the next step is to begin building time series models. In order to do so, one must first choose an appropriate model type, such as an ARMA (AutoRegressive Moving Average) model or one of its variations, including ARIMA (AutoRegressive Integrated Moving Average) or SARIMA (Seasonal AutoRegressive Integrated Moving Average).</p>
-<p>An ARIMA model is generally notated as ARIMA(p,d,q) where p is the order of the AR process, d is the degree of differencing and q is the order of the MA process. The general equation of the model is given as follows:</p>
-<p><span class="math inline">\(\phi(B)(1-B)^d x_t = \delta + \theta(B) w_t\)</span>, where <span class="math inline">\(B\)</span> is the backshift operator, <span class="math inline">\(w_t\)</span> is the Gaussian white noise process, <span class="math inline">\(\delta\)</span> is the drift term and <span class="math inline">\(\phi(B)\)</span> and <span class="math inline">\(\theta(B)\)</span> correspond to the AR and MA parts respectively.</p>
-<p>Lag plots, auto-correlation function (ACF) and partial auto-correlation function (PACF) plots, decomposing the time series, and differencing are all useful techniques that were employed during the EDA phase to help inform the choice of model type and parameters. With a solid understanding of the data and its characteristics, one can begin to develop and refine time series models that can be used for forecasting.</p>
+<p>In the previous ARIMA/SARIMA modeling section, we analyzed a univariate time series of monthly terrorist attacks in the US that occurred from 1970 to 2020. Although the SARIMA model performed better than the ARIMA model, due to the added seasonal Moving Average term, we can gauge our understanding of the monthly terrorist attacks better by including <strong>endogenous variables</strong>! Endogenous variables are those that are determined within the system being studied and are influenced by other variables in the system. These variables are typically modeled as being interdependent and are affected by changes in the values of other variables. In the case of terrorist attacks and casualties suffered from them, potential endogenous variables could include USA military expenditure, non-immigrant admissions data, and the performance of major weapons contracts, including Lockheed Martin, Boeing, and Raytheon Technologies. With the help of a literature review, <span class="citation" data-cites="Lit">(<a href="#ref-Lit" role="doc-biblioref"><strong>Lit?</strong></a>)</span> it can be reinforced thoroughly and plausibly that the aforementioned endogenous variables have, in fact, not only been employed but also found to have effects related to terrorism in prior research.</p>
 <p>Code for this section can be found <a href="https://tegveerg.georgetown.domains/Time-Series-Project/ARMAX-SARIMAX-VAR.qmd">here</a></p>
 </section>
-<section id="global-terrorism-database-arima-modeling" class="level2">
-<h2 class="anchored" data-anchor-id="global-terrorism-database-arima-modeling">Global Terrorism Database ARIMA Modeling</h2>
+<section id="Lit" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="Lit">Literature Review</h2>
+<p>The Stimson Study Group’s Report on Counterterrorism Spending <span class="citation" data-cites="stimson2018counterterroism">(<a href="#ref-stimson2018counterterroism" role="doc-biblioref">Counterterrorism Spending and Center 2018</a>)</span> in the post-9/11 era provides valuable insights into the amount of resources the United States devotes to counterterrorism efforts. The report found that the US government spent over USD2.8 trillion on counterterrorism efforts from 2002 to 2017, which represents a significant portion of the country’s overall military budget during that period. Specifically, the report notes that counterterrorism spending accounted for 17% to 23% of the US defense budget each year between 2002 and 2017. Hartung (2021) <span class="citation" data-cites="hartung_2021">(<a href="#ref-hartung_2021" role="doc-biblioref">Hartung 2021</a>)</span> found that the “Global War on Terror”, which emerged in the early 2000s as a result of the 9/11 attacks, had a significant impact on the political environment, resulting in a surge in the Pentagon’s budget, the largest component of the US military budget. This increased funding was largely directed towards <strong>military contractors, Lockheed Martin, Boeing, General Dynamics, Raytheon Technologies, and Northrop Grumman</strong>, who were enlisted to aid in the efforts. Since Fiscal Year 2001, the total expenditures of the Pentagon for all purposes have surpassed USD14.1 trillion (measured in 2021 dollars). Out of this sum, USD4.4 trillion was used for weapons procurement and research and development (R&amp;D), which mainly benefited corporate contractors. <strong>The rest of the funds were utilized for</strong> paying and providing benefits to military and civilian personnel and other expenses, necessary for <strong>operating and maintaining the United States military</strong>. Congressional Research Service (CRS) estimates that in FY2020, the spending for contractors grew to $420 billion - well over half of the total Pentagon budget. Therefore, the biggest financial beneficiaries of the post-9/11 military spending surge have been the aforementioned weapons contractors.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-stimson2018counterterroism" class="csl-entry" role="doc-biblioentry">
+Counterterrorism Spending, Stimson Study Group on, and Henry L. Stimson Center. 2018. <em>Counterterroism Spending: Protecting America While Promoting Efficiencies and Accountability</em>. Stimson. <a href="https://books.google.com/books?id=GQRCzgEACAAJ">https://books.google.com/books?id=GQRCzgEACAAJ</a>.
+</div><div id="ref-hartung_2021" class="csl-entry" role="doc-biblioentry">
+Hartung, William D. 2021. <span>“Profits of War: Corporate Beneficiaries of the Post-9/11 Pentagon Spending Surge.”</span> <em>Costs of War</em>. Watson Institute for International; Public Affairs, Brown University. <a href="https://watson.brown.edu/costsofwar/files/cow/imce/papers/2021/Profits%20of%20War_Hartung_Costs%20of%20War_Sept%2013%2C%202021.pdf">https://watson.brown.edu/costsofwar/files/cow/imce/papers/2021/Profits%20of%20War_Hartung_Costs%20of%20War_Sept%2013%2C%202021.pdf</a>.
+</div><div id="ref-LiandSchaub2004" class="csl-entry" role="doc-biblioentry">
+Li, Quan, and Drew Schaub. 2004. <span>“Economic Globalization and Transnational Terrorism: A Pooled Time-Series Analysis.”</span> <em>The Journal of Conflict Resolution</em> 48 (2): 230–58. <a href="http://www.jstor.org/stable/3176252">http://www.jstor.org/stable/3176252</a>.
+</div></div><p>Furthermore, several papers have discussed and analyzed the relation between military spending or counterterrorism efforts with transnational terrorism prior to the 9/11 attacks. Li and Schaub (2004) <span class="citation" data-cites="LiandSchaub2004">(<a href="#ref-LiandSchaub2004" role="doc-biblioref">Li and Schaub 2004</a>)</span> employed <em>GOVCAPABILITY</em>, a control variable in their Pooled Time-Series Analysis , that comprised military manpower and military expenditures for 112 countries from 1975 to 1997. Because the variable captured state military and economic strength, it represented a proxy that the government could use for combating terrorism. Gaibulloev, K., Sandler, T., &amp; Sul, D. (2014) <span class="citation" data-cites="gaibulloev_sandler_sul_2014Such">(<a href="#ref-gaibulloev_sandler_sul_2014Such" role="doc-biblioref"><strong>gaibulloev_sandler_sul_2014Such?</strong></a>)</span> challenged extant literature about terrorism and its impact on economic growth that suffered from Nickell Bias, a type of bias that arises in statistical models when the independent variable is measured with error, and cross-sectional dependence, a statistical issue that arises in panel data analysis when the individual units (e.g., countries or firms) in the panel are not completely independent of one another. They mentioned that cross-sectional dependence is apt to affect other variables, such as democracy, threat, <strong>military spending</strong>, and financial measures. However, when Nickell bias and cross-sectional dependence are addressed, terrorism has no influence whatsoever on economic growth.</p>
+<p>Therefore, the perused literature about counterterrorism and military spending underscores the importance of counterterrorism efforts, including funding weapons contractors, in shaping the country’s military spending priorities, particularly in the wake of the 9/11 terrorist attacks. By highlighting the amount of resources devoted to counterterrorism, these reports and papers help us understand how the overall US budget and military budget are allocated and the policy decisions that drive those allocations. However, it might also possible that during the VAR model building phase of this section, we find that military spending may not be a significant indicator of the number of casualties stemming from terrorist attacks in the Global Terrorism Database™ (GTD) <span class="citation" data-cites="GTD">(<a href="#ref-GTD" role="doc-biblioref"><span>“Codebook Methodology Inclusion Criteria and Variables - UMD,”</span> n.d.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-GTD" class="csl-entry" role="doc-biblioentry">
+<span>“Codebook Methodology Inclusion Criteria and Variables - UMD.”</span> n.d. <em>Global Terrorism Database</em>. University of Maryland. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
+</div><div id="ref-nowrasteh_2019" class="csl-entry" role="doc-biblioentry">
+Nowrasteh, Alex. 2019. <span>“Terrorists by Immigration Status and Nationality: A Risk Analysis, 1975–2017.”</span> <em>Cato.org</em>. Cato Institute. <a href="https://www.cato.org/publications/policy-analysis/terrorists-immigration-status-nationality-risk-analysis-1975-2017#foreign-born-terrorism-risk-for-visas-issued-by-category">https://www.cato.org/publications/policy-analysis/terrorists-immigration-status-nationality-risk-analysis-1975-2017#foreign-born-terrorism-risk-for-visas-issued-by-category</a>.
+</div></div><p>Secondly, Nowrasteh (2019) <span class="citation" data-cites="nowrasteh_2019">(<a href="#ref-nowrasteh_2019" role="doc-biblioref">Nowrasteh 2019</a>)</span> found, by carefully analyzing the GTD, that the chance of being murdered by a tourist on a B visa, the most common tourist visa, is about 1 in 4.1 million per year. Compared to foreign‐born terrorists, the chance of being murdered by a native‐born terrorist is about 1 in 28 million per year. Moreover, there were 192 foreign‐born terrorists, relative to the 788 native-born terrorists, who planned, attempted, or carried out attacks on U.S. soil from 1975 through 2017. Through a cost-benefit risk analysis, it was also found that the combined human, property, business, and economic costs of terrorism from 1975 through 2017 are estimated at USD216.58 billion. Spread over 43 years, the average annual cost of terrorism is USD5.04 billion, which is about one‐hundredth the minimum estimated yearly benefit of $553.9 billion from immigration and tourism. Therefore, foreign‐born terrorism on U.S. soil is a low‐probability event that imposes high costs on its victims, despite relatively small risks.</p>
+</section>
+<section id="var-model-justification" class="level2">
+<h2 class="anchored" data-anchor-id="var-model-justification">VAR Model Justification</h2>
+<p>Using a VAR model over an ARIMAX model for this research has a multitude of benefits, including:</p>
+<ul>
+<li><p>Simultaneous modeling of multivariate time series: VAR allows for the simultaneous modeling of multiple endogenous variables, whereas ARIMAX (Autoregressive Integrated Moving Average with Explanatory Variables) can only model one dependent variable at a time. This means that VAR can capture the complex relationships between multiple variables that may be influencing each other.</p></li>
+<li><p>Better handling of lags: VAR can handle multiple lags in the data more efficiently than ARIMAX. This is important in the case of studying the impact of terrorist attacks, as the effects of a single attack may persist over a longer period of time and may have delayed impacts on different variables.</p></li>
+<li><p>More robust to missing data: VAR can handle missing data more effectively than ARIMAX, as it does not require the same level of complete data in order to estimate the model parameters. This is particularly relevant in the case of studying the impact of terrorist attacks, as data may be missing or incomplete for certain variables in certain time periods.</p></li>
+<li><p>Better captures dynamic relationships: VAR is better suited for capturing the dynamic relationships between variables over time, whereas ARIMAX can only capture the static relationships between variables at a particular point in time. This is important in the case of studying the impact of terrorist attacks, as the relationships between variables may change over time due to factors such as changes in government policies or public opinion.</p></li>
+<li><p>No clear seasonality: Another reason why the VAR model is justified is that there may not be a clear seasonality pattern in the data related to terrorist attacks. This means that traditional time-series models may not be effective in capturing the complex relationships between the variables. The VAR model, on the other hand, does not rely on a specific seasonal pattern and can account for the complex relationships between variables without requiring seasonal adjustments. Moreover, the data that will be analyzed is aggregated yearly from 1970 to 2020, which makes it more difficult to identify and capture seasonal patterns. Yearly data may also be influenced by other factors that are not related to seasonality, such as long-term trends or cyclical patterns, that occur over longer periods of time. This can make it more challenging to distinguish between seasonal effects and other underlying factors that may be driving the data.</p></li>
+<li><p>Non-linearity: The relationships between variables in the case of terrorist attacks may not be linear, and traditional linear models may not be able to capture the non-linear effects. The VAR model is capable of modeling non-linear relationships between variables and can account for the complex interactions that may exist between them.</p></li>
+</ul>
+</section>
+<section id="building-the-var-model" class="level2">
+<h2 class="anchored" data-anchor-id="building-the-var-model">Building the VAR Model</h2>
+<div class="cell">
+
+</div>
+<section id="time-series-plots" class="level3">
+<h3 class="anchored" data-anchor-id="time-series-plots">Time Series Plots</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ARIMAX-SARIMAX-VAR_files/figure-html/tsplots-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="pairs-plot" class="level3">
+<h3 class="anchored" data-anchor-id="pairs-plot">Pairs Plot</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9efc9edc7b732794bad6" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-9efc9edc7b732794bad6">{"x":{"visdat":{"278d7b2f5fb6":["function () ","plotlyVisDat"]},"cur_data":"278d7b2f5fb6","attrs":{"278d7b2f5fb6":{"diagonal":{"visible":false},"dimensions":[{"label":"# Casualties","values":{}},{"label":"# Attacks","values":{}},{"label":"Tourists DHS","values":{}},{"label":"Business DHS","values":{}},{"label":"Students DHS","values":{}},{"label":"RTX","values":{}}],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"splom"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"hovermode":"x","title":"Scatterplot Matrix of VAR Time Series Variables","xaxis":{"title":""},"yaxis":{"title":""},"showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"diagonal":{"visible":false},"dimensions":[{"label":"# Casualties","values":[33,20,10,45,16,24,4,5,8,18,14,8,10,8,3,3,1,1,1,3,5,26,2,28,10,178,2,2,4,20,8,3014,4,0,0,0,1,0,2,22,4,0,7,23,26,54,68,98,45,53,12]},{"label":"# Attacks","values":[464,246,65,58,92,149,105,129,86,69,66,70,77,44,63,40,49,33,26,41,31,31,31,21,54,57,35,42,31,51,42,47,33,35,9,20,6,11,18,12,16,9,20,20,29,41,68,66,76,72,103]},{"label":"Tourists DHS","values":[9515170,9515170,9515170,9515170,9515170,9515170,9515170,9515170,9515170,9515170,9515170,9515170,8788525,8061880,7335235,6608590,7985088.5,9361587,10738085.5,12114584,13418328,14618065,16440997,16918351,17154834,17611536,19110004,14312587,9515170,23643561,22335763.6666667,21027966.3333333,19720169,19981833,22653699,23701858,24788438,27486177,29442168,27800027,35131310,40578964,42025488,48346018,59784922,61017237,61029117,61600219,64819854,64864687,28731613]},{"label":"Business DHS","values":[1135422,1135422,1135422,1135422,1135422,1135422,1135422,1135422,1135422,1135422,1135422,1135422,1300771.25,1466120.5,1631469.75,1796819,1985794,2174769,2363744,2552719,2661338,2616335,2788069,2961092,3164099,3275336,3770326,4077931,4385536,4554517,4486074.33333333,4417631.66666667,4349189,4198988,4576783,4684164,5030779,5418884,5603668,4390888,5205980,5694809,5705106,6299533,7734191,8008659,8290712,8456038,8967224,9059770,4209153]},{"label":"Students DHS","values":[240805,240805,240805,240805,240805,240805,240805,240805,240805,240805,240805,240805,244871,248937,253003,257069,276402.25,295735.5,315068.75,334402,326264,343238,368686,370620,394001,364220,426903,512711.5,598520,641760,699953,741921,687506,662966,656373,663919,740724,841673,917373,951964,1595078,1788962,1653576,1669225,1837664,1990661,1991940,1940171,1957852,1907176,918442]},{"label":"RTX","values":[0.136338,0.125117,0.118484,0.111851,0.165332,0.245645,0.427321,0.468292666666667,0.509264333333333,0.550236,0.816227,0.585845,0.839921,1.0007855,1.16165,1.437607,1.556819,1.182128,1.40898266666667,1.63583733333333,1.862692,2.194055,1.999996,2.664417,3.82393633333333,4.98345566666667,6.142975,6.861031,10.402703,12.579855,12.7098895,12.839924,12.490479,19.409124,21.493523,25.4813643333333,29.4692056666667,33.457047,23.925987,31.86618,37.020092,38.7639105,40.507729,57.465122,59.32259,50.751022,53.9815366666667,57.2120513333333,60.442566,86.929314,67.844963]}],"type":"splom","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="multicollinearity-removing-correlated-variables" class="level3">
+<h3 class="anchored" data-anchor-id="multicollinearity-removing-correlated-variables">Multicollinearity! Removing Correlated Variables</h3>
+<div class="cell">
+
+</div>
+</section>
+<section id="fitting-var-model" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-var-model">Fitting VAR Model</h3>
+<p>Here we use the <code>VARselect()</code> function to find the best <code>p</code> to fit <code>VAR(p)</code>. We will choose a maximum lag of 10 and check which <code>p</code> value returns lowest AIC.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$selection
+AIC(n)  HQ(n)  SC(n) FPE(n) 
+     2      1      1      2 
+
+$criteria
+              1        2        3        4        5        6        7        8
+AIC(n) 1.091791 1.045844 1.204512 1.335694 1.440519 1.577721 1.728764 1.829026
+HQ(n)  1.213545 1.228475 1.448020 1.640078 1.805780 2.003859 2.215779 2.376919
+SC(n)  1.426146 1.547377 1.873223 2.171582 2.443585 2.747965 3.066186 3.333626
+FPE(n) 2.983318 2.857871 3.369113 3.879711 4.374444 5.128738 6.148074 7.078170
+              9       10
+AIC(n) 1.974601 1.548992
+HQ(n)  2.583371 2.218638
+SC(n)  3.646379 3.387947
+FPE(n) 8.637254 6.049901</code></pre>
+</div>
+</div>
+<p>Now, we will fit VAR(1), VAR(2), and VAR(3):</p>
+<p>VAR(1) output:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+VAR Estimation Results:
+========================= 
+Endogenous variables: num_fatal, milexp.gdp 
+Deterministic variables: both 
+Sample size: 50 
+Log Likelihood: -156.054 
+Roots of the characteristic polynomial:
+0.8623 0.08703
+Call:
+VAR(y = var_ts, p = 1, type = "both")
 
 
+Estimation results for equation num_fatal: 
+========================================== 
+num_fatal = num_fatal.l1 + milexp.gdp.l1 + const + trend 
+
+                Estimate Std. Error t value Pr(&gt;|t|)  
+num_fatal.l1  -9.631e-02  1.465e-01  -0.657   0.5143  
+milexp.gdp.l1 -1.401e+04  7.687e+03  -1.823   0.0749 .
+const          9.409e+02  5.176e+02   1.818   0.0756 .
+trend         -6.862e+00  6.433e+00  -1.067   0.2916  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 422.1 on 46 degrees of freedom
+Multiple R-Squared: 0.07287,    Adjusted R-squared: 0.01241 
+F-statistic: 1.205 on 3 and 46 DF,  p-value: 0.3185 
+
+
+Estimation results for equation milexp.gdp: 
+=========================================== 
+milexp.gdp = num_fatal.l1 + milexp.gdp.l1 + const + trend 
+
+                Estimate Std. Error t value Pr(&gt;|t|)    
+num_fatal.l1   6.347e-07  1.189e-06   0.534    0.596    
+milexp.gdp.l1  8.716e-01  6.238e-02  13.971   &lt;2e-16 ***
+const          6.091e-03  4.200e-03   1.450    0.154    
+trend         -3.141e-05  5.221e-05  -0.602    0.550    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.003425 on 46 degrees of freedom
+Multiple R-Squared: 0.9185, Adjusted R-squared: 0.9132 
+F-statistic: 172.9 on 3 and 46 DF,  p-value: &lt; 2.2e-16 
+
+
+
+Covariance matrix of residuals:
+            num_fatal milexp.gdp
+num_fatal   1.781e+05 -9.236e-02
+milexp.gdp -9.236e-02  1.173e-05
+
+Correlation matrix of residuals:
+           num_fatal milexp.gdp
+num_fatal    1.00000   -0.06388
+milexp.gdp  -0.06388    1.00000</code></pre>
+</div>
+</div>
+<p>VAR(2) output:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+VAR Estimation Results:
+========================= 
+Endogenous variables: num_fatal, milexp.gdp 
+Deterministic variables: both 
+Sample size: 49 
+Log Likelihood: -145.735 
+Roots of the characteristic polynomial:
+0.7139 0.5935 0.3244 0.3244
+Call:
+VAR(y = var_ts, p = 2, type = "both")
+
+
+Estimation results for equation num_fatal: 
+========================================== 
+num_fatal = num_fatal.l1 + milexp.gdp.l1 + num_fatal.l2 + milexp.gdp.l2 + const + trend 
+
+                Estimate Std. Error t value Pr(&gt;|t|)  
+num_fatal.l1     -0.1154     0.1512  -0.763   0.4495  
+milexp.gdp.l1 -7542.4239 18769.9771  -0.402   0.6898  
+num_fatal.l2     -0.1020     0.1511  -0.675   0.5031  
+milexp.gdp.l2 -9590.1881 18131.7059  -0.529   0.5996  
+const          1143.1762   569.6714   2.007   0.0511 .
+trend            -8.3498     6.8180  -1.225   0.2274  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 431.8 on 43 degrees of freedom
+Multiple R-Squared: 0.09241,    Adjusted R-squared: -0.01312 
+F-statistic: 0.8757 on 5 and 43 DF,  p-value: 0.5054 
+
+
+Estimation results for equation milexp.gdp: 
+=========================================== 
+milexp.gdp = num_fatal.l1 + milexp.gdp.l1 + num_fatal.l2 + milexp.gdp.l2 + const + trend 
+
+                Estimate Std. Error t value Pr(&gt;|t|)    
+num_fatal.l1   7.472e-07  1.061e-06   0.704  0.48517    
+milexp.gdp.l1  1.274e+00  1.317e-01   9.673 2.35e-12 ***
+num_fatal.l2   6.724e-07  1.060e-06   0.634  0.52932    
+milexp.gdp.l2 -3.739e-01  1.272e-01  -2.938  0.00529 ** 
+const          5.674e-03  3.998e-03   1.419  0.16305    
+trend         -5.050e-05  4.785e-05  -1.055  0.29711    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.00303 on 43 degrees of freedom
+Multiple R-Squared: 0.9355, Adjusted R-squared: 0.928 
+F-statistic: 124.7 on 5 and 43 DF,  p-value: &lt; 2.2e-16 
+
+
+
+Covariance matrix of residuals:
+            num_fatal milexp.gdp
+num_fatal   1.865e+05 -8.394e-02
+milexp.gdp -8.394e-02  9.183e-06
+
+Correlation matrix of residuals:
+           num_fatal milexp.gdp
+num_fatal    1.00000   -0.06415
+milexp.gdp  -0.06415    1.00000</code></pre>
+</div>
+</div>
+<p>VAR(3) output:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+VAR Estimation Results:
+========================= 
+Endogenous variables: num_fatal, milexp.gdp 
+Deterministic variables: both 
+Sample size: 48 
+Log Likelihood: -142.005 
+Roots of the characteristic polynomial:
+0.7981 0.7981 0.4925 0.4925 0.4315 0.3136
+Call:
+VAR(y = var_ts, p = 3, type = "both")
+
+
+Estimation results for equation num_fatal: 
+========================================== 
+num_fatal = num_fatal.l1 + milexp.gdp.l1 + num_fatal.l2 + milexp.gdp.l2 + num_fatal.l3 + milexp.gdp.l3 + const + trend 
+
+                Estimate Std. Error t value Pr(&gt;|t|)  
+num_fatal.l1  -1.331e-01  1.571e-01  -0.848   0.4017  
+milexp.gdp.l1 -3.862e+03  2.260e+04  -0.171   0.8652  
+num_fatal.l2  -1.239e-01  1.573e-01  -0.787   0.4357  
+milexp.gdp.l2 -1.181e+04  3.451e+04  -0.342   0.7341  
+num_fatal.l3  -1.095e-01  1.569e-01  -0.698   0.4892  
+milexp.gdp.l3 -4.098e+03  2.051e+04  -0.200   0.8427  
+const          1.310e+03  6.349e+02   2.064   0.0456 *
+trend         -9.324e+00  7.342e+00  -1.270   0.2114  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 443.6 on 40 degrees of freedom
+Multiple R-Squared: 0.1086, Adjusted R-squared: -0.04738 
+F-statistic: 0.6963 on 7 and 40 DF,  p-value: 0.6747 
+
+
+Estimation results for equation milexp.gdp: 
+=========================================== 
+milexp.gdp = num_fatal.l1 + milexp.gdp.l1 + num_fatal.l2 + milexp.gdp.l2 + num_fatal.l3 + milexp.gdp.l3 + const + trend 
+
+                Estimate Std. Error t value Pr(&gt;|t|)    
+num_fatal.l1   5.676e-07  1.084e-06   0.524   0.6034    
+milexp.gdp.l1  1.205e+00  1.559e-01   7.725 1.87e-09 ***
+num_fatal.l2   5.849e-07  1.086e-06   0.539   0.5931    
+milexp.gdp.l2 -1.376e-01  2.382e-01  -0.578   0.5668    
+num_fatal.l3  -1.487e-07  1.083e-06  -0.137   0.8915    
+milexp.gdp.l3 -1.966e-01  1.416e-01  -1.388   0.1727    
+const          7.824e-03  4.381e-03   1.786   0.0817 .  
+trend         -7.158e-05  5.067e-05  -1.413   0.1654    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+Residual standard error: 0.003061 on 40 degrees of freedom
+Multiple R-Squared: 0.9351, Adjusted R-squared: 0.9237 
+F-statistic: 82.28 on 7 and 40 DF,  p-value: &lt; 2.2e-16 
+
+
+
+Covariance matrix of residuals:
+            num_fatal milexp.gdp
+num_fatal   1.968e+05 -1.064e-01
+milexp.gdp -1.064e-01  9.371e-06
+
+Correlation matrix of residuals:
+           num_fatal milexp.gdp
+num_fatal    1.00000   -0.07837
+milexp.gdp  -0.07837    1.00000</code></pre>
+</div>
+</div>
+</section>
+<section id="k-fold-cross-validation-and-model-diagnostics" class="level3">
+<h3 class="anchored" data-anchor-id="k-fold-cross-validation-and-model-diagnostics">K-Fold Cross Validation and Model Diagnostics</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: center;">P Values</th>
+<th style="text-align: center;">RMSE</th>
+<th style="text-align: center;">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">842.84</td>
+<td style="text-align: center;">226.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">869.69</td>
+<td style="text-align: center;">216.43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">900.83</td>
+<td style="text-align: center;">216.98</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Lowest Test RMSE is given by <code>p=1</code>; however, it also has highest AIC score on the train set. Because test set performance is best and it is the simplest model, we shall choose this.</p>
+</section>
+<section id="forecasting-chosen-model-p1" class="level3">
+<h3 class="anchored" data-anchor-id="forecasting-chosen-model-p1">Forecasting Chosen Model (p=1)</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$num_fatal
+         fcst     lower    upper       CI
+[1,] 167.6021 -660.8578 996.0621 828.4600
+[2,] 154.4513 -677.8052 986.7077 832.2565
+[3,] 153.3720 -679.9722 986.7162 833.3442
+[4,] 151.6575 -682.5675 985.8825 834.2250
+[5,] 150.1764 -684.7512 985.1041 834.9277
+
+$milexp.gdp
+           fcst      lower      upper          CI
+[1,] 0.03735113 0.03068326 0.04401900 0.006667872
+[2,] 0.03761949 0.02864728 0.04659170 0.008972207
+[3,] 0.03785150 0.02739770 0.04830531 0.010453805
+[4,] 0.03805958 0.02655696 0.04956221 0.011502626
+[5,] 0.03824566 0.02596832 0.05052299 0.012277336</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ARIMAX-SARIMAX-VAR_files/figure-html/forc-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+
+</section>
 </section>
 
 </main> <!-- /main -->

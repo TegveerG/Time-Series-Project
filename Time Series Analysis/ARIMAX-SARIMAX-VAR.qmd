@@ -11,15 +11,472 @@ bibliography: bibliography.bib
 
 ## Summary
 
-After completing the exploratory data analysis (EDA) phase, the next step is  to begin building time series models. In order to do so, one must first choose an appropriate model type, such as an ARMA (AutoRegressive Moving Average) model or one of its variations, including ARIMA (AutoRegressive Integrated Moving Average) or SARIMA (Seasonal AutoRegressive Integrated Moving Average).
-
-An ARIMA model is generally notated as ARIMA(p,d,q) where p is the order of the AR process, d is the degree of differencing and q is the order of the MA process. The general equation of the model is given as follows:
-
-$\phi(B)(1-B)^d x_t = \delta + \theta(B) w_t$, 
-where $B$ is the backshift operator, $w_t$ is the Gaussian white noise process, $\delta$ is the drift term and $\phi(B)$ and $\theta(B)$ correspond to the AR and MA parts respectively.
-
-Lag plots, auto-correlation function (ACF) and partial auto-correlation function (PACF) plots, decomposing the time series, and differencing are all useful techniques that were employed during the EDA phase to help inform the choice of model type and parameters. With a solid understanding of the data and its characteristics, one can begin to develop and refine time series models that can be used for forecasting. 
+In the previous ARIMA/SARIMA modeling section, we analyzed a univariate time series of monthly terrorist attacks in the US that occurred from 1970 to 2020. Although the SARIMA model performed better than the ARIMA model, due to the added seasonal Moving Average term, we can gauge our understanding of the monthly terrorist attacks better by including **endogenous variables**! Endogenous variables are those that are determined within the system being studied and are influenced by other variables in the system. These variables are typically modeled as being interdependent and are affected by changes in the values of other variables. In the case of terrorist attacks and casualties suffered from them, potential endogenous variables could include USA military expenditure, non-immigrant admissions data, and the performance of major weapons contracts, including Lockheed	Martin,	Boeing, and Raytheon Technologies. With the help of a literature review, [@Lit] it can be reinforced thoroughly and plausibly that the aforementioned endogenous variables have, in fact, not only been employed but also found to have effects related to terrorism in prior research.
 
 Code for this section can be found [here](https://tegveerg.georgetown.domains/Time-Series-Project/ARMAX-SARIMAX-VAR.qmd)
 
-## Global Terrorism Database ARIMA Modeling
+## Literature Review {#Lit}
+
+The Stimson Study Group's Report on Counterterrorism Spending [@stimson2018counterterroism] in the post-9/11 era provides valuable insights into the amount of resources the United States devotes to counterterrorism efforts. The report found that the US government spent over USD2.8 trillion on counterterrorism efforts from 2002 to 2017, which represents a significant portion of the country's overall military budget during that period. Specifically, the report notes that counterterrorism spending accounted for 17% to 23% of the US defense budget each year between 2002 and 2017. Hartung (2021) [@hartung_2021] found that the "Global War on Terror", which emerged in the early 2000s as a result of the 9/11 attacks, had a significant impact on the political environment, resulting in a surge in the Pentagon's budget, the largest component of the US military budget. This increased funding was largely directed towards **military contractors, Lockheed	Martin,	Boeing,	General	Dynamics,	Raytheon Technologies,	and	Northrop	Grumman**, who were enlisted to aid in the efforts. Since Fiscal Year 2001, the total expenditures of the Pentagon for all purposes have surpassed USD14.1 trillion (measured in 2021 dollars). Out of this sum, USD4.4 trillion was used for weapons procurement and research and development (R&D), which mainly benefited corporate contractors. **The rest of the funds were utilized for** paying and providing benefits to military and civilian personnel and other expenses, necessary for **operating and maintaining the United States military**. Congressional	Research Service (CRS) estimates	that in	FY2020, the	spending for	contractors	grew to	$420 billion - well over half of the total Pentagon budget. Therefore, the biggest	financial	beneficiaries of the post-9/11 military spending surge have been the aforementioned weapons contractors.
+
+Furthermore, several papers have discussed and analyzed the relation between military spending or counterterrorism efforts with transnational terrorism prior to the 9/11 attacks. Li and Schaub (2004) [@LiandSchaub2004] employed *GOVCAPABILITY*, a control variable in their Pooled Time-Series Analysis , that comprised military manpower and military expenditures for 112 countries from 1975 to 1997. Because the variable captured state military and economic strength, it represented a proxy that the government could use for combating terrorism. Gaibulloev, K., Sandler, T., & Sul, D. (2014) [@gaibulloev_sandler_sul_2014Such] challenged extant literature about terrorism and its impact on economic growth that suffered from Nickell Bias, a type of bias that arises in statistical models when the independent variable is measured with error, and cross-sectional dependence, a statistical issue that arises in panel data analysis when the individual units (e.g., countries or firms) in the panel are not completely independent of one another. They mentioned that cross-sectional dependence is apt to affect other variables, such as democracy, threat, **military spending**, and financial measures. However, when Nickell bias and cross-sectional dependence are addressed, terrorism has no influence whatsoever on economic growth.
+
+Therefore, the perused literature about counterterrorism and military spending underscores the importance of counterterrorism efforts, including funding weapons contractors, in shaping the country's military spending priorities, particularly in the wake of the 9/11 terrorist attacks. By highlighting the amount of resources devoted to counterterrorism, these reports and papers help us understand how the overall US budget and military budget are allocated and the policy decisions that drive those allocations. However, it might also possible that during the VAR model building phase of this section, we find that military spending may not be a significant indicator of the number of casualties stemming from terrorist attacks in the Global Terrorism Database™ (GTD) [@GTD].
+
+Secondly, Nowrasteh (2019) [@nowrasteh_2019] found, by carefully analyzing the GTD, that the chance of being murdered by a tourist on a B visa, the most common tourist visa, is about 1 in 4.1 million per year. Compared to foreign‐born terrorists, the chance of being murdered by a native‐born terrorist is about 1 in 28 million per year. Moreover, there were 192 foreign‐born terrorists, relative to the 788 native-born terrorists, who planned, attempted, or carried out attacks on U.S. soil from 1975 through 2017. Through a cost-benefit risk analysis, it was also found that the combined human, property, business, and economic costs of terrorism from 1975 through 2017 are estimated at USD216.58 billion. Spread over 43 years, the average annual cost of terrorism is USD5.04 billion, which is about one‐hundredth the minimum estimated yearly benefit of $553.9 billion from immigration and tourism. Therefore, foreign‐born terrorism on U.S. soil is a low‐probability event that imposes high costs on its victims, despite relatively small risks. 
+
+## VAR Model Justification
+
+Using a VAR model over an ARIMAX model for this research has a multitude of benefits, including:
+
+* Simultaneous modeling of multivariate time series: VAR allows for the simultaneous modeling of multiple endogenous variables, whereas ARIMAX (Autoregressive Integrated Moving Average with Explanatory Variables) can only model one dependent variable at a time. This means that VAR can capture the complex relationships between multiple variables that may be influencing each other.
+
+* Better handling of lags: VAR can handle multiple lags in the data more efficiently than ARIMAX. This is important in the case of studying the impact of terrorist attacks, as the effects of a single attack may persist over a longer period of time and may have delayed impacts on different variables.
+
+* More robust to missing data: VAR can handle missing data more effectively than ARIMAX, as it does not require the same level of complete data in order to estimate the model parameters. This is particularly relevant in the case of studying the impact of terrorist attacks, as data may be missing or incomplete for certain variables in certain time periods.
+
+* Better captures dynamic relationships: VAR is better suited for capturing the dynamic relationships between variables over time, whereas ARIMAX can only capture the static relationships between variables at a particular point in time. This is important in the case of studying the impact of terrorist attacks, as the relationships between variables may change over time due to factors such as changes in government policies or public opinion.
+
+* No clear seasonality: Another reason why the VAR model is justified is that there may not be a clear seasonality pattern in the data related to terrorist attacks. This means that traditional time-series models may not be effective in capturing the complex relationships between the variables. The VAR model, on the other hand, does not rely on a specific seasonal pattern and can account for the complex relationships between variables without requiring seasonal adjustments. Moreover, the data that will be analyzed is aggregated yearly from 1970 to 2020, which makes it more difficult to identify and capture seasonal patterns. Yearly data may also be influenced by other factors that are not related to seasonality, such as long-term trends or cyclical patterns, that occur over longer periods of time. This can make it more challenging to distinguish between seasonal effects and other underlying factors that may be driving the data.
+
+* Non-linearity: The relationships between variables in the case of terrorist attacks may not be linear, and traditional linear models may not be able to capture the non-linear effects. The VAR model is capable of modeling non-linear relationships between variables and can account for the complex interactions that may exist between them.
+
+## Building the VAR Model 
+
+```{r,include=FALSE, message=FALSE, warning=FALSE}
+library(flipbookr)
+library(tidyverse)
+library(ggplot2)
+library(forecast)
+library(astsa) 
+library(xts)
+library(tseries)
+library(fpp2)
+library(fma)
+library(lubridate)
+library(tidyverse)
+library(TSstudio)
+library(quantmod)
+library(tidyquant)
+library(plotly)
+library(ggplot2)
+library(padr)
+library(gridExtra)
+library(reshape2)
+library(vars)
+library(glmnet)
+library(kableExtra)
+library(knitr)
+```
+
+```{r load,include=FALSE, message=FALSE, warning=FALSE}
+gtd <- readxl::read_xlsx("../Data/gtd.xlsx")
+sipri_gdp <- readxl::read_xlsx("../Data/SIPRI_GDP.xlsx")
+sipri_region <- readxl::read_xlsx("../Data/SIPRI_Region.xlsx")
+dhs <- readxl::read_xls("../Data/DHS_98_21.xls")
+```
+
+```{r createdate,include=FALSE, message=FALSE, warning=FALSE}
+# if the exact day/month of the event is unknown, this is recorded as “0”
+gtd$Date <- as.Date(with(gtd,paste(iyear,imonth,iday,sep="-")),"%Y-%m-%d")
+#gtd$Year <- year(gtd$Date)
+# results in 891 NAs total, 33 of which correspond to country_txt==USA
+```
+
+```{r filterUS,include=FALSE, message=FALSE, warning=FALSE}
+# Filter country_txt==USA
+# gtd_USA <- gtd %>% 
+#             filter(country_txt=="United States")
+# 
+# # drop 33 observations from a total of 3121 observations (if taking for '70)
+# gtd_USA <- gtd_USA[complete.cases(gtd_USA$Date),]
+# 
+# # impute missing values for nkill (Total Number of Fatalities: victims and attackers) as 0
+# 
+# gtd_USA$nkill[is.na(gtd_USA$nkill)] <- 0
+# 
+# # select desired columns for analysis (num_casualties ~ num_attacks, state, attack_type, weapon_type, victim_type, )
+# # gtd_USA <- gtd_USA %>% 
+# #               select(Date, provstate, attacktype1_txt, 
+# #                      targtype1_txt, nkill, weaptype1_txt)
+# ```
+# 
+# ```{r yearlyagg,include=FALSE, message=FALSE, warning=FALSE}
+# library(fastDummies)
+# 
+# # new dataframe for monthly number of attacks 1970-2020, with categorical variables encoded
+# 
+# gtd_USA_monthly <- gtd_USA %>% 
+#   select(Date, provstate, attacktype1_txt, targtype1_txt, nkill, weaptype1_txt) %>% 
+#   dummy_cols() %>% # convert categorical variables to dummies
+#   group_by(year(Date), month(Date)) %>% 
+#   summarise(num_attacks = n(), 
+#             num_casualties = sum(nkill),
+#             across(starts_with("provstate_"), sum),
+#             across(starts_with("attacktype1_txt_"), sum),
+#             across(starts_with("targtype1_txt_"), sum),
+#             across(starts_with("weaptype1_txt_"), sum)) 
+#                     
+# colnames(gtd_USA_monthly)[1] ="Year"
+# colnames(gtd_USA_monthly)[2] ="Month"
+# 
+# gtd_USA_monthly$Date <- as.Date(paste0(gtd_USA_monthly$Year, "-", gtd_USA_monthly$Month, "-31"), "%Y-%m-%d")
+# gtd_USA_monthly <- subset(gtd_USA_monthly, select=-c(Year, Month)) # 0 NAs
+# 
+# # Fill missing dates (NAs introduced) -> adding 90 previously missing months more
+# gtd_USA_monthly <- gtd_USA_monthly %>% 
+#               complete(Date = seq.Date(min(Date), max(Date), by="month")) 
+```
+
+```{r interpolateactual, message=FALSE, warning=FALSE, echo=FALSE}
+# interpolating all columns except date
+
+# fill in NAs with 0 for all years except 1993 for all columns but Date
+
+## create a vector of column names, excluding the first column
+# col_names <- names(gtd_USA_monthly)[-1]
+# 
+# # loop over each column (except date) and replace NAs with 0 for all years except 1993
+# for (col_name in col_names) {
+#   gtd_USA_monthly[[col_name]] <- ifelse(year(gtd_USA_monthly$Date) != 1993 & is.na(gtd_USA_monthly[[col_name]]), 0, gtd_USA_monthly[[col_name]])
+# }
+# 
+# # impute num_attacks
+# gtd_USA_monthly$num_attacks[277:288] <- c(1, 2, 3, 4, 2, 1, 3, 2, 2, 3, 2, 3)
+# 
+# # impute num_casualties
+# gtd_USA_monthly$num_casualties[277:288] <- c(1, 6, 3, 1, 1, 0, 2, 2, 1, 0, 1, 3)
+# 
+# # impute counts for categorical variables
+# 
+# # January: on January 25, 1993, Mir Aimal Kasi, a Pakistani citizen, conducted an armed assault near the entrance of Centra 
+# gtd_USA_monthly[277, 4:57] <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
+# gtd_USA_monthly[277, 58:66] <- list(1, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[277, 67:88] <- list(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[277, 89:100] <- list(0, 0, 0, 0, 1, 0, 0, 0, 0,0,0,0)
+# 
+# # February: The bombing of the New York City World Trade Center on feb 26, 1993, by Ramzi Yousef and his conspirators killed six people
+# gtd_USA_monthly[278, 4:57] <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[278, 58:66] <- list(1, 0, 1, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[278, 67:88] <- list(0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[278, 89:100] <- list(0, 0, 1, 0, 1, 0, 0, 0, 0,0,0,0)
+# 
+# # March - Dec random imputation based on total attacks monthly
+# 
+# gtd_USA_monthly[279, 4:57] <- list(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[279, 58:66] <- list(1, 0, 1, 0, 0, 1, 0, 0, 0)
+# gtd_USA_monthly[279, 67:88] <- list(0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[279, 89:100] <- list(0, 0, 1, 0, 1, 0, 1, 0, 0,0,0,0)
+# 
+# gtd_USA_monthly[280, 4:57] <- list(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[280, 58:66] <- list(2, 0, 1, 0, 0, 1, 0, 0, 0)
+# gtd_USA_monthly[280, 67:88] <- list(0, 0, 2, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[280, 89:100] <- list(0, 0, 2, 0, 1, 0, 1, 0, 0,0,0,0)
+# 
+# gtd_USA_monthly[281, 4:57] <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[281, 58:66] <- list(1, 0, 1, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[281, 67:88] <- list(0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[281, 89:100] <- list(0, 0, 1, 0, 1, 0, 0, 0, 0,0,0,0)
+# 
+# gtd_USA_monthly[282, 4:57] <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
+# gtd_USA_monthly[282, 58:66] <- list(1, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[282, 67:88] <- list(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[282, 89:100] <- list(0, 0, 0, 0, 1, 0, 0, 0, 0,0,0,0)
+# 
+# gtd_USA_monthly[283, 4:57] <- list(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[283, 58:66] <- list(1, 0, 1, 0, 0, 1, 0, 0, 0)
+# gtd_USA_monthly[283, 67:88] <- list(0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[283, 89:100] <- list(0, 0, 1, 0, 1, 0, 1, 0, 0,0,0,0)
+# 
+# gtd_USA_monthly[284, 4:57] <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[284, 58:66] <- list(1, 0, 1, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[284, 67:88] <- list(0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[284, 89:100] <- list(0, 0, 1, 0, 1, 0, 0, 0, 0,0,0,0)
+# 
+# gtd_USA_monthly[285, 4:57] <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[285, 58:66] <- list(1, 0, 1, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[285, 67:88] <- list(0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[285, 89:100] <- list(0, 0, 1, 0, 1, 0, 0, 0, 0,0,0,0)
+# 
+# gtd_USA_monthly[286, 4:57] <- list(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[286, 58:66] <- list(1, 0, 1, 0, 0, 1, 0, 0, 0)
+# gtd_USA_monthly[286, 67:88] <- list(0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[286, 89:100] <- list(0, 0, 1, 0, 1, 0, 1, 0, 0,0,0,0)
+# 
+# gtd_USA_monthly[287, 4:57] <- list(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[287, 58:66] <- list(1, 0, 1, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[287, 67:88] <- list(0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[287, 89:100] <- list(0, 0, 1, 0, 1, 0, 0, 0, 0,0,0,0)
+# 
+# gtd_USA_monthly[288, 4:57] <- list(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# gtd_USA_monthly[288, 58:66] <- list(1, 0, 1, 0, 0, 1, 0, 0, 0)
+# gtd_USA_monthly[288, 67:88] <- list(0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0)
+# gtd_USA_monthly[288, 89:100] <- list(0, 0, 1, 0, 1, 0, 1, 0, 0,0,0,0)
+# 
+# # convert all variables to numeric except date
+# 
+# gtd_USA_monthly[,2:100] <- lapply(gtd_USA_monthly[,2:100], as.numeric)
+```
+
+```{r cleanvar,include=FALSE, message=FALSE, warning=FALSE}
+# Filter country_txt==USA
+gtd_USA_2 <- gtd %>% 
+            filter(country_txt=="United States")
+
+# drop 33 observations from a total of 3121 observations (if taking for '70)
+gtd_USA_2 <- gtd_USA_2[complete.cases(gtd_USA_2$Date),]
+
+# impute missing values for nkill (Total Number of Fatalities: victims and attackers) as 0
+
+gtd_USA_2$nkill[is.na(gtd_USA_2$nkill)] <- 0
+
+# select desired columns for analysis (num_casualties ~ num_attacks, state, attack_type, weapon_type, victim_type, )
+gtd_USA_2 <- subset(gtd_USA_2, select=c(Date, nkill))
+
+# new dataframe for monthly number of attacks 1970-2020
+gtd_yearly_attacks_deaths <- gtd_USA_2 %>% 
+              group_by(year(Date)) %>% 
+                  summarise(nkill=sum(nkill),
+                            num_attacks = n())
+
+colnames(gtd_yearly_attacks_deaths)[1] ="Year"
+colnames(gtd_yearly_attacks_deaths)[2] ="num_fatal"
+colnames(gtd_yearly_attacks_deaths)[3] ="num_attacks"
+
+gtd_yearly_attacks_deaths$Year <- as.Date(paste0(gtd_yearly_attacks_deaths$Year, "-12-31"))
+
+# Fill missing dates (0 attacks for those dates)
+gtd_yearly_attacks_deaths <- gtd_yearly_attacks_deaths %>% 
+              complete(Year = seq.Date(min(Year), max(Year), by="year")) 
+
+# impute 28 ATTACKS in 1993 and 21 casualties in 1993 as per GTD
+gtd_yearly_attacks_deaths[24,2] <- 28
+gtd_yearly_attacks_deaths[24,3] <- 21
+
+# CLEAN DHS df
+## convert year to date time
+dhs$Year <- as.Date(paste(dhs$Year, "-12-31", sep = ""), format = "%Y-%m-%d")
+
+## subset
+dhs <- subset(dhs, select = c(Year, Temporaryvisitorsforpleasure, Temporaryvisitorsforbusiness, Students))
+
+# join with aggregated GTD df 
+gtd_dhs <- merge(gtd_yearly_attacks_deaths, dhs, by = "Year", all.x = TRUE)
+
+# interpolate NAs in DHS columns (1970 to 1980, 1982 to 84, 86 to 88)
+gtd_dhs[,4] <- imputeTS::na.interpolation(gtd_dhs[,4])
+gtd_dhs[,5] <- imputeTS::na.interpolation(gtd_dhs[,5])
+gtd_dhs[,6] <- imputeTS::na.interpolation(gtd_dhs[,6])
+
+# join sipri dataset -> military expenditure as % of GDP
+milexp.gdp <- sipri_gdp %>% filter(Country=='United States of America')
+milexp.gdp <- melt(milexp.gdp, id.vars = 'Country', variable.name = 'Year', value.name = 'GDP') 
+milexp.gdp <- as.numeric(milexp.gdp[22:72, 3])
+gtd_dhs_sipri <- cbind(gtd_dhs, milexp.gdp) 
+#gtd_dhs_sipri[32,2] <- 10 # subtracting 3004 number of casualties (9/11 attacks -> outlier event)
+#gtd_dhs_sipri[32,3] <- 43 # subtracting 4 attacks (9/11 attacks -> outlier event)
+
+# Collecting Raytheon Tech Stock Price (only one active since 70's)
+
+options("getSymbols.warning4.0"=FALSE)
+options("getSymbols.yahoo.warning"=FALSE)
+
+tickers = c("RTX")
+for (i in tickers){
+  getSymbols(i,
+             from = "1970-01-01",
+             to = "2021-12-31")}
+
+rtx <- data.frame(RTX$RTX.Adjusted)
+
+rtx <- data.frame(rtx,rownames(rtx))
+colnames(rtx) <- append(tickers,'Dates')
+
+rtx$date<-as.Date(rtx$Dates,"%Y-%m-%d")
+
+rtx_yearly <- rtx %>% 
+  filter(format(date, "%m-%d") == "12-31") %>% 
+  group_by(Year=year(date)) %>% 
+  summarise(RTX = last(RTX))
+
+rtx_yearly$Year <- as.Date(paste0(rtx_yearly$Year, "-12-31"))
+
+# Fill missing dates 
+rtx_yearly <- rtx_yearly %>% 
+              complete(Year = seq.Date(min(Year), max(Year), by="year")) 
+
+rtx_yearly$RTX <- imputeTS::na.interpolation(rtx_yearly$RTX)
+
+# final join to create final VAR dataset
+
+gtd_dhs_sipri_rtx <- cbind(gtd_dhs_sipri, rtx_yearly$RTX) 
+
+# rename cols
+
+colnames(gtd_dhs_sipri_rtx)[c(4, 5, 8)] <- c("Pleasure", "Business", "RTX")
+
+# convert df to matrix
+
+ts_matrix <- as.matrix(gtd_dhs_sipri_rtx[, 2:8])
+
+# convert the matrix to a time series object with a yearly frequency 
+var_ts <- ts(ts_matrix, frequency = 1,
+                 start = 1970)
+```
+
+### Time Series Plots
+
+```{r tsplots, message=FALSE, warning=FALSE, echo=FALSE}
+plot.ts(var_ts , main = "", xlab = "")
+```
+
+### Pairs Plot
+
+```{r pairs, message=FALSE, warning=FALSE, echo=FALSE}
+# create scatterplot matrix using plotly
+fig <- plot_ly(
+  data = gtd_dhs_sipri_rtx, 
+  type = "splom",
+  diagonal = list(visible = FALSE),
+  dimensions = list(
+    list(label = "# Casualties", values = ~num_fatal),
+    list(label = "# Attacks", values = ~num_attacks),
+    list(label = "Tourists DHS", values = ~Pleasure),
+    list(label = "Business DHS", values = ~Business),
+    list(label = "Students DHS", values = ~Students),
+    list(label = "RTX", values = ~RTX)
+  )
+) %>%
+  layout(hovermode = "x")
+
+
+
+# customize layout
+fig <- fig %>% 
+  layout(
+    title = "Scatterplot Matrix of VAR Time Series Variables",
+    xaxis = list(title = ""),
+    yaxis = list(title = "")
+  )
+
+# display plot
+fig
+```
+
+### Multicollinearity! Removing Correlated Variables
+
+```{r corr, message=FALSE, warning=FALSE, echo=FALSE}
+gtd_dhs_sipri_rtx <- subset(gtd_dhs_sipri_rtx, select=-c(Business, Pleasure, Students, RTX, num_attacks))
+
+# convert df back to matrix
+
+ts_matrix <- as.matrix(gtd_dhs_sipri_rtx[, 2:3])
+
+# convert the matrix to a time series object with a yearly frequency
+var_ts <- ts(ts_matrix, frequency = 1,
+                 start = 1970)
+
+# split into train and test sets
+
+set.seed(29830)
+train_idx <- sample(nrow(var_ts), 0.9 * nrow(var_ts))
+train <- var_ts[train_idx, ]
+test <- var_ts[-train_idx, ]
+
+# Fit Lasso regression model with cross-validation
+# cv_fit <- cv.glmnet(train[, 2], train[, 1], alpha = 1)
+# 
+# # Extract selected variables
+# cv_fits <- as.data.frame(as.matrix(coef(cv_fit)))
+# to_include <- rownames(cv_fits)[cv_fits$s1 != 0]
+```
+
+### Fitting VAR Model
+
+Here we use the `VARselect()` function to find the best `p` to fit `VAR(p)`. We will choose a maximum lag of 10 and check which `p` value returns lowest AIC.
+
+```{r varp, message=FALSE, warning=FALSE, echo=FALSE}
+(var_result <- VARselect(var_ts, lag.max = 10, type = "both"))
+```
+Now, we will fit VAR(1), VAR(2), and VAR(3):
+
+VAR(1) output:
+
+```{r varp1, message=FALSE, warning=FALSE, echo=FALSE}
+summary(fit <- VAR(var_ts, p=1, type="both"))
+```
+
+VAR(2) output:
+
+```{r varp2, message=FALSE, warning=FALSE, echo=FALSE}
+summary(fit <- VAR(var_ts, p=2, type="both"))
+```
+
+VAR(3) output:
+
+```{r varp3, message=FALSE, warning=FALSE, echo=FALSE}
+summary(fit <- VAR(var_ts, p=3, type="both"))
+```
+
+### K-Fold Cross Validation and Model Diagnostics
+
+```{r crossval, message=FALSE, warning=FALSE, echo=FALSE}
+
+# Define the number of folds for cross-validation
+k <- 5
+
+# Define the p values to test
+p_values <- c(1, 2, 3)
+
+# Split the data into k folds
+cv_folds <- cut(seq(1, nrow(var_ts)), breaks = k, labels = FALSE)
+
+# Initialize vectors to store RMSE and AIC values for each p value
+rmse_vec <- numeric(length(p_values))
+aic_vec <- numeric(length(p_values))
+
+# Loop over p values and perform cross-validation
+for (i in seq_along(p_values)) {
+  p <- p_values[i]
+  rmse_cv <- numeric(k)
+  aic_cv <- numeric(k)
+  for (j in 1:k) {
+    # Split the data into training and testing sets
+    train <- var_ts[cv_folds != j, ]
+    test <- var_ts[cv_folds == j, ]
+    
+    # Fit the VAR model with the current p value
+    var_fit <- VAR(train, p = p)
+    
+    # Make predictions for the testing set
+    pred <- predict(var_fit, n.ahead = nrow(test))$fcst
+    
+    # Calculate RMSE and AIC for the current fold
+    rmse_cv[j] <- sqrt(mean((pred$num_fatal - test[,1])^2))
+    aic_cv[j] <- AIC(var_fit)
+  }
+  # Calculate the mean RMSE and AIC across all folds for the current p value
+  rmse_vec[i] <- mean(rmse_cv)
+  aic_vec[i] <- mean(aic_cv)
+}
+
+# Create a table of RMSE and AIC values for each p value
+results_table <- tibble(p_values, rmse_vec, aic_vec)
+
+# Print the results table
+kable(results_table, format = "markdown", 
+        col.names = c("P Values", "RMSE", "AIC"), align = "c", digits = 2
+        )
+```
+
+Lowest Test RMSE is given by `p=1`; however, it also has highest AIC score on the train set. Because test set performance is best and it is the simplest model, we shall choose this. 
+
+### Forecasting Chosen Model (p=1)
+
+```{r forc, message=FALSE, warning=FALSE, echo=FALSE}
+final_var <- VAR(var_ts, p = 1)
+
+(fit.pr = predict(final_var, n.ahead = 5, ci = 0.95)) # 4 weeks ahead 
+
+fanchart(fit.pr) # plot prediction + error
+```

@@ -658,3 +658,7 @@ data.frame(h = 1:12, MSE1 = mse1, MSE2 = mse2) %>%
 This plot gives cross-validation statistics up to horizon 12. The procedure for seasonal cross validation using 12 steps ahead is very similar to seasonal cross validation using 1 step ahead. We need to change the "h" parameter to the desired the number of time horizons we want to forecast for. The `farima()` function manually written by us helps us call our desired SARIMA model with the number of horizons. Then, `farima()` function is called inside the `tsCV()` function, which helps us store the cross-validated errors for up to 12 steps ahead. Then, because we get forecasts for each time horizon, we need to take the mean of the squared column using `colMeans` to obtain MSE. 
 
 Although we observed that the MSE and RMSE of ARIMA(1,1,1)(0,1,1) when forecasting 1 step ahead was lower than that of ARIMA(0,1,1)(0,1,1), from the above plot it can be seen that the cross-validated MSEs get lower or better as the number of forecasting steps increases. Both models' MSE performance follow a very similar pattern, with ARIMA(0,1,1)(0,1,1), picked by lowest BIC, having a lower MSE across all forecasting steps, except for step 1. Therefore, ARIMA(0,1,1)(0,1,1) is the better SARIMA model!
+
+## References
+
+“Codebook Methodology Inclusion Criteria and Ariables - UMD.” Codebook Methodology Inclusion criteria and variables - UMD. University of Maryland. Accessed February 1, 2023. https://www.start.umd.edu/gtd/downloads/Codebook.pdf.
