@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tegveer Ghura</title>
+<title>ANLY560 Time Series Project - Tegveer Ghura - Tegveer Ghura</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,6 +24,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -38,11 +39,11 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 20,
   "language": {
     "search-no-results-text": "No results",
@@ -60,66 +61,98 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">About Tegveer</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Introduction.html">Introduction</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Data-Sources.html">Data Sources</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Data-Visualization.html">Data Visualization</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Exploratory-Data-Analysis.html">Exploratory Data Analysis</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ARMA-ARIMA-SARIMA.html">ARMA/ARIMA/SARIMA Models</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ARIMAX-SARIMAX-VAR.html">ARIMAX/SARIMAX/VAR Models</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Financial-Models.html">Financial Time Series Models</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Deep-Learning.html">Deep Learning for TS</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Conclusion.html">Conclusion</a>
-  </li>  
-</ul>
-              <div id="quarto-search" class="" title="Search"></div>
-          </div> <!-- /navcollapse -->
-      </div> <!-- /container-fluid -->
-    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Tegveer Ghura</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ANLY560 Time Series Project - Tegveer Ghura</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">About Tegveer</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data-Sources.html" class="sidebar-item-text sidebar-link">Data Sources</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data-Visualization.html" class="sidebar-item-text sidebar-link">Data Visualization</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Exploratory-Data-Analysis.html" class="sidebar-item-text sidebar-link">Exploratory Data Analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ARMA-ARIMA-SARIMA.html" class="sidebar-item-text sidebar-link">ARMA/ARIMA/SARIMA Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ARIMAX-SARIMAX-VAR.html" class="sidebar-item-text sidebar-link">ARIMAX/SARIMAX/VAR Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Financial-Models.html" class="sidebar-item-text sidebar-link">Financial Time Series Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Deep-Learning.html" class="sidebar-item-text sidebar-link">Deep Learning for TS</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Conclusion.html" class="sidebar-item-text sidebar-link">Conclusion</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
 <!-- margin-sidebar -->
     
 <!-- main -->
-<div class="quarto-about-trestles column-page">
+<div class="quarto-about-trestles column-page-right">
   <div class="about-entity">
     <img src="profile1.jpg" class="about-image
   round " style="height: 20em; width: 20em;">
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tegveer Ghura</h1>
+<h1 class="title d-none d-lg-block">Tegveer Ghura</h1>
 </div>
 <div class="quarto-title-meta">
   </div>
@@ -139,7 +172,7 @@ ul.task-list li input[type="checkbox"] {
   </a>
 </div>
   </div>
-  <div class="about-contents"><main class="content column-page" id="quarto-document-content">
+  <div class="about-contents"><main class="content column-page-right" id="quarto-document-content">
 <p>Tegveer is a first-year graduate student pursuing an MS in Data Science &amp; Analytics at Georgetown University. When not producing insights from data, Tegveer enjoys spending time playing cricket and exploring the DMV.</p>
 <section id="education" class="level2">
 <h2 data-anchor-id="education">Education</h2>

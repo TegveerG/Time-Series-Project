@@ -4,6 +4,10 @@ format:
   html:
     page-layout: full
     fontsize: 14px
+    code-fold: show
+    code-copy: true
+    code-tools: true
+    code-overflow: wrap
 reference-location: margin
 citation-location: margin
 bibliography: bibliography.bib
@@ -101,7 +105,7 @@ gtd_monthly_attacks_deaths <- pad(gtd_monthly_attacks_deaths) %>%
 ::: panel-tabset
 #### Number of Monthly Attacks and Fatalities 
 
-```{r plot1, message=FALSE, warning=FALSE, echo=FALSE}
+```{r plot1, message=FALSE, warning=FALSE}
 plot_ly(data=gtd_monthly_attacks_deaths, x=~Date)  %>% 
     add_trace(type = 'scatter', mode = 'lines', y=~num_attacks, 
             name="Attacks", line = list(color = 'red')) %>%
@@ -115,7 +119,7 @@ plot_ly(data=gtd_monthly_attacks_deaths, x=~Date)  %>%
 
 #### Number of Monthly Attacks and Fatalities (adjusted for 9/11)
 
-```{r plot2, message=FALSE, warning=FALSE, echo=FALSE}
+```{r plot2, message=FALSE, warning=FALSE}
 plot_ly(data=gtd_monthly_attacks_deaths %>% filter(num_fatal<20), x=~Date)  %>% 
     add_trace(type = 'scatter', mode = 'lines', y=~num_attacks, 
             name="Attacks", line = list(color = 'red')) %>%
@@ -129,7 +133,7 @@ plot_ly(data=gtd_monthly_attacks_deaths %>% filter(num_fatal<20), x=~Date)  %>%
 
 #### Cumulative Count of Terrorist Attacks & Fatalities 
 
-```{r yearlycumattdeath, message=FALSE, warning=FALSE, echo=FALSE}
+```{r yearlycumattdeath, message=FALSE, warning=FALSE}
 gtd_yearly <- gtd_USA %>% 
               group_by(year(Date)) %>% 
                   summarise(num_attacks = n(), 
@@ -287,7 +291,7 @@ var divElement = document.getElementById('viz1676609472785');                   
 
 ## Visualizing the SIPRI Military Expenditure Database
 
-```{r sipri,echo=FALSE, message=FALSE, warning=FALSE}
+```{r sipri,message=FALSE, warning=FALSE}
 # new dataframe for total number of attacks 1970-2020
 sipri_usa <- sipri_gdp %>% filter(Country=="United States of America")
 
@@ -309,7 +313,7 @@ ggplotly(g) %>% layout(hovermode = "x")
 
 ## Visualizing Department of Homeland Security's Non-Immigrant Admissions Data
 
-```{r dhs,echo=FALSE, message=FALSE, warning=FALSE}
+```{r dhs, message=FALSE, warning=FALSE}
 dhs <- dhs %>% filter(Year>=2002)
 fig <- plot_ly(dhs, x = ~Year, y = ~`Temporaryvisitorsforpleasure(B2)`,name = 'B2 Tourist Visa Holders', type = 'scatter', mode = 'lines')
 fig <- fig %>% add_trace(y = ~`Temporaryvisitorsforbusiness(B1)`, name = 'B1 Business Visa Holders', type = 'scatter', mode = 'lines')

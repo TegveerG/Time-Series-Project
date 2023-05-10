@@ -1,0 +1,397 @@
+---
+title: "Deep Learning for Time Series"
+format:
+  html:
+    page-layout: full
+    fontsize: 14px
+---
+
+# Import Libraries
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from keras.models import Sequential
+from keras import layers
+from tensorflow.keras.optimizers import RMSprop
+```
+
+# Read in Data
+
+Data collected is from 2023 to current.
+
+```{python}
+df = pd.read_csv("mpi_roof.csv", encoding= 'unicode_escape')
+
+f = open('mpi_roof.csv', encoding= 'unicode_escape')
+data = f.read()
+f.close()
+lines = data.split('\n')
+header = lines[0].split(',')
+lines = lines[1:]
+
+#df.head()
+```
+
+# Inspecting the Data
+
+```{python}
+# print(df.columns)
+# print("\n\n")
+# print("Shape of data: ", df.shape)
+
+print(header)
+print(len(lines))
+```
+
+# Parsing the Data
+
+```{python}
+# convert all columns to float except date column
+
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(pd.to_numeric, errors='coerce').astype(float)
+
+# convert date to datetime object (date frequency is 10 minutes)
+
+df['Date Time'] = pd.to_datetime(df['Date Time'], format='%d.%m.%Y %H:%M:%S')
+
+float_data = np.zeros((len(lines), len(header) - 1))
+for i, line in enumerate(lines):
+    values = np.array([float(x) for x in line.split(',')[1:]])
+    if values.shape == (len(header) - 1,):
+        float_data[i, :] = values
+    else:
+        print(f"Skipping line {i+1} due to incorrect shape of values")
+```
+
+# Plotting the temperature timeseries
+
+```{python}
+plt.figure(figsize=(12, 6))  # Set the width to 12 inches and height to 6 inches
+plt.plot(df['Date Time'], df['T (degC)']) # x, y encoding
+plt.title("Temperature (degree celsius) over the full temporal range of data") # title
+plt.xlabel("Date") # x-axis label
+plt.ylabel("Temperature (degree celsius)") # y-axis label
+plt.show()
+```
+
+# Plotting the first 10 days of the temperature timeseries
+
+```{python}
+plt.figure(figsize=(12, 6))  # Set the width to 12 inches and height to 6 inches
+plt.plot(df['Date Time'][0:1440,], df['T (degC)'][0:1440,]) # x, y encoding
+plt.title("Temperature (degree celsius) for the first 10 days of data") # title
+plt.xlabel("Date") # x-axis label
+plt.ylabel("Temperature (degree celsius)") # y-axis label
+plt.show()
+```
+
+# Normalizing the data
+
+Preprocess the data by subtracting the mean of each timeseries and dividing by the standard deviation. I am going to use the first 8,000 timesteps as training data,
+so compute the mean and standard deviation only on this fraction of the data.
+
+```{python}
+# get only numeric cols
+
+#float_data = df.iloc[:, 2] # subset only temp data
+
+# convert to numpy array
+#float_data = float_data.to_numpy()
+
+mean = float_data[:8000].mean(axis=0)
+float_data -= mean
+std = float_data[:8000].std(axis=0)
+float_data /= std
+```
+
+# Generator yielding timeseries samples and their targets
+
+```{python}
+def generator(data, lookback, delay, min_index, max_index,
+              shuffle=False, batch_size=128, step=6):
+    if max_index is None:
+        max_index = len(data) - delay - 1
+    i = min_index + lookback
+    while 1:
+        if shuffle:
+            rows = np.random.randint(
+                min_index + lookback, max_index, size=batch_size)
+        else:
+            if i + batch_size >= max_index:
+                i = min_index + lookback
+            rows = np.arange(i, min(i + batch_size, max_index))
+            i += len(rows)
+        samples = np.zeros((len(rows),
+                            lookback // step,
+                            data.shape[-1]))
+        targets = np.zeros((len(rows),))
+        for j, row in enumerate(rows):
+            indices = range(rows[j] - lookback, rows[j], step)
+            samples[j] = data[indices]
+            targets[j] = data[rows[j] + delay][1]
+        yield samples, targets
+
+lookback = 1440 # observations go back 10 days
+step = 6 # Observations will be sampled at one data point per hour.
+delay = 144 # Targets will be 24 hours in the future.
+batch_size = 128 # Number of samples per batch
+
+train_gen = generator(float_data,
+                      lookback=lookback,
+                      delay=delay, 
+                      min_index=0, # We will only draw from the first 200,000 timesteps
+                      max_index=8000, # We will use the first 8000 timesteps as training data
+                      shuffle=True, # Shuffle the samples
+                      step=step, 
+                      batch_size=batch_size)
+
+val_gen = generator(float_data, 
+                    lookback=lookback,
+                    delay=delay,
+                    min_index=8001,
+                    max_index=12000,
+                    step=step,
+                    batch_size=batch_size)
+
+test_gen = generator(float_data,
+                     lookback=lookback,
+                     delay=delay,
+                     min_index=10001,
+                     max_index=None,
+                     step=step,
+                     batch_size=batch_size)
+
+# How many steps to draw from val_gen in order to see the entire validation set
+
+val_steps = (10000 - 8001 - lookback) // batch_size
+
+# How many steps to draw from test_gen in order to see the entire test set
+
+test_steps = (len(float_data) - 10001 - lookback) // batch_size
+```
+
+# Computing the common-sense baseline MAE
+
+```{python}
+def evaluate_naive_method():
+    batch_maes = []
+    for step in range(val_steps):
+        samples, targets = next(val_gen)
+        preds = samples[:, -1, 1]
+        mae = np.mean(np.abs(preds - targets))
+        batch_maes.append(mae)
+    print(np.mean(batch_maes))
+
+evaluate_naive_method()
+```
+
+# Training and evaluating a densely connected model
+
+```{python}
+model = Sequential()
+model.add(layers.Flatten(input_shape=(lookback // step, float_data.shape[-1])))
+model.add(layers.Dense(32, activation='relu'))
+model.add(layers.Dense(1))
+model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])
+history = model.fit_generator(train_gen,
+                              steps_per_epoch=500,
+                              epochs=20,
+                              validation_data=val_gen,
+                              validation_steps=val_steps)
+```
+
+# Plotting results
+
+```{python}
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+epochs = range(len(loss))
+plt.figure(figsize=(12, 6))  # Set the width to 12 inches and height to 6 inches
+plt.plot(epochs, loss, 'bo', label='Training loss') # x, y encoding
+plt.plot(epochs, val_loss, 'b', label='Validation loss') # x, y encoding
+plt.title('Training and validation loss') # title
+plt.xlabel('Epochs') # x-axis label
+plt.ylabel('Loss') # y-axis label
+plt.legend()
+plt.show()
+```
+
+Overfitting!
+
+# Training and evaluating a GRU-based model
+
+```{python}
+# Flatten this matrix down.
+# npa = df.iloc[:, 1:].to_numpy().reshape(-1,1) # Python is smart to recognize whatever dimension you need by using this parameter
+# print(len(npa))
+# # # Let's scale the data -- this helps avoid the exploding gradient issue
+# from sklearn.preprocessing import MinMaxScaler
+# scale = MinMaxScaler(feature_range=(0,1)) # This is by default.
+# npa = scale.fit_transform(npa)
+# print(len(npa))
+
+# # Need the data to be in the form [sample, time steps, features (dimension of each element)]
+# samples = 10 # Number of samples (in past)
+# steps = 1 # Number of steps (in future)
+# X = [] # X array
+# Y = [] # Y array
+# for i in range(npa.shape[0] - samples):
+#     X.append(npa[i:i+samples]) # Independent Samples
+#     Y.append(npa[i+samples][0]) # Dependent Samples
+
+model = Sequential()
+model.add(layers.GRU(32, input_shape=(None, float_data.shape[-1])))
+model.add(layers.Dense(1))
+model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])
+history = model.fit_generator(train_gen,
+                              steps_per_epoch=500,
+                              epochs=20,
+                              validation_data=val_gen,
+                              validation_steps=val_steps)
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+epochs = range(len(loss))
+plt.figure(figsize=(12, 6))  # Set the width to 12 inches and height to 6 inches
+plt.plot(epochs, loss, 'bo', label='Training loss') # x, y encoding
+plt.plot(epochs, val_loss, 'b', label='Validation loss') # x, y encoding
+plt.title('Training and validation loss') # title
+plt.xlabel('Epochs') # x-axis label
+plt.ylabel('Loss') # y-axis label
+plt.legend()
+plt.show()
+```
+
+# Training and evaluating a dropout-regularized GRU-based model
+
+```{python}
+model = Sequential()
+model.add(layers.GRU(32,
+                     dropout=0.2,
+                     recurrent_dropout=0.2,
+                     input_shape=(None, float_data.shape[-1])))
+model.add(layers.Dense(1))
+model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])
+history = model.fit_generator(train_gen,
+                              steps_per_epoch=500,
+                              epochs=40,
+                              validation_data=val_gen,
+                              validation_steps=val_steps)
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+epochs = range(len(loss))
+plt.figure(figsize=(12, 6))  # Set the width to 12 inches and height to 6 inches
+
+plt.plot(epochs, loss, 'bo', label='Training loss') # x, y encoding
+plt.plot(epochs, val_loss, 'b', label='Validation loss') # x, y encoding
+plt.title('Training and validation loss') # title
+plt.xlabel('Epochs') # x-axis label
+plt.ylabel('Loss') # y-axis label
+plt.legend()
+
+plt.show()
+```
+
+# Training and evaluating a dropout-regularized, stacked GRU model
+
+```{python}
+model = Sequential()
+model.add(layers.GRU(32,
+                     dropout=0.1,
+                     recurrent_dropout=0.5,
+                     return_sequences=True,
+                     input_shape=(None, float_data.shape[-1])))
+model.add(layers.GRU(64, activation='relu',
+                      dropout=0.1,
+                      recurrent_dropout=0.5))
+model.add(layers.Dense(1))
+model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])
+history = model.fit_generator(train_gen,
+                              steps_per_epoch=500,
+                              epochs=40,
+                              validation_data=val_gen,
+                              validation_steps=val_steps)
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+epochs = range(len(loss))
+plt.figure(figsize=(12, 6))  # Set the width to 12 inches and height to 6 inches
+plt.plot(epochs, loss, 'bo', label='Training loss') # x, y encoding
+plt.plot(epochs, val_loss, 'b', label='Validation loss') # x, y encoding
+plt.title('Training and validation loss') # title
+plt.xlabel('Epochs') # x-axis label
+plt.ylabel('Loss') # y-axis label
+plt.legend()
+plt.show()
+```
+
+# Using bidirectional RNNs
+
+## Training and evaluating an LSTM using reversed sequences
+
+```{python}
+from keras.datasets import imdb
+from keras.preprocessing import sequence
+from keras import layers
+from keras.models import Sequential
+
+max_features = 10000  # Number of words to consider as features
+maxlen = 500  # Cuts off texts after this many words (among the max_features most common words)
+
+(x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=max_features)
+
+x_train = [x[::-1] for x in x_train]
+x_test = [x[::-1] for x in x_test]
+
+x_train = sequence.pad_sequences(x_train, maxlen=maxlen)
+x_test = sequence.pad_sequences(x_test, maxlen=maxlen)
+
+model = Sequential()
+model.add(layers.Embedding(max_features, 128))
+model.add(layers.LSTM(32))
+model.add(layers.Dense(1, activation='sigmoid'))
+
+model.compile(optimizer='rmsprop',
+              loss='binary_crossentropy',
+              metrics=['acc'])
+history = model.fit(x_train, y_train,
+                    epochs=10,
+                    batch_size=128,
+                    validation_split=0.2)
+```
+
+## Training and evaluating a bidirectional LSTM
+
+```{python} 
+model = Sequential()
+model.add(layers.Embedding(max_features, 32))
+model.add(layers.Bidirectional(layers.LSTM(32)))
+model.add(layers.Dense(1, activation='sigmoid'))
+
+model.compile(optimizer='rmsprop',
+              loss='binary_crossentropy',
+              metrics=['acc'])
+
+history = model.fit(x_train, y_train,
+                    epochs=10,
+                    batch_size=128,
+                    validation_split=0.2)
+```
+
+## Training a bidirectional GRU
+
+```{python}
+model = Sequential()
+model.add(layers.Bidirectional(
+    layers.GRU(32), input_shape=(None, float_data.shape[-1])))
+model.add(layers.Dense(1))
+
+model.compile(optimizer='rmsprop', loss='mae')
+history = model.fit_generator(train_gen,
+                              steps_per_epoch=500,
+                              epochs=40,
+                              validation_data=val_gen,
+                              validation_steps=val_steps)
+```
+

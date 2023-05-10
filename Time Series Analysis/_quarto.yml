@@ -2,9 +2,10 @@ project:
   type: website
 
 website:
-  navbar:
-    foreground: light
-    left:
+  title: "ANLY560 Time Series Project - Tegveer Ghura"
+  sidebar:
+    style: "floating"
+    contents:
       - href: index.qmd
         text: About Tegveer  
       - href: Introduction.qmd
@@ -25,8 +26,6 @@ website:
         text: Deep Learning for TS
       - href: Conclusion.qmd
         text: Conclusion
-    pinned: true
-    collapse: true
 
 format:
   html:
@@ -37,6 +36,9 @@ format:
     toc_float: 
       collapsed: false
       smooth_scroll: false
-    code: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+    code-overflow: wrap
 
 editor: visual

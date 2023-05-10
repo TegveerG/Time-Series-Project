@@ -4,6 +4,10 @@ format:
   html:
     page-layout: full
     fontsize: 14px
+    code-fold: show
+    code-copy: true
+    code-tools: true
+    code-overflow: wrap
 reference-location: margin
 citation-location: margin
 bibliography: bibliography.bib
@@ -121,7 +125,7 @@ ts_attacks_interp <- na.approx(monthly_attacks_ts) # approximate year 1993 NAs
 gtd_monthly_attacks_deaths$num_attacks[277:288] <- round(ts_attacks_interp[277:288],0)
 ```
 
-```{r origplot, message=FALSE, warning=FALSE, echo=FALSE}
+```{r origplot, message=FALSE, warning=FALSE}
 (orig_plot <- plot_ly(data=gtd_monthly_attacks_deaths, x=~Date)  %>% 
     add_trace(type = 'scatter', mode = 'lines', y=~num_attacks, 
             name="Attacks", line = list(color = 'red')) %>%
@@ -135,7 +139,7 @@ From the graph, we see an initial downward trend from 1970 to 1972 and an upward
 
 ### Lag Plots of Monthly Attacks
 
-```{r lagplot, message=FALSE, warning=FALSE, echo=FALSE}
+```{r lagplot, message=FALSE, warning=FALSE}
 # convert to time series object again
 monthly_attacks_ts <- ts(gtd_monthly_attacks_deaths$num_attacks, start = c(1970, 1), frequency = 12)
 
@@ -152,14 +156,14 @@ When comparing the lag plots for the series with different months, there is not 
 
 ### Decomposing Monthly Attacks 
 
-```{r decomp, message=FALSE, warning=FALSE, echo=FALSE}
+```{r decomp, message=FALSE, warning=FALSE}
 stl(monthly_attacks_ts, t.window=NULL, s.window="periodic", robust=TRUE) %>%
     autoplot()+ggtitle("Additive Decomposition of Number of Terrorist Attacks")
 ```
 
 ### ACF and PACF Plots of Monthly Attacks 
 
-```{r pacf, message=FALSE, warning=FALSE, echo=FALSE}
+```{r pacf, message=FALSE, warning=FALSE}
 monthly_attacks_ts %>% 
   ggtsdisplay(main="ACF and PACF Plots of Monthly Attacks")
 ```
@@ -174,7 +178,7 @@ $H_0$: The time series is non-stationary. In other words, it has some time-depen
 
 $H_1$: The time series is stationary.
 
-```{r adf, message=FALSE, warning=FALSE, echo=FALSE}
+```{r adf, message=FALSE, warning=FALSE}
 adf.test(monthly_attacks_ts)
 ```
 
@@ -182,7 +186,7 @@ Because the p-value from the ADF test is less than $\alpha$ = 0.05, we cannot re
 
 ### Detrending Monthly Attacks
 
-```{r detrend, message=FALSE, warning=FALSE, echo=FALSE}
+```{r detrend, message=FALSE, warning=FALSE}
 fit <- lm(monthly_attacks_ts~time(monthly_attacks_ts), na.action = NULL)
 summary(fit)
 
@@ -209,7 +213,7 @@ We then see that, even after detrending, the series contains seasonality, which 
 
 ### ACF and PACF Plots After Differencing Monthly Attacks 
 
-```{r diffpacf, message=FALSE, warning=FALSE, echo=FALSE}
+```{r diffpacf, message=FALSE, warning=FALSE}
 monthly_attacks_ts %>% diff %>% 
   ggtsdisplay(main="ACF and PACF Plots After Differencing Monthly Attacks")
 ```
@@ -218,7 +222,7 @@ First order differencing performs better than detrending, so we shall use this s
 
 ### Simple Moving Average Smoothing
 
-```{r masmooth, message=FALSE, warning=FALSE, echo=FALSE}
+```{r masmooth, message=FALSE, warning=FALSE}
 ma3 <- autoplot(monthly_attacks_ts, series="Data") +
   autolayer(ma(monthly_attacks_ts,3), series="3-MA") +
   xlab("Year") + ylab("Number of Monthly Attacks") +
@@ -253,7 +257,7 @@ grid.arrange(ma3, ma5,ma7,ma9, nrow = 2, ncol=2)
 
 ### Moving Average Smoothing with Windowing (2x4)
 
-```{r masmoothw, message=FALSE, warning=FALSE, echo=FALSE}
+```{r masmoothw, message=FALSE, warning=FALSE}
 monthly_attacks_ts_2 <- window(monthly_attacks_ts,start= c(1970, 1))
 ma4 <- ma(monthly_attacks_ts_2, order=4, centre=FALSE)
 ma2x4 <- ma(monthly_attacks_ts_2, order=4, centre=TRUE)
@@ -274,7 +278,7 @@ In this case, m is even, so it is no longer be symmetric. Therefore, when window
 
 ### Moving Average Smoothing with Windowing (2x6)
 
-```{r masmoothw1, message=FALSE, warning=FALSE, echo=FALSE}
+```{r masmoothw1, message=FALSE, warning=FALSE}
 monthly_attacks_ts_2 <- window(monthly_attacks_ts,start= c(1970, 1))
 ma6 <- ma(monthly_attacks_ts_2, order=6, centre=FALSE)
 ma2x6 <- ma(monthly_attacks_ts_2, order=6, centre=TRUE)
@@ -295,7 +299,7 @@ The moving average did smooth out both seasonal and longer-term trends in the mo
 
 ### Moving Average Smoothing with Windowing (2x8)
 
-```{r masmoothw2, message=FALSE, warning=FALSE, echo=FALSE}
+```{r masmoothw2, message=FALSE, warning=FALSE}
 monthly_attacks_ts_2 <- window(monthly_attacks_ts,start= c(1970, 1))
 ma8 <- ma(monthly_attacks_ts_2, order=8, centre=FALSE)
 ma2x8 <- ma(monthly_attacks_ts_2, order=8, centre=TRUE)

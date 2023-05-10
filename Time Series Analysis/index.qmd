@@ -19,6 +19,7 @@ format:
     html: 
       page-layout: full
       fontsize: 14px # will only affect navbar
+      code-tools: false
 ---
 
 Tegveer is a first-year graduate student pursuing an MS in Data Science & Analytics at Georgetown University. When not producing insights from data, Tegveer enjoys spending time playing cricket and exploring the DMV.

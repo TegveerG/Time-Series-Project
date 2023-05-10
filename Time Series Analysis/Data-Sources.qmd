@@ -14,21 +14,27 @@ The Quantmod R package seamlessly allows R users to get stock data, which aids i
 
 ## The Global Terrorism Database™ (GTD) by University of Maryland
 
-An open-source database containing information on terrorist events around the world from 1970 through 2020 (with annual updates planned for the future). Unlike many other event databases, the GTD includes systematic data on domestic as well as international terrorist incidents that have occurred during this time period and now includes more than 200,000 cases.
+An [open-source database](https://www.start.umd.edu/gtd/contact/download) containing information on terrorist events around the world from 1970 through 2020 (with annual updates planned for the future). Unlike many other event databases, the GTD includes systematic data on domestic as well as international terrorist incidents that have occurred during this time period and now includes more than 200,000 cases.
 
-[![Press the logo to access the data!](gtd.jpeg)](https://www.start.umd.edu/gtd/contact/download)
+[![Click on the logo to access the data!](gtd.jpeg)](../Data/gtd.xlsx)
 
 ## SIPRI Military Expenditure Database
 
-The SIPRI Military Expenditure Database contains consistent time series on the military spending of countries for the period 1949--2021. The database is updated annually, which may include updates to data for any of the years included in the database. The main purpose of the data on military expenditure is to provide an easily identifiable measure of the scale of resources absorbed by the military. Military expenditure is an input measure which is not directly related to the 'output' of military activities, such as military capability or military security. Military expenditure data measured in constant dollars is a trend indicator of the volume of resources used for military activities, which allow comparisons to be made over time for individual countries and between countries.
+The [SIPRI Military Expenditure Database](https://milex.sipri.org/sipri) contains consistent time series on the military spending of countries for the period 1949--2021. The database is updated annually, which may include updates to data for any of the years included in the database. The main purpose of the data on military expenditure is to provide an easily identifiable measure of the scale of resources absorbed by the military. Military expenditure is an input measure which is not directly related to the 'output' of military activities, such as military capability or military security. Military expenditure data measured in constant dollars is a trend indicator of the volume of resources used for military activities, which allow comparisons to be made over time for individual countries and between countries.
 
-[![Press the logo to access the data!](sipri.jpeg){height="180"}](https://milex.sipri.org/sipri)
+[![Click on the logo to access the data!](sipri.jpeg){height="180"}](../Data/SIPRI.xlsx)
 
 ## Department of Homeland Security (DHS)
 
-The United States Department of Homeland Security (DHS) is the U.S. federal executive department responsible for public security, roughly comparable to the interior or home ministries of other countries. Its stated missions involve anti-terrorism, border security, immigration and customs, cyber security, and disaster prevention and management.
+The [United States Department of Homeland Security (DHS)](https://www.dhs.gov/immigration-statistics/nonimmigrant) is the U.S. federal executive department responsible for public security, roughly comparable to the interior or home ministries of other countries. Its stated missions involve anti-terrorism, border security, immigration and customs, cyber security, and disaster prevention and management. Collected data comprises of the following US Visa holders from the years 1998 to 2021:
 
-[![Press the logo to access the data!](dhs.jpeg)](https://www.dhs.gov/immigration-statistics/nonimmigrant)
+1. Temporary Business Visitors (B-1, WB, CNMI, GMB)
+
+2. Temporary Visitors for Pleasure - Tourism/Vacation or Medical Treatment (B-2, WT, CNMI, GMT)
+
+3. Students (F-1, F-2, M-1, M-2) 
+
+[![Click on the logo to access the data!](dhs.jpeg)](../Data/DHS_98_21.xls)
 
 ## Quantmod R Package
 
@@ -158,3 +164,11 @@ ggplotly(g3) %>%
   layout(hovermode = "x")
 ```
 :::
+
+## References
+
+“Download the Global Terrorism Database.” Global Terrorism Database, 2001. https://www.start.umd.edu/gtd/contact/download. 
+
+“SIPRI Military Expenditure Database.” SIPRI MILEX. STOCKHOLM INTERNATIONAL PEACE RESEARCH INSTITUTE, 1966. https://milex.sipri.org/sipri. 
+
+“Nonimmigrant Admissions.” Nonimmigrant Admissions | Homeland Security. Department of Homeland Security, n.d. https://www.dhs.gov/immigration-statistics/nonimmigrant. 

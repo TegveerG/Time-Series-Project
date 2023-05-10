@@ -11,7 +11,7 @@ citation-location: margin
 bibliography: bibliography.bib
 ---
 
-## Summary: US Travel, Tourism, and Terrorism
+## Summary: Temporal Analysis of Terrorism and Tourism in the United States
 
 ::: {.callout-warning icon=true appearance="default"}
 Trigger warning: The following content contains descriptions of violent acts and extremism related to terrorism, which may be disturbing or triggering for some readers.
@@ -66,25 +66,25 @@ knitr::include_graphics("./intro_reaction.svg")
 
 ## Questions to Adress
 
-`r fa("circle-question", fill = "steelblue")` How have the types of terror attacks in the United States evolved over the last 25 years?
+`r fa("circle-question", fill = "steelblue")` How has the pattern of conducting terror attacks in the United States evolved over the last 50 years?
 
-`r fa("circle-question", fill = "steelblue")` How have the targets of terror attacks in the United States evolved over the last 25 years?
+`r fa("circle-question", fill = "steelblue")` How have the targets or victims of terror attacks in the United States evolved over the last 50 years?
 
 `r fa("circle-question", fill = "steelblue")` Do certain states in the United States suffer more terrorist attacks than others do?
 
-`r fa("circle-question", fill = "steelblue")` Are we able to use time-series data on terrorist attacks to predict future attacks and their different kinds in the United States?
+`r fa("circle-question", fill = "steelblue")` Are we able to use univariate time-series models (ARIMA/SARIMA) on monthly number of terrorist attacks (1970-2020) to predict the number of future attacks in the United States? 
 
-`r fa("circle-question", fill = "steelblue")` Are we able to use time-series data on military expenditure to predict the government's future spending in the United States?
+`r fa("circle-question", fill = "steelblue")` Can multivariate time series models, including ARIMAX and VAR, help us predict the number of yearly attacks in the United States by employing other variables, such as yearly US military expenditure as a percentage of US GDP and yearly number of non-immigrant entrants (B-1, B-2, F-1 visa)? 
 
-`r fa("circle-question", fill = "steelblue")` Have certain terrorist attacks on the United States prompted sudden changes in military expenditure over the past 50 years?
+`r fa("circle-question", fill = "steelblue")` What is the correlation between terror attacks and military expenditure over time in the United States? How robust is the VAR model in doing so and does the literature review support the findings?
 
-`r fa("circle-question", fill = "steelblue")` Do terror attacks outside the United States prompt increased domestic military expenditure in the United States?
+`r fa("circle-question", fill = "steelblue")` How do the predictions of yearly number of terrorist attacks obtained from the full ARIMAX model differ from other time series models (univariate and multivariate) and from Deep Recurrent Neural Networks?
 
-`r fa("circle-question", fill = "steelblue")` What is the correlation between terror attacks and military expenditure over time in the United States?
+`r fa("circle-question", fill = "steelblue")` With the help of volatility plots obtained from fitting ARCH/GARCH models, to what extent do stock prices of Lockheed Martin, Raytheon Technologies, and the Dow Jones U.S. Travel & Tourism Index help us understand trends in terrorist attacks in the United States?
 
-`r fa("circle-question", fill = "steelblue")` To what extent do terror attacks impact the United State's stance on people entering the United States with B-2 visa (tourist) status?
+`r fa("circle-question", fill = "steelblue")` Can Deep Recurrent Neural Networks capture best the underlying ground truth of the pattern of monthly terrorist attacks from 1970-2020? Which Deep Recurrent Neural Networks perform best and why?
 
-`r fa("circle-question", fill = "steelblue")` To what extent do Lockheed Martin's stock prices and the Dow Jones U.S. Travel & Tourism Index help us understand trends in terrorist attacks in the United States?
+`r fa("circle-question", fill = "steelblue")` How far into the future can Deep Recurrent Neural Networks forecast or predict the monthly number of terrorist attacks? Which Deep Recurrent Neural Networks perform best and why?
 
 ## References
 

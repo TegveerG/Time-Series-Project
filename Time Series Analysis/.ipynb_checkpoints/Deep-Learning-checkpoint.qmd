@@ -1,0 +1,105 @@
+---
+title: "Deep Learning for Time Series"
+format:
+  html:
+    page-layout: full
+    fontsize: 14px
+reference-location: margin
+citation-location: margin
+bibliography: bibliography.bib
+---
+
+# Summary
+
+After fitting several time-series models to both monthly as well as yearly aggregated terrorist attacks data and financial data in the previous sections, we will now focus on the efficacy of Deep Learning models in helping us predict the monthly number of terrorist attacks, the same univariate time-series data employed in the [ARMA/ARIMA/SARIMA section](https://tegveerg.georgetown.domains/Time-Series-Project/ARMA-ARIMA-SARIMA.html). We shall employ popular Recurrent Neural Networks (RNNs), including a Dense RNN, a Gated Recurrent Unit (GRU), and a Long Short-Term Memory Network (LSTM), with and without dropout-regularization, a method to curb overfitting by penalizing model parameters, to predict the number number of terrorist attacks per month in the future. Doing so will help us compare not only the performance of the three RNNs, but also the performance of the three RNNs to that of the traditional univariate time-series models, ARIMA and SARIMA. Lastly, we shall discuss the effect of regularization on the results of our RNNs and assess how far into the future the RNNs can accurately predict the future.
+
+To train these models, we use Python's *Keras* library, a wrapper for *Tensorflow* and take inspiration from Francois Chollet's Deep Learning in Python Book [@chollet2018deep]. Visualizations of the architecture of a simple RNN and LSTM are shown below:
+
+![A simple RNN, unrolled over time](RNN_Chollet.png)
+
+![Anatomy of an LSTM](LSTM_Chollet.png)
+
+Code for this section can be found [here](https://tegveerg.georgetown.domains/Time-Series-Project/Deep-Learning.qmd)
+
+```{python, echo=FALSE, include=FALSE, echo=FALSE, warning=FALSE}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from keras.models import Sequential
+from keras import layers
+from tensorflow.keras.optimizers import RMSprop
+```
+
+```{python, echo=FALSE, include=FALSE, echo=FALSE, warning=FALSE}
+# read in data and convert to numpy array
+train = pd.read_csv("univariate_train.csv")
+test = pd.read_csv("univariate_test.csv")
+
+train_data = np.array(train.astype('float32'))
+test_data = np.array(test.astype('float32'))
+
+print(train_data.shape)
+print(test_data.shape)
+```
+
+```{python, echo=FALSE, include=FALSE, echo=FALSE, warning=FALSE}
+# PREPARE THE INPUT X AND TARGET Y
+def get_XY(dat, time_steps,plot_data_partition=False):
+    global X_ind,X,Y_ind,Y #use for plotting later
+
+    # INDICES OF TARGET ARRAY
+    # Y_ind [  12   24   36   48 ..]; print(np.arange(1,12,1)); exit()
+    Y_ind = np.arange(time_steps, len(dat), time_steps); #print(Y_ind); exit()
+    Y = dat[Y_ind]
+
+    # PREPARE X
+    rows_x = len(Y)
+    X_ind=[*range(time_steps*rows_x)]
+    del X_ind[::time_steps] #if time_steps=10 remove every 10th entry
+    X = dat[X_ind]; 
+
+    #PLOT
+    if(plot_data_partition):
+        plt.figure(figsize=(15, 6), dpi=80)
+        plt.plot(Y_ind, Y,'o',X_ind, X,'-'); plt.show(); 
+
+    #RESHAPE INTO KERAS FORMAT
+    X1 = np.reshape(X, (rows_x, time_steps-1, 1))
+    # print([*X_ind]); print(X1); print(X1.shape,Y.shape); exit()
+
+    return X1, Y
+
+
+#PARTITION DATA
+p=10 # simpilar to AR(p) given time_steps data points, predict time_steps+1 point (make prediction one month in future)
+
+testX, testY = get_XY(test_data, p)
+trainX, trainY = get_XY(train_data, p)
+```
+
+# Training and Evaluating a Simple RNN 
+
+```{python, echo=FALSE, include=FALSE, echo=FALSE, warning=FALSE}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from keras.models import Sequential
+from keras import layers
+from tensorflow.keras.optimizers import RMSprop
+```
+
+# Training and Evaluating a Simple RNN with Dropout-Regularization
+
+
+
+# Training and Evaluating a GRU with Dropout-Regularization
+
+# Training and Evaluating a Bidirectional GRU 
+
+# Training and Evaluating a Stacked Bidirectional GRU with Dropout-Regularization
+
+# Training and Evaluating a Bidirectional LSTM
+
+# Training and Evaluating a Bidirectional LSTM with Dropout-Regularization

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Conclusions</title>
+<title>ANLY560 Time Series Project - Tegveer Ghura - Conclusions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,10 +20,93 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -39,11 +122,11 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 20,
   "language": {
     "search-no-results-text": "No results",
@@ -61,66 +144,107 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html">About Tegveer</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Introduction.html">Introduction</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Data-Sources.html">Data Sources</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Data-Visualization.html">Data Visualization</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Exploratory-Data-Analysis.html">Exploratory Data Analysis</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ARMA-ARIMA-SARIMA.html">ARMA/ARIMA/SARIMA Models</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Spectral-Analysis.html">Spectral Analysis and Filtering</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Financial-Models.html">Financial Time Series Models</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./Deep-Learning.html">Deep Learning for TS</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./Conclusion.html" aria-current="page">Conclusion</a>
-  </li>  
-</ul>
-              <div id="quarto-search" class="" title="Search"></div>
-          </div> <!-- /navcollapse -->
-      </div> <!-- /container-fluid -->
-    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Conclusions</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ANLY560 Time Series Project - Tegveer Ghura</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">About Tegveer</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data-Sources.html" class="sidebar-item-text sidebar-link">Data Sources</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data-Visualization.html" class="sidebar-item-text sidebar-link">Data Visualization</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Exploratory-Data-Analysis.html" class="sidebar-item-text sidebar-link">Exploratory Data Analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ARMA-ARIMA-SARIMA.html" class="sidebar-item-text sidebar-link">ARMA/ARIMA/SARIMA Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ARIMAX-SARIMAX-VAR.html" class="sidebar-item-text sidebar-link">ARIMAX/SARIMAX/VAR Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Financial-Models.html" class="sidebar-item-text sidebar-link">Financial Time Series Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Deep-Learning.html" class="sidebar-item-text sidebar-link">Deep Learning for TS</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Conclusion.html" class="sidebar-item-text sidebar-link active">Conclusion</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#big-picture" id="toc-big-picture" class="nav-link active" data-scroll-target="#big-picture">Big Picture</a></li>
+  <li><a href="#data-and-its-complexity" id="toc-data-and-its-complexity" class="nav-link" data-scroll-target="#data-and-its-complexity">Data and its Complexity</a></li>
+  <li><a href="#results-and-future-work" id="toc-results-and-future-work" class="nav-link" data-scroll-target="#results-and-future-work">Results and Future Work</a></li>
+  <li><a href="#all-cited-works-alphabetical-order" id="toc-all-cited-works-alphabetical-order" class="nav-link" data-scroll-target="#all-cited-works-alphabetical-order">All Cited Works (Alphabetical Order)</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content page-columns page-full column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Conclusions</h1>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block">Conclusions</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -134,8 +258,68 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="big-picture" class="level1 page-columns page-full">
+<h1>Big Picture</h1>
+<p><img src="univariate.png" class="img-fluid"></p>
+<center>
+<em>Project Roadmap for Univariate Time Series Analysis</em>
+</center>
+<p><br>
+&nbsp;</p>
+<p><img src="multivariate_seg1.png" class="img-fluid"></p>
+<center>
+<em>Multivariate Analysis (VAR and ARIMAX) Segment 1 Flow Chart</em>
+</center>
+<p><br>
+&nbsp;</p>
+<p><img src="multivariate_seg2.png" class="img-fluid"><br>
+&nbsp;</p>
+<center>
+<em>Multivariate Analysis (VAR and ARIMAX) Segment 2 Flow Chart</em>
+</center>
+<p><br>
+&nbsp;</p>
+<p>Although the project dived into answering several questions related to terrorist attacks in the United States, at the heart of these inquiries was the fundamental query of whether time-series modeling could help forecast the total number of terrorist attacks. The project aimed to answer this by utilizing both univariate and multivariate time series models, as well as through state-of-the-art Deep Recurrent Neural Networks. Auxiliary datasets collected to assist us in building the multivariate time-series models were US Military Expenditure, Number of Non-Immigrant Entrants, and Stock Prices of the largest weapon’s contractors in the US, Lockheed Martin and Raytheon Technologies.</p>
+<p>However, before embarking on modeling, the project employed exploratory data analysis techniques to identify patterns and trends in the incidence and characteristics of terrorist attacks. Several time series models were also developed to analyze and forecast the frequency and severity of attacks, while considering different factors that may have influenced these outcomes.</p>
+<p>Due to the highly complex nature of terrorism, both domestic and international, and the sheer enormity of data present in the The Global Terrorism Database™ (GTD) <span class="citation" data-cites="GTD">(<a href="#ref-GTD" role="doc-biblioref"><span>“Codebook Methodology Inclusion Criteria and Variables - UMD,”</span> n.d.</a>)</span>, the project hit multiple roadblocks in an attempt to answer the central question fairly and objectively. However, the project uncovered valuable insights and lessons learned from the data, as well as limitations and challenges encountered along the way.</p>
+<div class="no-row-height column-margin column-container"></div><p>We gained preliminary insights about the monthly number of attacks through the univariate analysis segment. Then, with the help of a solid literature review to support current research and challenge the full model (1970-2020 ARIMAX), we established that yearly non-immigration entrants, including B-1 (Business), B-2 (Tourists), and F-1 (Students), do not statistically have an effect on yearly number of terrorist attacks in the US. Our findings are further supported when examining the murder rates of foreign-born terrorists from 1970 to 2020. The 9/11 attacks, which claimed the lives of 2,979 people (excluding the 19 hijackers), were a tragic and significant outlier in terms of the carnage inflicted. In fact, the number of casualties in the 9/11 attacks was over 200 times higher than the second deadliest attack on U.S. soil committed by foreign-born terrorists, which was the San Bernardino attack. From 1975 to September 11, 2001, only 23 murders were committed by 28 foreign-born terrorists, while terrorist attacks by native-born Americans claimed the lives of 264 people, and 68 were killed by unknown terrorists during the same period.</p>
+<p><img src="conc.png" class="img-fluid"></p>
+</section>
+<section id="data-and-its-complexity" class="level1 page-columns page-full">
+<h1>Data and its Complexity</h1>
+<p>The analysis relied on the Global Terrorism Database™ (GTD) <span class="citation" data-cites="GTD">(<a href="#ref-GTD" role="doc-biblioref"><span>“Codebook Methodology Inclusion Criteria and Variables - UMD,”</span> n.d.</a>)</span>, a comprehensive dataset with over 136 fields. To ensure a thorough analysis, it was crucial to limit the data to a certain geographic location. There was no particular reason as to why the United States was chosen, even though a lot more attacks have taken place in other countries in the Middle East and Africa. Moreover, the GTD does not differentiate between domestic and international terrorism, which have different causes and characteristics, but for this project, both types were included under a single umbrella term: “terrorism”.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-GTD" class="csl-entry" role="doc-biblioentry">
+<span>“Codebook Methodology Inclusion Criteria and Variables - UMD.”</span> n.d. <em>Global Terrorism Database</em>. University of Maryland. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
+</div></div><p>To use the GTD for time-series modeling, it had to be grouped into time periods, including months or years to count the number of attacks that occurred. However, this method led to many months where there were no attacks, and these “zero counts” made it harder to extract useful patterns in the data. However, there are specialized time-series models designed to handle this type of data.</p>
+<p>Another challenge was that there was no information for the year 1993 in the GTD, but since the data was grouped into months or years, it was easier to fill in the missing information by using nearby data points. Furthermore, the auxilary datasets used in the analysis, like Raytheon Technologies’ stock price and Non-Immigrant Entrants, did not have information for the early 1970s and 1980s, which required filling in missing values to create more accurate multivariate models.</p>
+<p>The GTD, admirably, also provides information about the <a href="https://tegveerg.georgetown.domains/Time-Series-Project/Data-Visualization.html#visualizing-the-gtd">type of attack, the type of weapon used by the perpetrator(s), and the type of victim affected by the attack</a>. Although more data is desired for projects, it can be overwhelming trying to incorporate them to make the analysis as multi-faceted as possible. There exist multifarious combinations of models, differing by the aforementioned categorical variables, location, etc., that no one model can be the “ultimate” in explaining all these facets. Therefore, building as many models as possible would get us closer in extracting patterns and trends in the number of yearly attacks, but it can also be a double-edged sword. Essentially, the goal should be to create a parsimonious and interpretable model. This may require a trade-off between model complexity and predictive accuracy, but careful model selection and evaluation can help to strike a balance between these competing objectives.</p>
+<p>Lastly, another key variable that could have been discussed alongside the number of attacks is the number of casualties resulting from the attacks. Again, this data, when aggregated, produced even more zero counts because nearly 80% of all terrorist attacks involved no casualties between 1970 and 2013 <span class="citation" data-cites="GTDfacts">(<a href="#ref-GTDfacts" role="doc-biblioref"><span>“Terrorist Attacks in the u.s Between 1970 and 2013: Data from the ... - DHS,”</span> n.d.</a>)</span>. Initially, this variable was supposed to be the key target variable for multivariate analysis; however, upon conducting the literature review it was better to predict number of attacks, instead.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-GTDfacts" class="csl-entry" role="doc-biblioentry">
+<span>“Terrorist Attacks in the u.s Between 1970 and 2013: Data from the ... - DHS.”</span> n.d. <em>Terrorist Attacks in the U.S Between 1970 and 2013: Data from the Global Terrorism Database (GTD)</em>. START Consortium at the University of Maryland. <a href="https://www.dhs.gov/sites/default/files/publications/OPSR_TP_TEVUS_Terrorist-Attacks-US_1970-2013_Overview-508.pdf">https://www.dhs.gov/sites/default/files/publications/OPSR_TP_TEVUS_Terrorist-Attacks-US_1970-2013_Overview-508.pdf</a>.
+</div></div></section>
+<section id="results-and-future-work" class="level1">
+<h1>Results and Future Work</h1>
+<p>It was found that the SARIMA model and Deep Recurrent Neural Networks performed best in predicting the monthly number of terrorist attacks in the US. Yearly aggregated terrorist attacks were analyzed for the VAR and ARIMAX models because the auxiliary data did not have figures at the monthly level. For such models, especially Recurrent Neural Networks, it is best to input big data to obtain even more plausible predictions. Nonetheless, it was found through the <a href="https://tegveerg.georgetown.domains/Time-Series-Project/Deep-Learning.html#how-far-into-the-future-can-we-predict">how far can we predict with Recurrent Neural Networks section</a> that the simpler the task, the simpler the model should be.</p>
+<p>As mentioned in the above section that a major chunk of the monthly aggregated data contained zero’s, models such as Zero-Inflated Poisson Regression could be employed for future analysis. If this model yields more accurate predictions than the Recurrent Neural Networks, the popular saying by George Box, “All models are wrong, but some are useful”, would be a testament to the importance of using models that are directly related to the domain and question being addressed, rather than simply feeding the data into a neural network and hoping for the best.</p>
+</section>
+<section id="all-cited-works-alphabetical-order" class="level1">
+<h1>All Cited Works (Alphabetical Order)</h1>
+<p>Baker , David. “The Effects of Terrorism on the Travel and Tourism Industry .” Technological University Dublin. International Journal of Religious Tourism and Pilgrimage. Accessed February 1, 2023. https://arrow.tudublin.ie/cgi/viewcontent.cgi?article=1052&amp;context=ijrtp.</p>
+<p>“Codebook Methodology Inclusion Criteria and Ariables - UMD.” Codebook Methodology Inclusion criteria and variables - UMD. University of Maryland. Accessed February 1, 2023. https://www.start.umd.edu/gtd/downloads/Codebook.pdf. “Download the Global Terrorism Database.” Global Terrorism Database. University of Maryland, National Consortium for the Study of Terrorism and Responses to Terrorism, 2001. https://www.start.umd.edu/gtd/contact/download.</p>
+<p>Hartung, William D. “Profits of War: Corporate Beneficiaries of the Post-9/11 Pentagon Spending Surge.” Costs of War. Watson Institute for International and Public Affairs, Brown University, September 13, 2021. https://watson.brown.edu/costsofwar/files/cow/imce/papers/2021/Profits%20of%20War_Hartung_ Costs%20of%20War_Sept%2013%2C%202021.pdf.</p>
+<p>“Nonimmigrant Admissions.” Nonimmigrant Admissions | Homeland Security. Department of Homeland Security, n.d. https://www.dhs.gov/immigration-statistics/nonimmigrant.</p>
+<p>Nowrasteh, Alex. “Terrorists by Immigration Status and Nationality: A Risk Analysis, 1975–2017.” Cato.org. Cato Institute, May 27, 2019. https://www.cato.org/publications/policy-analysis/terrorists-immigration-status-nationality-risk-analysis-1975-2017#foreign-born-terrorism-risk-for-visas-issued-by-category.</p>
+<p>Rosenau, William. “Leftist Terrorism in the United States.” Taylor &amp; Francis. The Journal of Strategic Studies (2013). Accessed February 12, 2023. https://www.tandfonline.com/journals/fjss20.</p>
+<p>Serrano, Richard A. “The 1970s Bombing Spree.” Los Angeles Times. May 19, 2008.</p>
+<p>“SIPRI Military Expenditure Database.” SIPRI MILEX. STOCKHOLM INTERNATIONAL PEACE RESEARCH INSTITUTE, 1966. https://milex.sipri.org/sipri.</p>
+<p>“Terrorist Attacks in the U.S between 1970 and 2013: Data from the … - DHS.” Terrorist Attacks in the U.S Between 1970 and 2013: Data from the Global Terrorism Database (GTD). START Consortium at the University of Maryland. Accessed February 12, 2023. https://www.dhs.gov/sites/default/files/publications/OPSR_TP_TEVUS_Terrorist-Attacks-US_1970-2013_Overview-508.pdf.</p>
+<p>“World Tourism Organization.” UNWTO. Accessed February 1, 2023. https://www.unwto.org/.</p>
 
 
+<!-- -->
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -186,6 +370,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -235,7 +470,96 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     });
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Conclusions"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    page-layout: full</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    fontsize: 14px</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">reference-location:</span><span class="co"> margin</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">citation-location:</span><span class="co"> margin</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> bibliography.bib</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Big Picture</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="al">![](univariate.png)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;center&gt;&lt;em&gt;</span>Project Roadmap for Univariate Time Series Analysis<span class="kw">&lt;/em&gt;&lt;/center&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="dv">&amp;nbsp;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="al">![](multivariate_seg1.png)</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;center&gt;&lt;em&gt;</span>Multivariate Analysis (VAR and ARIMAX) Segment 1 Flow Chart<span class="kw">&lt;/em&gt;&lt;/center&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="dv">&amp;nbsp;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="al">![](multivariate_seg2.png)</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="dv">&amp;nbsp;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;center&gt;&lt;em&gt;</span>Multivariate Analysis (VAR and ARIMAX) Segment 2 Flow Chart<span class="kw">&lt;/em&gt;&lt;/center&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="dv">&amp;nbsp;</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>Although the project dived into answering several questions related to terrorist attacks in the United States, at the heart of these inquiries was the fundamental query of whether time-series modeling could help forecast the total number of terrorist attacks. The project aimed to answer this by utilizing both univariate and multivariate time series models, as well as through state-of-the-art Deep Recurrent Neural Networks. Auxiliary datasets collected to assist us in building the multivariate time-series models were US Military Expenditure, Number of Non-Immigrant Entrants, and Stock Prices of the largest weapon's contractors in the US, Lockheed Martin and Raytheon Technologies.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>However, before embarking on modeling, the project employed exploratory data analysis techniques to identify patterns and trends in the incidence and characteristics of terrorist attacks. Several time series models were also developed to analyze and forecast the frequency and severity of attacks, while considering different factors that may have influenced these outcomes.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>Due to the highly complex nature of terrorism, both domestic and international, and the sheer enormity of data present in the The Global Terrorism Database™ (GTD) <span class="co">[</span><span class="ot">@GTD</span><span class="co">]</span>, the project hit multiple roadblocks in an attempt to answer the central question fairly and objectively. However, the project uncovered valuable insights and lessons learned from the data, as well as limitations and challenges encountered along the way. </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>We gained preliminary insights about the monthly number of attacks through the univariate analysis segment. Then, with the help of a solid literature review to support current research and challenge the full model (1970-2020 ARIMAX), we established that yearly non-immigration entrants, including B-1 (Business), B-2 (Tourists), and F-1 (Students), do not statistically have an effect on yearly number of terrorist attacks in the US. Our findings are further supported when examining the murder rates of foreign-born terrorists from 1970 to 2020. The 9/11 attacks, which claimed the lives of 2,979 people (excluding the 19 hijackers), were a tragic and significant outlier in terms of the carnage inflicted. In fact, the number of casualties in the 9/11 attacks was over 200 times higher than the second deadliest attack on U.S. soil committed by foreign-born terrorists, which was the San Bernardino attack. From 1975 to September 11, 2001, only 23 murders were committed by 28 foreign-born terrorists, while terrorist attacks by native-born Americans claimed the lives of 264 people, and 68 were killed by unknown terrorists during the same period.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="al">![](conc.png)</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data and its Complexity</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>The analysis relied on the Global Terrorism Database™ (GTD) <span class="co">[</span><span class="ot">@GTD</span><span class="co">]</span>, a comprehensive dataset with over 136 fields. To ensure a thorough analysis, it was crucial to limit the data to a certain geographic location. There was no particular reason as to why the United States was chosen, even though a lot more attacks have taken place in other countries in the Middle East and Africa. Moreover, the GTD does not differentiate between domestic and international terrorism, which have different causes and characteristics, but for this project, both types were included under a single umbrella term: "terrorism".</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>To use the GTD for time-series modeling, it had to be grouped into time periods, including months or years to count the number of attacks that occurred. However, this method led to many months where there were no attacks, and these "zero counts" made it harder to extract useful patterns in the data. However, there are specialized time-series models designed to handle this type of data.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>Another challenge was that there was no information for the year 1993 in the GTD, but since the data was grouped into months or years, it was easier to fill in the missing information by using nearby data points. Furthermore, the auxilary datasets used in the analysis, like Raytheon Technologies' stock price and Non-Immigrant Entrants, did not have information for the early 1970s and 1980s, which required filling in missing values to create more accurate multivariate models. </span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>The GTD, admirably, also provides information about the <span class="co">[</span><span class="ot">type of attack, the type of weapon used by the perpetrator(s), and the type of victim affected by the attack</span><span class="co">](https://tegveerg.georgetown.domains/Time-Series-Project/Data-Visualization.html#visualizing-the-gtd)</span>. Although more data is desired for projects, it can be overwhelming trying to incorporate them to make the analysis as multi-faceted as possible. There exist multifarious combinations of models, differing by the aforementioned categorical variables, location, etc., that no one model can be the "ultimate" in explaining all these facets. Therefore, building as many models as possible would get us closer in extracting patterns and trends in the number of yearly attacks, but it can also be a double-edged sword. Essentially, the goal should be to create a parsimonious and interpretable model. This may require a trade-off between model complexity and predictive accuracy, but careful model selection and evaluation can help to strike a balance between these competing objectives.</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>Lastly, another key variable that could have been discussed alongside the number of attacks is the number of casualties resulting from the attacks. Again, this data, when aggregated, produced even more zero counts because nearly 80% of all terrorist attacks involved no casualties between 1970 and 2013 <span class="co">[</span><span class="ot">@GTDfacts</span><span class="co">]</span>. Initially, this variable was supposed to be the key target variable for multivariate analysis; however, upon conducting the literature review it was better to predict number of attacks, instead.</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu"># Results and Future Work</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>It was found that the SARIMA model and Deep Recurrent Neural Networks performed best in predicting the monthly number of terrorist attacks in the US. Yearly aggregated terrorist attacks were analyzed for the VAR and ARIMAX models because the auxiliary data did not have figures at the monthly level. For such models, especially Recurrent Neural Networks, it is best to input big data to obtain even more plausible predictions. Nonetheless, it was found through the <span class="co">[</span><span class="ot">how far can we predict with Recurrent Neural Networks section</span><span class="co">](https://tegveerg.georgetown.domains/Time-Series-Project/Deep-Learning.html#how-far-into-the-future-can-we-predict)</span> that the simpler the task, the simpler the model should be. </span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>As mentioned in the above section that a major chunk of the monthly aggregated data contained zero's, models such as Zero-Inflated Poisson Regression could be employed for future analysis. If this model yields more accurate predictions than the Recurrent Neural Networks, the popular saying by George Box, "All models are wrong, but some are useful", would be a testament to the importance of using models that are directly related to the domain and question being addressed, rather than simply feeding the data into a neural network and hoping for the best.</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="fu"># All Cited Works (Alphabetical Order)</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>Baker , David. “The Effects of Terrorism on the Travel and Tourism Industry .” Technological University Dublin. International Journal of Religious Tourism and Pilgrimage. Accessed February 1, 2023. https://arrow.tudublin.ie/cgi/viewcontent.cgi?article=1052&amp;amp;context=ijrtp. </span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>“Codebook Methodology Inclusion Criteria and Ariables - UMD.” Codebook Methodology Inclusion criteria and variables - UMD. University of Maryland. Accessed February 1, 2023. https://www.start.umd.edu/gtd/downloads/Codebook.pdf. </span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>“Download the Global Terrorism Database.” Global Terrorism Database. University of Maryland, National Consortium for the Study of Terrorism and Responses to Terrorism, 2001. https://www.start.umd.edu/gtd/contact/download. </span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>Hartung, William D. “Profits    of  War: Corporate  Beneficiaries   of  the Post-9/11 Pentagon  Spending    Surge.” Costs of War. Watson Institute for International and Public Affairs, Brown University, September 13, 2021. https://watson.brown.edu/costsofwar/files/cow/imce/papers/2021/Profits%20of%20War_Hartung_</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>Costs%20of%20War_Sept%2013%2C%202021.pdf. </span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>“Nonimmigrant Admissions.” Nonimmigrant Admissions | Homeland Security. Department of Homeland Security, n.d. https://www.dhs.gov/immigration-statistics/nonimmigrant. </span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>Nowrasteh, Alex. “Terrorists by Immigration Status and Nationality: A Risk Analysis, 1975–2017.” Cato.org. Cato Institute, May 27, 2019. https://www.cato.org/publications/policy-analysis/terrorists-immigration-status-nationality-risk-analysis-1975-2017#foreign-born-terrorism-risk-for-visas-issued-by-category. </span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>Rosenau, William. “Leftist Terrorism in the United States.” Taylor &amp; Francis. The Journal of Strategic Studies (2013). Accessed February 12, 2023. https://www.tandfonline.com/journals/fjss20. </span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>Serrano, Richard A. “The 1970s Bombing Spree.” Los Angeles Times. May 19, 2008. </span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>“SIPRI Military Expenditure Database.” SIPRI MILEX. STOCKHOLM INTERNATIONAL PEACE RESEARCH INSTITUTE, 1966. https://milex.sipri.org/sipri. </span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>“Terrorist Attacks in the U.S between 1970 and 2013: Data from the ... - DHS.” Terrorist Attacks in the U.S Between 1970 and 2013: Data from the Global Terrorism Database (GTD). START Consortium at the University of Maryland. Accessed February 12, 2023. https://www.dhs.gov/sites/default/files/publications/OPSR_TP_TEVUS_Terrorist-Attacks-US_1970-2013_Overview-508.pdf. </span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>“World Tourism Organization.” UNWTO. Accessed February 1, 2023. https://www.unwto.org/. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
