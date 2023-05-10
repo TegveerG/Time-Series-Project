@@ -3,10 +3,6 @@ title: "Conclusions"
 format:
   html:
     page-layout: full
-    fontsize: 14px
-reference-location: margin
-citation-location: margin
-bibliography: bibliography.bib
 ---
 
 # Big Picture

@@ -33,8 +33,6 @@ $\begin{equation}\sigma_t^2 = a_0 + \sum_{j=1}^{p} \alpha_j r_{t-j}^2 + \sum_{j=
 
 In financial time series analysis, it is common practice to fit an ARMA model to the data to capture the conditional mean structure, followed by the application of an ARCH or GARCH model to model the conditional variance. **The upcoming section will apply this approach to model 3 financial time series, including Lockheed Martin, Raytheon Technologies, and Dow Jones U.S. Travel & Tourism Index, using a combination of ARMA and GARCH models.** 
 
-Code for this section can be found [here](https://tegveerg.georgetown.domains/Time-Series-Project/Financial-Models.qmd)
-
 ## Visualizing Financial Time Series
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
@@ -863,3 +861,7 @@ The volatility plot provides evidence that RTX's stock price experienced relativ
 **Dow Jones Travel and Tourism Index (DJUSTT):**
 
 The volatility plot provides evidence that RTX's stock price experienced relatively higher volatility in the following periods: President Trump's Travel Ban in October 2017 and the onset of the COVID-19 pandemic. The index is fairly new new compared to the other 2 stocks and, hence, its higher volatility is warranted, especially due to the COVID-19 pandemic.
+
+## Section Code
+
+**Code for this section can be found [here](https://github.com/TegveerG/Time-Series-Project/blob/main/Time%20Series%20Analysis/Financial-Models.qmd)**

@@ -3,21 +3,16 @@ title: "Exploratory Data Analysis"
 format:
   html:
     page-layout: full
-    fontsize: 14px
     code-fold: show
     code-copy: true
     code-tools: true
     code-overflow: wrap
-reference-location: margin
-citation-location: margin
 bibliography: bibliography.bib
 ---
 
 ## Summary
 
 After producing the data visualizations to gain rudimentary insights about the various datasets collected, the next step of the process is to complete an exploratory data analysis (EDA). Several time series packages exist in the **R software** that have been utilized to unravel deeper details about the data sets. Some of the famous time series analysis methods used in this section include decomposing and identifying time series components, producing auto-correlation function (ACF) and partial auto-correlation function (PACF) plots, and differencing, and checking for stationarity by the use of the Augmented Dickey-Fuller Test. 
-
-Code for this section can be found [here](https://tegveerg.georgetown.domains/Time-Series-Project/Exploratory-Data-Analysis.qmd)
 
 ## Global Terrorism Database Exploratory Data Analysis
 
@@ -318,6 +313,6 @@ autoplot(monthly_attacks_ts_2, series="Data") +
 
 The above plot employed a centered 8-month moving average followed by a centered 2-month moving average. The output is similar to that of the 2x6-MA. Let's make our analysis more constrained by fitting 4x3-MA: A centered 3-month moving average repeated four times. This should smooth out both seasonal and shorter-term fluctuations even further, providing the least seasonal moving average out of all the other moving averages applied yet.
 
-## References
+## Section Code
 
-“Codebook Methodology Inclusion Criteria and Ariables - UMD.” Codebook Methodology Inclusion criteria and variables - UMD. University of Maryland. Accessed February 1, 2023. https://www.start.umd.edu/gtd/downloads/Codebook.pdf.
+**Code for this section can be found [here](https://github.com/TegveerG/Time-Series-Project/blob/main/Time%20Series%20Analysis/Exploratory-Data-Analysis.qmd)**

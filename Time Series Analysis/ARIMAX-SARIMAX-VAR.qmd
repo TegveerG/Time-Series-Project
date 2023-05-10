@@ -3,21 +3,16 @@ title: "ARIMAX/SARIMAX/VAR Models"
 format:
   html:
     page-layout: full
-    fontsize: 14px
     code-fold: show
     code-copy: true
     code-tools: true
     code-overflow: wrap
-reference-location: margin
-citation-location: margin
 bibliography: bibliography.bib
 ---
 
 ## Summary
 
 In the previous ARIMA/SARIMA modeling section, we analyzed a univariate time series of monthly terrorist attacks in the US that occurred from 1970 to 2020. Although the SARIMA model performed better than the ARIMA model, due to the added seasonal Moving Average term, we can gauge our understanding of the monthly terrorist attacks better by including __endogenous variables__! Endogenous variables are those that are determined within the system being studied and are influenced by other variables in the system. These variables are typically modeled as being interdependent and are affected by changes in the values of other variables. In the case of terrorist attacks and casualties suffered from them, potential endogenous variables could include USA military expenditure, non-immigrant admissions data, and the performance of major weapons contracts, including Lockheed Martin, Boeing, and Raytheon Technologies. With the help of a literature review, it can be reinforced thoroughly and plausibly that the aforementioned endogenous variables have, in fact, not only been employed but also found to have effects related to terrorism in prior research.
-
-Code for this section can be found [here](https://tegveerg.georgetown.domains/Time-Series-Project/ARMAX-SARIMAX-VAR.qmd)
 
 ## Literature Review {#Lit}
 
@@ -1248,3 +1243,7 @@ The VAR(1) Model trained on Post-9/11 Attacks data is the best performing model 
 The ARIMAX model trained on all the years performed significantly worse than the ARIMAX model trained on only Post-9/11 Attacks years. In fact, when adding in Lockheed Martin's stock price in segment 2 of the analysis (Post-9/11 Attacks), $Adjusted.R^2$ increases by more than 60% from segment 1 of the analysis, which includes all years (1970-2020) and not Lockheed Martin's stock price! Although that is the case, none of the predicted forecasts from the ARIMAX models are not as convincing as the VAR models. Moreover, in the ARIMAX models, all the non-immigration variables collected from DHS are non-significant, apart from Pleasure or B-2 Visa entrants in segment 1 (all years included) of the analysis.
 
 In summary, the years prior to the 9/11 Attacks have little to no effect on the forecasts for 2021 to 2025. To gain more accurate forecasts from the VAR model, it is imperative to focus on data post-9/11. The variables that do imply high correlation (determining causation is out of scope of this analysis) to forecasting the yearly number of terrorist attacks in the US are US Military Expenditure both directly on armed forces and weapons contractors, Lockheed Martin and Raytheon Technologies.  
+
+## Section Code
+
+**Code for this section can be found [here](https://github.com/TegveerG/Time-Series-Project/blob/main/Time%20Series%20Analysis/ARIMAX-SARIMAX-VAR.qmd)**

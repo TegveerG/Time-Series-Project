@@ -3,13 +3,10 @@ title: "ARMA/ARIMA/SARIMA Models"
 format:
   html:
     page-layout: full
-    fontsize: 14px
     code-fold: show
     code-copy: true
     code-tools: true
     code-overflow: wrap
-reference-location: margin
-citation-location: margin
 bibliography: bibliography.bib
 ---
 
@@ -23,8 +20,6 @@ $\phi(B)(1-B)^d x_t = \delta + \theta(B) w_t$,
 where $B$ is the backshift operator, $w_t$ is the Gaussian white noise process, $\delta$ is the drift term and $\phi(B)$ and $\theta(B)$ correspond to the AR and MA parts respectively.
 
 Lag plots, auto-correlation function (ACF) and partial auto-correlation function (PACF) plots, decomposing the time series, and differencing are all useful techniques that were employed during the EDA phase to help inform the choice of model type and parameters. With a solid understanding of the data and its characteristics, one can begin to develop and refine time series models that can be used for forecasting. 
-
-Code for this section can be found [here](https://tegveerg.georgetown.domains/Time-Series-Project/ARMA-ARIMA-SARIMA.qmd)
 
 ## Global Terrorism Database ARIMA Modeling
 
@@ -663,6 +658,6 @@ This plot gives cross-validation statistics up to horizon 12. The procedure for 
 
 Although we observed that the MSE and RMSE of ARIMA(1,1,1)(0,1,1) when forecasting 1 step ahead was lower than that of ARIMA(0,1,1)(0,1,1), from the above plot it can be seen that the cross-validated MSEs get lower or better as the number of forecasting steps increases. Both models' MSE performance follow a very similar pattern, with ARIMA(0,1,1)(0,1,1), picked by lowest BIC, having a lower MSE across all forecasting steps, except for step 1. Therefore, ARIMA(0,1,1)(0,1,1) is the better SARIMA model!
 
-## References
+## Section Code
 
-“Codebook Methodology Inclusion Criteria and Ariables - UMD.” Codebook Methodology Inclusion criteria and variables - UMD. University of Maryland. Accessed February 1, 2023. https://www.start.umd.edu/gtd/downloads/Codebook.pdf.
+**Code for this section can be found [here](https://github.com/TegveerG/Time-Series-Project/blob/main/Time%20Series%20Analysis/ARMA-ARIMA-SARIMA.qmd)**

@@ -3,13 +3,10 @@ title: Deep Learning for Time Series
 format:
   html:
     page-layout: full
-    fontsize: 14px
     code-fold: show
     code-copy: true
     code-tools: true
     code-overflow: wrap
-reference-location: margin
-citation-location: margin
 bibliography: bibliography.bib
 jupyter: python3
 ---
@@ -33,8 +30,6 @@ To train these models, we use Python's *Keras* library, a wrapper for *Tensorflo
 
 \
 &nbsp;
-
-Code for this section can be found [here](https://tegveerg.georgetown.domains/Time-Series-Project/Deep-Learning.qmd)
 
 # Overall Training Parameter Methodology
 
@@ -2254,6 +2249,6 @@ The SARIMA model (`ARIMA(0,1,1)(0,1,1)`), on the other hand, was better able to 
 
 A major limitation for this section was the amount of data inputted to each model. It is recommended to feed in enormous amounts of data to RNNs for them to learn better representations of the model and help "capture seasonality", in our case. Elaborate hyper-parameter tuning methods, such as GridSearch CV, could also be utilized to fine-tune the performance of the model for better results.
 
-# References
+## Section Code
 
-Chollet, Francois. 2021. Deep Learning with Python, Second Edition. New York, NY: Manning Publications.
+**Code for this section can be found [here](https://github.com/TegveerG/Time-Series-Project/blob/main/Time%20Series%20Analysis/Deep-Learning.qmd)**

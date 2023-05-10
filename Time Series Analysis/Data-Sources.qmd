@@ -3,9 +3,10 @@ title: "Data Sources"
 format:
   html:
     page-layout: full
-    fontsize: 14px
-    code-fold: true
-    code-summary: "Show the code"
+    code-fold: show
+    code-copy: true
+    code-tools: true
+    code-overflow: wrap
 ---
 
 In order to collect time-series data on terrorism, choosing The Global Terrorism Database™ (GTD) by University of Maryland was a pragmatic decision because it contains detailed information of global attacks that occurred daily. This gave  enormous flexibility to search for short-term seasonal patterns, if any, regarding terrorist attacks. For assessing the impact of terrorism on economic activity, the SIPRI Military Expenditure Database was employed. Military expenditure as a share of GDP can provide key insights about a country's allocation of resources. Nonimmigrant Admissions data was also collected from the Department of Homeland Security (DHS) to add an extra dimension of how the sentiment of the US government changed regarding tourist admits in the overall analysis.
@@ -164,6 +165,10 @@ ggplotly(g3) %>%
   layout(hovermode = "x")
 ```
 :::
+
+## Section Code
+
+**Code for this section can be found [here](https://github.com/TegveerG/Time-Series-Project/blob/main/Time%20Series%20Analysis/Data-Sources.qmd)**
 
 ## References
 

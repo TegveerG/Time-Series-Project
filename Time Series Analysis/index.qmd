@@ -18,7 +18,6 @@ about:
 format: 
     html: 
       page-layout: full
-      fontsize: 14px # will only affect navbar
       code-tools: false
 ---
 
@@ -26,18 +25,22 @@ Tegveer is a first-year graduate student pursuing an MS in Data Science & Analyt
 
 ## Education
 
-Boston University \| Boston, MA
+- Boston University \| Boston, MA
 
 B.A (Cum Laude) Economics \| Sept 2017 - May 2021
 
-Georgetown University \| Washington, DC
+- Georgetown University \| Washington, DC
 
 M.S Data Science & Analytics \| Aug 2022 - May 2024 (anticipated)
 
 ## Experience
 
-MetricStream, Inc. \| Finance Associate \| Sept 2021 - Apr 2022
+- techCliks \| Product Data Engineer Intern \| May 2023 - Aug 2023
 
-MetricStream, Inc. \| Finance Intern \| June 2021 - Aug 2022
+- Ploomber.io \| Data Science Intern \| May 2023 - Aug 2023
 
-Unimoni Financial Services Ltd. \| Project Intern \| Jul 2019 - Aug 2019
+- MetricStream, Inc. \| Finance Associate \| Sept 2021 - Apr 2022
+
+- MetricStream, Inc. \| Finance Intern \| June 2021 - Aug 2022
+
+- Unimoni Financial Services Ltd. \| Project Intern \| Jul 2019 - Aug 2019

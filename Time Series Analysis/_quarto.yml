@@ -4,7 +4,7 @@ project:
 website:
   title: "ANLY560 Time Series Project - Tegveer Ghura"
   sidebar:
-    style: "floating"
+    style: "docked"
     contents:
       - href: index.qmd
         text: About Tegveer  
@@ -26,6 +26,13 @@ website:
         text: Deep Learning for TS
       - href: Conclusion.qmd
         text: Conclusion
+    tools:
+      - icon: linkedin
+        href: https://www.linkedin.com/in/tegveerg/
+      - icon: github
+        menu:
+          - text: Source Code
+            url: https://github.com/TegveerG/Time-Series-Project
 
 format:
   html:

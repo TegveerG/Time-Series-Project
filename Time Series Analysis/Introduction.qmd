@@ -5,9 +5,7 @@ execute:
 format:
   html:
     page-layout: full
-    fontsize: 14px # will only affect navbar
-reference-location: margin
-citation-location: margin
+    code-tools: false
 bibliography: bibliography.bib
 ---
 
@@ -15,6 +13,10 @@ bibliography: bibliography.bib
 
 ::: {.callout-warning icon=true appearance="default"}
 Trigger warning: The following content contains descriptions of violent acts and extremism related to terrorism, which may be disturbing or triggering for some readers.
+:::
+::: {.callout-tip icon=true appearance="default"}
+## Browser Viewing Experience
+To get the best viewing experience of this website, it is recommended to use Safari, which has a stronger support for webGL, compared to Google Chrome.
 :::
 
 Terrorism is a puzzling and gripping phenomenon. Its relationship with tourism is intricate and multi-dimensional. Interestingly, international terrorism and tourism share common traits, such as being transnational in nature, involving citizens from different nations, and utilizing travel and communication technologies. The impact of terrorist attacks extends to several other industries related to tourism, including airlines, hotels, restaurants, and tourist-oriented shops and services [@baker].
@@ -85,11 +87,3 @@ knitr::include_graphics("./intro_reaction.svg")
 `r fa("circle-question", fill = "steelblue")` Can Deep Recurrent Neural Networks capture best the underlying ground truth of the pattern of monthly terrorist attacks from 1970-2020? Which Deep Recurrent Neural Networks perform best and why?
 
 `r fa("circle-question", fill = "steelblue")` How far into the future can Deep Recurrent Neural Networks forecast or predict the monthly number of terrorist attacks? Which Deep Recurrent Neural Networks perform best and why?
-
-## References
-
-Baker , David. "The Effects of Terrorism on the Travel and Tourism Industry ." Technological University Dublin. International Journal of Religious Tourism and Pilgrimage. Accessed February 1, 2023. https://arrow.tudublin.ie/cgi/viewcontent.cgi?article=1052&context=ijrtp.
-
-"Codebook Methodology Inclusion Criteria and Ariables - UMD." Codebook Methodology Inclusion criteria and variables - UMD. University of Maryland. Accessed February 1, 2023. https://www.start.umd.edu/gtd/downloads/Codebook.pdf.
-
-"World Tourism Organization." UNWTO. Accessed February 1, 2023. https://www.unwto.org/.

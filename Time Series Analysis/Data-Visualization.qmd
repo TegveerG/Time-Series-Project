@@ -3,21 +3,16 @@ title: "Data Visualization"
 format:
   html:
     page-layout: full
-    fontsize: 14px
     code-fold: show
     code-copy: true
     code-tools: true
     code-overflow: wrap
-reference-location: margin
-citation-location: margin
 bibliography: bibliography.bib
 ---
 
 ## Summary
 
 The analysis of the data collected begins from this pivotal section. Every data science project, especially those utilizing Time Series data, starts with Data Visualization because it allows for easy and intuitive interpretation of complex data sets. These visualizations help data scientists identify patterns, trends, and relationships that might otherwise be difficult to discern by looking at the summary statistics the raw data, for example. The visualizations presented below were created using *Tableau* and the packages `ggplot2` and `Plotly` in the *R software*. 
-
-Code for this section can be found [here](https://tegveerg.georgetown.domains/Time-Series-Project/Data-Visualization.qmd)
 
 ## Visualizing the GTD™
 
@@ -324,12 +319,6 @@ fig <- fig %>% layout(title = 'Select Non-Immigrant Admissions 2002-2021',
 fig
 ```
 
-## References
+## Section Code
 
-“Terrorist Attacks in the U.S between 1970 and 2013: Data from the ... - DHS.” Terrorist Attacks in the U.S Between 1970 and 2013: Data from the Global Terrorism Database (GTD). START Consortium at the University of Maryland. Accessed February 12, 2023. https://www.dhs.gov/sites/default/files/publications/OPSR_TP_TEVUS_Terrorist-Attacks-US_1970-2013_Overview-508.pdf. 
-
-Serrano, Richard A. “The 1970s Bombing Spree.” Los Angeles Times. May 19, 2008. 
-
-Rosenau, William. “Leftist Terrorism in the United States.” Taylor &amp; Francis. Accessed February 12, 2023. https://www.tandfonline.com/journals/fjss20. 
-
-“Codebook Methodology Inclusion Criteria and Ariables - UMD.” Codebook Methodology Inclusion criteria and variables - UMD. University of Maryland. Accessed February 1, 2023. https://www.start.umd.edu/gtd/downloads/Codebook.pdf.
+**Code for this section can be found [here](https://github.com/TegveerG/Time-Series-Project/blob/main/Time%20Series%20Analysis/Data-Visualization.qmd)**
